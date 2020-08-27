@@ -1,0 +1,14 @@
+{% extends 'task2part2temp/layout.html' %}
+{% block body %}
+<h1>login page</h1>
+{% for msg in msg %}
+<h2>{{msg}}</h2>
+{% endfor %}
+<form class="" action="{% url 'signin' %}" method="post">
+{% csrf_token %}
+<br><label for="username">Username: -     <input type="text" name="username" value=""></label><br/><br>
+<label for="password">Password: -        <input type="password" name="password" value=""></label><br/><br>
+<br><input type="submit" value="Submit" />
+</form>
+<a href="{% url 'signup' %}">New Member Signup From Here</a>
+{% endblock %}
