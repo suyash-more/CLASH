@@ -1,0 +1,33 @@
+{% extends 'task2part2temp/layout.html' %}
+
+{% block body %}
+<h1>Signup Page</h1>
+{%for msg in msg %}
+<h1>{{msg}}</h1>
+{%endfor%}
+<form class="" action='{% url "signup" %}' method="post">
+  {% csrf_token %}
+  <label for="username">Username: - <input type="text" name="username" value=""></label><br /><br>
+  <label for="firstname">firstname: - <input type="text" name="firstname" value=""></label><br /><br />
+  <label for="lastname">lastname: - <input type="text" name="lastname" value=""></label><br /><br />
+  <label for="email">Email: - <input type="email" name="email" value=""></label><br /><br>
+  <label for="phone">Phone Number: - <input type="number" name="phone" value="" /></label><br><br>
+  <label for="level">Choose the level:
+  <select name="level" id="level">
+    <option value="fe">FE</option>
+    <option value="se">SE</option>
+    <option value="te">TE</option>
+    <option value="be">BE</option>
+    <option value="other">other</option>
+  </select></label><br><br>
+  <label for="language">Choose the Language:
+  <select name="language" id="language">
+    <option value="C/C++">C/C++</option>
+    <option value="Python">Python</option>
+  </select></label><br><br>
+  <label for="password">Password: - <input type="password" name="password" value="" /></label><br><br>
+  <label for="confirm_password">Confirm Password: - <input type="password" name="confirm_password" value=""></label><br><br>
+  <input type="submit" value="Submit Data" />
+</form>
+<a href="{% url 'signin' %}">Already Signed Up? Signin from here</a>
+{% endblock %}
