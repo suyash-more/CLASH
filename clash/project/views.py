@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Register
+from .models import Register,Response,Questions
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
 import re
-
+import random
 app_name='project'
 
 
@@ -60,14 +60,34 @@ def signin(request):
         return render(request,'task2part2temp/signin.html',{'msg':['Invalid Credentials!']})
     return render(request,'task2part2temp/signin.html')
 
-
+que_id=[1,2,3,4,5,6,7,8,9,10]
+random.shuffle(que_id)
+count=0
 def success(request):
+    global count
     getuser=Register.objects.get(user=request.user)
-    return render(request,'task2part2temp/success.html',{'user':getuser})
+    if request.method=='POST':
+        user_input=request.POST['user_ans']
+        pre_question = Questions.objects.get(pk=que_id[count-1])
+        if(pre_question.correct_answer==user_input):
+            score=4
+        else:
+            score=-2
+        respo=Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
+        respo.save()
+        getuser.total_score += score
+        print(getuser.total_score)
+        getuser.save()
+    if count == 10:
+        return render (request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+    getuser=Register.objects.get(user=request.user)
+    question=Questions.objects.get(pk=que_id[count])
+    count+=1
+    return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question})
+
 
 
 def userlogout(request):
-    if request.method=='POST':
-        logout(request)
-        return render(request,'task2part2temp/signup.html',{'msg':['Logged Out Successfully ! Login/Signup Again']})
-    return HttpResponse('<h1>This is logout Page</h1>+')
+    logout(request)
+    return render(request,'task2part2temp/signin.html',{'msg':['Logged Out Successfully ! Login/Signup Again']})
+

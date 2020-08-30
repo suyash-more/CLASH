@@ -22,7 +22,7 @@ class Response(models.Model):
     score = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.selected_answer
+        return self.user.first_name
 
 class Register(models.Model):  # extended user model
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
