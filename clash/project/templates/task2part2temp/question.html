@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>question</title>
+    <style>
+        .queblock {
+            height: 150px;
+            border: solid black 2px;
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p><b>{{user.user.first_name}}</b> with username <b>{{ user.user.username }}</b> has logged in Successfully
+        <p><a href="{% url 'logout' %}">logout</a></p>
+    </form>
+    </p>
+
+    <div class="queblock">
+        {{question.question}}
+    </div>
+    <div class="ansblock" style="margin: 50px;">
+        <form class="" action="" method="post">
+            {% csrf_token %}
+            <input type="radio" id="a" name="user_ans" value="a" required>
+            <label for="a">{{question.option_A}}</label><br><br>
+
+            <input type="radio" id="b" name="user_ans" value="b">
+            <label for="b">{{question.option_B}}</label><br><br>
+
+            <input type="radio" id="c" name="user_ans" value="c">
+            <label for="c">{{question.option_C}}</label><br><br>
+
+            <input type="radio" id="d" name="user_ans" value="d">
+            <label for="d">{{question.option_D}}</label><br><br>
+
+            <button type="submit" style="margin: 10px;">submit</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

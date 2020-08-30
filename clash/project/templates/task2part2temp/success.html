@@ -1,8 +1,14 @@
 {% extends 'task2part2temp/layout.html' %}
 {% block body %}
       <p><b>{{user.user.first_name}}</b> with username  <b>{{ user.user.username }}</b>  has logged in Successfully</p>
-      <form class="" action="{% url 'logout' %}" method="post">
+
+            {%for msg in msg %}
+            <h1>{{msg}}</h1>
+            {%endfor%}
+
+
+    <form class="" action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <input type="submit" value="logout">
-      </form>
+    </form>
 {% endblock %}
