@@ -21,8 +21,9 @@ class Response(models.Model):
     selected_answer = models.CharField(max_length=255, blank=True)
     score = models.IntegerField(default=0)
 
+
     def __str__(self):
-        return self.user.first_name
+        return self.user.first_name+f' ({self.selected_answer})'
 
 class Register(models.Model):  # extended user model
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
@@ -30,6 +31,7 @@ class Register(models.Model):  # extended user model
     level = models.CharField(max_length=15)
     language = models.CharField(max_length=15)
     total_score = models.IntegerField(default=0)
+    que = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.first_name+f' ({self.user.username})'

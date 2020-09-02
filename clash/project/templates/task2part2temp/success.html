@@ -5,6 +5,7 @@
             {%for msg in msg %}
             <h1>{{msg}}</h1>
             {%endfor%}
+<h1>Your total score is: {{user.total_score}}</h1>
 
 
     <form class="" action="{% url 'logout' %}" method="post">

@@ -47,42 +47,53 @@ def signup(request):
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request,'task2part2temp/signup.html')
 
-
+que_id = [1,2,3,4,5,6,7,8,9,10]
 def signin(request):
+    global que_id
     if request.method=='POST':
         data=request.POST
         username=data['username']
         password=data['password']
         user=authenticate(request,username=username,password=password)
+
         if user:
+            global que_id
+            random.shuffle(que_id)
             login(request,user)
+
             return HttpResponseRedirect(reverse('success'))
         return render(request,'task2part2temp/signin.html',{'msg':['Invalid Credentials!']})
     return render(request,'task2part2temp/signin.html')
 
-que_id=[1,2,3,4,5,6,7,8,9,10]
-random.shuffle(que_id)
-count=0
+
 def success(request):
-    global count
+
     getuser=Register.objects.get(user=request.user)
+
     if request.method=='POST':
+        if not User.is_active:
+            return render(request, 'task2part2temp/signin.html', {'msg': ['Already Played']})
+
         user_input=request.POST['user_ans']
-        pre_question = Questions.objects.get(pk=que_id[count-1])
+        pre_question = Questions.objects.get(pk=que_id[getuser.que])
+
         if(pre_question.correct_answer==user_input):
             score=4
         else:
             score=-2
         respo=Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
         respo.save()
-        getuser.total_score += score
+        getuser.total_score += respo.score
         print(getuser.total_score)
+        getuser.que += 1
+
         getuser.save()
-    if count == 10:
+    if getuser.que == 10:
         return render (request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
     getuser=Register.objects.get(user=request.user)
-    question=Questions.objects.get(pk=que_id[count])
-    count+=1
+    question=Questions.objects.get(pk=que_id[getuser.que])
+    getuser.que+=1
+
     return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question})
 
 
@@ -90,4 +101,3 @@ def success(request):
 def userlogout(request):
     logout(request)
     return render(request,'task2part2temp/signin.html',{'msg':['Logged Out Successfully ! Login/Signup Again']})
-
