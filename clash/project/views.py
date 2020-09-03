@@ -44,7 +44,7 @@ def signup(request):
             ouruser.save()
             newuser.save()
             auth.login(request,ouruser)
-            return render(request, 'task2part2temp/signup.html', {'msg': ["User Registered"]})
+            return render(request, 'task2part2temp/signin.html', {'msg': ["User Registered"]})
         except:
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request,'task2part2temp/signup.html')
@@ -85,7 +85,6 @@ def success(request):
                 bool=True
             else:
                 score=-2
-                temp=0
                 bool=False
         else:
             if pre_question.correct_answer==user_input:
@@ -93,7 +92,6 @@ def success(request):
                 bool=True
             else:
                 score=-1
-                temp=0
                 bool=False
         respo=Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
         respo.save()
