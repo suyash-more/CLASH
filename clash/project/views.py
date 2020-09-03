@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import json
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Register,Response,Questions
@@ -8,6 +9,7 @@ from django.urls import reverse
 import re
 import random
 app_name='project'
+number_of_questions=12
 
 
 def signup(request):
@@ -47,37 +49,37 @@ def signup(request):
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request,'task2part2temp/signup.html')
 
-que_id = [1,2,3,4,5,6,7,8,9,10]
+
+
 def signin(request):
-    global que_id
     if request.method=='POST':
         data=request.POST
         username=data['username']
         password=data['password']
         user=authenticate(request,username=username,password=password)
-
+        getuser = Register.objects.get(user=user)
         if user:
-            global que_id
-            random.shuffle(que_id)
             login(request,user)
-
             return HttpResponseRedirect(reverse('success'))
         return render(request,'task2part2temp/signin.html',{'msg':['Invalid Credentials!']})
     return render(request,'task2part2temp/signin.html')
 
 
 def success(request):
-
     getuser=Register.objects.get(user=request.user)
-
+    lst=json.loads(getuser.quelist)
+    if request.method=='GET':
+        questionNo = random.randint(1, 12)
+        lst.append(questionNo)
     if request.method=='POST':
-        if not User.is_active:
-            return render(request, 'task2part2temp/signin.html', {'msg': ['Already Played']})
-
+        while True:
+            questionNo = random.randint(1,12)
+            if questionNo not in lst:
+                break
+        lst.append(questionNo)
         user_input=request.POST['user_ans']
-        pre_question = Questions.objects.get(pk=que_id[getuser.que])
-
-        if(pre_question.correct_answer==user_input):
+        pre_question = Questions.objects.get(pk=lst[-2])
+        if pre_question.correct_answer==user_input:
             score=4
         else:
             score=-2
@@ -85,16 +87,14 @@ def success(request):
         respo.save()
         getuser.total_score += respo.score
         print(getuser.total_score)
-        getuser.que += 1
-
         getuser.save()
-    if getuser.que == 10:
-        return render (request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
-    getuser=Register.objects.get(user=request.user)
-    question=Questions.objects.get(pk=que_id[getuser.que])
-    getuser.que+=1
-
+    if len(lst) == 10:
+        return render(request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+    question=Questions.objects.get(pk=questionNo)
+    getuser.quelist=json.dumps(lst)
+    getuser.save()
     return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question})
+
 
 
 
