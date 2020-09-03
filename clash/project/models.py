@@ -33,6 +33,7 @@ class Register(models.Model):  # extended user model
     language = models.CharField(max_length=15)
     total_score = models.IntegerField(default=0)
     quelist = models.TextField(max_length=255,default="[]")
+    bool = models.BooleanField(default=True)
 
 
     def __str__(self):

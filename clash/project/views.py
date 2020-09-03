@@ -79,13 +79,26 @@ def success(request):
         lst.append(questionNo)
         user_input=request.POST['user_ans']
         pre_question = Questions.objects.get(pk=lst[-2])
-        if pre_question.correct_answer==user_input:
-            score=4
+        if getuser.bool==True:
+            if pre_question.correct_answer==user_input:
+                score=4
+                bool=True
+            else:
+                score=-2
+                temp=0
+                bool=False
         else:
-            score=-2
+            if pre_question.correct_answer==user_input:
+                score=2
+                bool=True
+            else:
+                score=-1
+                temp=0
+                bool=False
         respo=Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
         respo.save()
         getuser.total_score += respo.score
+        getuser.bool=bool
         print(getuser.total_score)
         getuser.save()
     if len(lst) == 10:
