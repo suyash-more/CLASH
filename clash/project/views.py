@@ -68,8 +68,7 @@ def signin(request):
 def success(request):
     getuser=Register.objects.get(user=request.user)
     lst=json.loads(getuser.quelist)
-    if len(lst) > 10:
-        return render(request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+
     if request.method=='GET':
         questionNo = random.randint(1, 12)
         lst.append(questionNo)
@@ -101,7 +100,8 @@ def success(request):
         getuser.bool=bool
         print(getuser.total_score)
         getuser.save()
-
+    if len(lst) > 10:
+        return render(request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
     question=Questions.objects.get(pk=questionNo)
     getuser.quelist=json.dumps(lst)
     getuser.save()
