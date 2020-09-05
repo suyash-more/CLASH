@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import json
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -44,7 +44,8 @@ def signup(request):
             ouruser.save()
             newuser.save()
             auth.login(request,ouruser)
-            return render(request, 'task2part2temp/signin.html', {'msg': ["User Registered"]})
+            return HttpResponseRedirect(reverse('success'))
+            # return render(request, 'task2part2temp/signin.html', {'msg': ["User Registered"]})
         except:
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request,'task2part2temp/signup.html')
@@ -68,8 +69,7 @@ def signin(request):
 def success(request):
     getuser=Register.objects.get(user=request.user)
     lst=json.loads(getuser.quelist)
-
-    if request.method=='GET':
+    if request.method=='GET' and getuser.user.is_authenticated:
         questionNo = random.randint(1, 12)
         lst.append(questionNo)
     if request.method=='POST':
@@ -98,18 +98,19 @@ def success(request):
         respo.save()
         getuser.total_score += respo.score
         getuser.bool=bool
-        print(getuser.total_score)
         getuser.save()
     if len(lst) > 10:
-        return render(request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+        return HttpResponseRedirect(reverse('logout'))
     question=Questions.objects.get(pk=questionNo)
     getuser.quelist=json.dumps(lst)
     getuser.save()
     return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question})
 
 
-
-
 def userlogout(request):
-    logout(request)
-    return render(request,'task2part2temp/signin.html',{'msg':['Logged Out Successfully ! Login/Signup Again']})
+    try:
+        getuser = Register.objects.get(user=request.user)
+        logout(request)
+        return render(request,'task2part2temp/result.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+    except:
+        return render(request, 'task2part2temp/signup.html', {'msg':['You need To Login/Register First :)']})
