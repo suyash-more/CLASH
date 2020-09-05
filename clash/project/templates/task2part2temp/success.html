@@ -8,7 +8,7 @@
 <h1>Your total score is: {{user.total_score}}</h1>
 
 
-    <form class="" action="{% url 'logout' %}" method="post">
+    <form class="" action="{% url 'result' %}" method="post">
         {% csrf_token %}
         <input type="submit" value="logout">
     </form>

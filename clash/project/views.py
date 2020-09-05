@@ -44,7 +44,8 @@ def signup(request):
             ouruser.save()
             newuser.save()
             auth.login(request,ouruser)
-            return render(request, 'task2part2temp/signin.html', {'msg': ["User Registered"]})
+            return HttpResponseRedirect(reverse('success'))
+            # return render(request, 'task2part2temp/signin.html', {'msg': ["User Registered"]})
         except:
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request,'task2part2temp/signup.html')
@@ -101,7 +102,8 @@ def success(request):
         print(getuser.total_score)
         getuser.save()
     if len(lst) > 10:
-        return render(request,'task2part2temp/success.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+        logout(request)
+        return render(request,'task2part2temp/result.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
     question=Questions.objects.get(pk=questionNo)
     getuser.quelist=json.dumps(lst)
     getuser.save()
