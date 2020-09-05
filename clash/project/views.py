@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+import json
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Register
+from .models import Register,Response,Questions
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
 import re
-
+import random
 app_name='project'
+number_of_questions=12
 
 
 def signup(request):
@@ -42,10 +44,12 @@ def signup(request):
             ouruser.save()
             newuser.save()
             auth.login(request,ouruser)
-            return render(request, 'task2part2temp/signup.html', {'msg': ["User Registered"]})
+            return HttpResponseRedirect(reverse('success'))
+            # return render(request, 'task2part2temp/signin.html', {'msg': ["User Registered"]})
         except:
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request,'task2part2temp/signup.html')
+
 
 
 def signin(request):
@@ -54,6 +58,7 @@ def signin(request):
         username=data['username']
         password=data['password']
         user=authenticate(request,username=username,password=password)
+        getuser = Register.objects.get(user=user)
         if user:
             login(request,user)
             return HttpResponseRedirect(reverse('success'))
@@ -63,11 +68,49 @@ def signin(request):
 
 def success(request):
     getuser=Register.objects.get(user=request.user)
-    return render(request,'task2part2temp/success.html',{'user':getuser})
+    lst=json.loads(getuser.quelist)
+    if request.method=='GET' and getuser.user.is_authenticated:
+        questionNo = random.randint(1, 12)
+        lst.append(questionNo)
+    if request.method=='POST':
+        while True:
+            questionNo = random.randint(1,12)
+            if questionNo not in lst:
+                break
+        lst.append(questionNo)
+        user_input=request.POST['user_ans']
+        pre_question = Questions.objects.get(pk=lst[-2])
+        if getuser.bool==True:
+            if pre_question.correct_answer==user_input:
+                score=4
+                bool=True
+            else:
+                score=-2
+                bool=False
+        else:
+            if pre_question.correct_answer==user_input:
+                score=2
+                bool=True
+            else:
+                score=-1
+                bool=False
+        respo=Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
+        respo.save()
+        getuser.total_score += respo.score
+        getuser.bool=bool
+        getuser.save()
+    if len(lst) > 10:
+        return HttpResponseRedirect(reverse('logout'))
+    question=Questions.objects.get(pk=questionNo)
+    getuser.quelist=json.dumps(lst)
+    getuser.save()
+    return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question})
 
 
 def userlogout(request):
-    if request.method=='POST':
+    try:
+        getuser = Register.objects.get(user=request.user)
         logout(request)
-        return render(request,'task2part2temp/signup.html',{'msg':['Logged Out Successfully ! Login/Signup Again']})
-    return HttpResponse('<h1>This is logout Page</h1>+')
+        return render(request,'task2part2temp/result.html',{'user':getuser,'msg':['Quiz Finished Attempted all the questions']})
+    except:
+        return render(request, 'task2part2temp/signup.html', {'msg':['You need To Login/Register First :)']})
