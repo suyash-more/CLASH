@@ -17,7 +17,7 @@ number_of_questions = 12
 
 
 def signup(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_superuser:
         return redirect('success')
     if request.method == 'POST':
         data = request.POST
