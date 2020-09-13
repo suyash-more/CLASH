@@ -140,9 +140,8 @@ def success(request):
     except:
         return render(request, 'task2part2temp/signin.html', {'msg': ['Login First ..!!']})
     return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time': [msg2]})
-
-
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
+
 
 def userlogout(request):
     try:

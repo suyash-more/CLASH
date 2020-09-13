@@ -28,7 +28,7 @@ class Response(models.Model):
 
 class Register(models.Model):  # extended user model
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
-    phone=models.IntegerField(default=0)
+    phone=models.PositiveBigIntegerField(default=0)
     level = models.CharField(max_length=15)
     language = models.CharField(max_length=15)
     total_score = models.IntegerField(default=0)
