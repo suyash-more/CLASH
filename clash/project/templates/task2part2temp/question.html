@@ -22,35 +22,49 @@
         }
     </style>
 </head>
-
+<script type="text/javascript">
+        window.history.forward();
+        function noBack()
+        {
+            window.history.forward();
+        }
+</script>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <body>
     <p><b>{{user.user.first_name}}</b> with username <b>{{ user.user.username }}</b> has logged in Successfully
         <p><a href="{% url 'logout' %}">logout</a></p>
     </form>
     </p>
-
+<p>
+        {% for t in time %}
+        <h2>{{t}}</h2>
+        {% endfor %}
+</p>
     <div class="queblock">
         {{question.question}}
     </div>
     <div class="ansblock" style="margin: 50px;">
         <form class="" action="" method="post">
             {% csrf_token %}
-            <input type="radio" id="a" name="user_ans" value="a" required>
-            <label for="a">{{question.option_A}}</label><br><br>
+            <input type="radio" id={{question.option_A}} name="user_ans" value={{question.option_A}} required>
+            <label for={{question.option_A}} >{{question.option_A}}</label><br><br>
 
-            <input type="radio" id="b" name="user_ans" value="b">
-            <label for="b">{{question.option_B}}</label><br><br>
+            <input type="radio" id={{question.option_B}} name="user_ans" value={{question.option_B}}>
+            <label for={{question.option_B}}>{{question.option_B}}</label><br><br>
 
-            <input type="radio" id="c" name="user_ans" value="c">
-            <label for="c">{{question.option_C}}</label><br><br>
+            <input type="radio" id={{question.option_C}} name="user_ans" value={{question.option_C}}>
+            <label for={{question.option_C}}>{{question.option_C}}</label><br><br>
 
-            <input type="radio" id="d" name="user_ans" value="d">
-            <label for="d">{{question.option_D}}</label><br><br>
+            <input type="radio" id={{question.option_D}} name="user_ans" value={{question.option_D}}>
+            <label for={{question.option_D}}>{{question.option_D}}</label><br><br>
 
-            <button type="submit" style="margin: 10px;">submit</button>
+            <button type="submit" name = 'submit' value={{question.id}}  style="margin: 10px;">submit</button>
         </form>
     </div>
 
 </body>
 <h1>Your score is: {{user.total_score}}</h1>
+{% for msg in msg %}
+<h2>{{msg}}</h2>
+{% endfor %}
 </html>

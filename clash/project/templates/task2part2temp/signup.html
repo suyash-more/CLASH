@@ -11,7 +11,7 @@
   <label for="firstname">firstname: - <input type="text" name="firstname" value=""></label><br /><br />
   <label for="lastname">lastname: - <input type="text" name="lastname" value=""></label><br /><br />
   <label for="email">Email: - <input type="email" name="email" value=""></label><br /><br>
-  <label for="phone">Phone Number: - <input type="number" name="phone" value="" /></label><br><br>
+  <label for="phone">Phone Number: - <input name="phone" maxlength="10" pattern="\d{10}"  class="form-control" type="text" title="You can enter only 10 digits..."  requiredvalue="" /></label><br><br>
   <label for="level">Choose the level:
   <select name="level" id="level">
     <option value="fe">FE</option>
