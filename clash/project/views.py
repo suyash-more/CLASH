@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 import json
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Register, Response, Questions
@@ -14,6 +15,17 @@ from django.views.decorators.cache import cache_control
 
 app_name = 'project'
 number_of_questions = 12
+
+
+def check(request):
+    lst=[]
+    userList = User.objects.values()
+    for user in userList:
+        lst.append(user['username'])
+    data = {'is_same' : False}
+    if request.GET.get('name') in lst:
+        data = {'is_same':True}
+    return JsonResponse(data)
 
 
 def signup(request):
@@ -71,6 +83,8 @@ def signup(request):
 
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
+
+
 def signin(request):
     if request.method == 'POST':
         data = request.POST

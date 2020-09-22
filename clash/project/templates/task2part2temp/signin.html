@@ -1,14 +1,46 @@
 {% extends 'task2part2temp/layout.html' %}
+{%block head%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+{%endblock%}
 {% block body %}
 <h1>login page</h1>
 {% for msg in msg %}
 <h2>{{msg}}</h2>
 {% endfor %}
+<div id="message"></div>
 <form class="" action="{% url 'signin' %}" method="post">
 {% csrf_token %}
-<br><label for="username">Username: -     <input type="text" name="username" value=""></label><br/><br>
+<br><label for="username">Username: -     <input type="text" id="search" name="username" value=""></label><br/><br>
 <label for="password">Password: -        <input type="password" name="password" value=""></label><br/><br>
 <br><input type="submit" value="Submit" />
 </form>
 <a href="{% url 'signup' %}">New Member Signup From Here</a>
+<script>
+        $(document).ready(function() {
+            $('input#search').keyup(function() {
+                let name = $(this).val();
+                $.ajax({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8000/getrequest/',
+                    dataType: 'json',
+                    data : {
+                        'name':name
+                    },
+                    success: function(data) {
+                        if(data.is_same) {
+                            $('#message').html("<h3 style='color:green;'>User found</h3>");
+                        } else {
+                            $('#message').html("<h3 style='color:red;'>User Not Found</h3>");
+
+                        }
+                    }
+            });
+
+            });
+
+        });
+    </script>
 {% endblock %}
