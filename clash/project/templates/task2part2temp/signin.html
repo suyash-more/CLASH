@@ -27,7 +27,8 @@
 <a href="{% url 'signup' %}">New Member Signup From Here</a>
 <script>
         $(document).ready(function() {
-            $('input#search').keyup(function() {
+            setTimeout(function(){
+                $('input#search').keyup(function() {
                 let name = $(this).val();
                 $.ajax({
                     method: 'GET',
@@ -47,9 +48,11 @@
                             $('#submit').prop("disabled", false);
                         }
                     }
-            });
+                });
 
-            });
+                });
+            }, 3000);
+            
 
         });
     </script>
