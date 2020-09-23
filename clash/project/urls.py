@@ -2,11 +2,12 @@ from django.urls import path
 from . import views
 
 
-urlpatterns=[
+urlpatterns = [
     path('',views.signup,name='signup'),
     path('signin/',views.signin,name='signin'),
     path('success/',views.success,name='success'),
     path('logout/',views.userlogout,name='logout'),
     path('result/', views.success, name='result'),
-    path('getrequest/',views.check,name='check')
+    path('getrequest/',views.check,name='check'),
+    # path('password_check/', views.password_check, name='password_check'),
 ]

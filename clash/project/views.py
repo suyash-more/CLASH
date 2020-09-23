@@ -18,14 +18,27 @@ number_of_questions = 12
 
 
 def check(request):
-    lst=[]
-    userList = User.objects.values()
-    for user in userList:
-        lst.append(user['username'])
-    data = {'is_same' : False}
-    if request.GET.get('name') in lst:
-        data = {'is_same':True}
+    username_lst = []
+    user_list = User.objects.values()
+    for user in user_list:
+        username_lst.append(user['username'])
+    data = {'is_taken': False}
+    if request.GET.get('name') in username_lst:
+        data = {'is_taken': True}
+
     return JsonResponse(data)
+
+
+# def password_check(request):
+#     password = request.GET.get('password')
+#     confirm_password = request.GET.get('confirm_password')
+#     data = {
+#         'is_same': False
+#     }
+#     if password == confirm_password:
+#         data = {'is_same': True}
+#
+#     return JsonResponse(data)
 
 
 def signup(request):
