@@ -22,7 +22,7 @@
 <br><label for="username">Username: -     <input type="text" id="search" name="username" value=""></label><br/>
     <div id="message"></div><br>
 <label for="password">Password: -        <input type="password" name="password" value=""></label><br/>
-<br><input type="submit" value="Submit" />
+<br><input type="submit" value="Submit" id="submit"/>
 </form>
 <a href="{% url 'signup' %}">New Member Signup From Here</a>
 <script>
@@ -52,8 +52,6 @@
 
                 });
             }, 3000);
-            
-
-        });
+                    });
     </script>
 {% endblock %}
