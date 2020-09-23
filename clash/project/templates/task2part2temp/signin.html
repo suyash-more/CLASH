@@ -37,12 +37,14 @@
                         'name':name
                     },
                     success: function(data) {
-                        if(data.is_same) {
+                        if(data.is_taken) {
                             $('#message').html("<h3 style='color:red;'>User found</h3>");
                             $('#search').css("border", "2px solid red");
+                            $('#submit').prop("disabled", true);
                         } else {
                             $('#message').html("<h3 style='color:green;'>User Not Found</h3>");
                             $('#search').css("border", "2px solid green");
+                            $('#submit').prop("disabled", false);
                         }
                     }
             });

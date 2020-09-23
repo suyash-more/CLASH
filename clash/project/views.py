@@ -29,18 +29,6 @@ def check(request):
     return JsonResponse(data)
 
 
-# def password_check(request):
-#     password = request.GET.get('password')
-#     confirm_password = request.GET.get('confirm_password')
-#     data = {
-#         'is_same': False
-#     }
-#     if password == confirm_password:
-#         data = {'is_same': True}
-#
-#     return JsonResponse(data)
-
-
 def signup(request):
     if request.user.is_authenticated and not request.user.is_superuser:
         return redirect('success')
