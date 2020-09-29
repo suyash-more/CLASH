@@ -110,8 +110,12 @@ def success(request):
     try:
         getuser = Register.objects.get(user=request.user)
         time_diff = timezone.now() - request.user.last_login
-        time_rem = datetime.timedelta(minutes=28) - time_diff
+        minute=(getuser.time_rem//60)+(getuser.extra_time//60)
+        second=(getuser.time_rem%60)+(getuser.extra_time%60)
+        time_rem = datetime.timedelta(minutes=minute,seconds=second) - time_diff
         total_seconds = time_rem.total_seconds()
+        getuser.time_rem=total_seconds-(getuser.extra_time)
+        getuser.save()
         minutes = int((total_seconds % 3600) // 60)
         seconds = int(total_seconds % 60)
         if total_seconds <= 0:
@@ -167,3 +171,29 @@ def userlogout(request):
         return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': ['Quiz Finished']})
     except:
         return render(request, 'task2part2temp/signup.html', {'msg': ['You need To Login/Register First :)']})
+
+
+def emglogin(request):
+    if request.method == 'POST':
+        data=request.POST
+        username = data['username']
+        admin_username = data['admin_username']
+        admin_password = data['admin_password']
+        extra_time=data['extra_time']
+        # user = authenticate(request, username=username)
+        super_user = authenticate(request, username=admin_username, password=admin_password)
+        try:
+            getuser = User.objects.get(username=username)
+            if getuser and super_user:
+                setuser=Register.objects.get(user=getuser)
+                #print(len(json.loads(setuser.quelist)))
+                if len(json.loads(setuser.quelist))==1:
+                    return render(request, 'task2part2temp/emglogin.html', {'msg': ['The Player has Completed All Question..!!']})
+                setuser.status = True
+                setuser.extra_time = extra_time
+                setuser.save()
+                return render(request, 'task2part2temp/emglogin.html', {'msg': ['Time added successfully!']})
+            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
+        except:
+            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid']})
+    return render(request, 'task2part2temp/emglogin.html')

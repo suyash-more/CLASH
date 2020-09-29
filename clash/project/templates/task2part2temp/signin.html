@@ -13,10 +13,13 @@
 {%endblock%}
 {% block body %}
 <h1>login page</h1>
+{%if user.status == False %}
+<h1>Already Played Signup Again  😊</h1>
+{% else %}
 {% for msg in msg %}
 <h2>{{msg}}</h2>
 {% endfor %}
-
+{% endif %}
 <form class="" action="{% url 'signin' %}" method="post">
 {% csrf_token %}
 <br><label for="username">Username: -     <input type="text" id="search" name="username" value=""></label><br/>
@@ -39,13 +42,13 @@
                     },
                     success: function(data) {
                         if(data.is_taken) {
-                            $('#message').html("<h3 style='color:red;'>User found</h3>");
-                            $('#search').css("border", "2px solid red");
-                            $('#submit').prop("disabled", true);
-                        } else {
-                            $('#message').html("<h3 style='color:green;'>User Not Found</h3>");
+                            $('#message').html("<h3 style='color:green;'>User found</h3>");
                             $('#search').css("border", "2px solid green");
                             $('#submit').prop("disabled", false);
+                        } else {
+                            $('#message').html("<h3 style='color:red;'>User Not Found</h3>");
+                            $('#search').css("border", "2px solid red");
+                            $('#submit').prop("disabled", true);
                         }
                     }
                 });
@@ -53,5 +56,5 @@
                 });
             }, 3000);
                     });
-    </script>
+</script>
 {% endblock %}

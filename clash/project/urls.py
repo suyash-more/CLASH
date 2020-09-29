@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/',views.userlogout,name='logout'),
     path('result/', views.success, name='result'),
     path('getrequest/',views.check,name='check'),
+    path('emglogin/',views.emglogin,name='emglogin'),
 ]

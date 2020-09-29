@@ -34,7 +34,10 @@ class Register(models.Model):  # extended user model
     total_score = models.IntegerField(default=0)
     quelist = models.TextField(max_length=255, default="[]")
     bool = models.BooleanField(default=True)
-
+    status = models.BooleanField(default=True)
+    logouttime = models.TimeField(blank=True, null=True)
+    extra_time=models.IntegerField(default=0)
+    time_rem=models.IntegerField(default=1680)
 
     def __str__(self):
         return self.user.first_name+f' ({self.user.username})'
