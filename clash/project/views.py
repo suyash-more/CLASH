@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 import json
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Register, Response, Questions
@@ -14,6 +15,18 @@ from django.views.decorators.cache import cache_control
 
 app_name = 'project'
 number_of_questions = 12
+
+
+def check(request):
+    username_lst = []
+    user_list = User.objects.values()
+    for user in user_list:
+        username_lst.append(user['username'])
+    data = {'is_taken': False}
+    if request.GET.get('name') in username_lst:
+        data = {'is_taken': True}
+
+    return JsonResponse(data)
 
 
 def signup(request):
@@ -71,6 +84,8 @@ def signup(request):
 
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
+
+
 def signin(request):
     if request.method == 'POST':
         data = request.POST
@@ -95,8 +110,12 @@ def success(request):
     try:
         getuser = Register.objects.get(user=request.user)
         time_diff = timezone.now() - request.user.last_login
-        time_rem = datetime.timedelta(minutes=28) - time_diff
+        minute=(getuser.time_rem//60)+(getuser.extra_time//60)
+        second=(getuser.time_rem%60)+(getuser.extra_time%60)
+        time_rem = datetime.timedelta(minutes=minute,seconds=second) - time_diff
         total_seconds = time_rem.total_seconds()
+        getuser.time_rem=total_seconds-(getuser.extra_time)
+        getuser.save()
         minutes = int((total_seconds % 3600) // 60)
         seconds = int(total_seconds % 60)
         if total_seconds <= 0:
@@ -152,3 +171,29 @@ def userlogout(request):
         return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': ['Quiz Finished']})
     except:
         return render(request, 'task2part2temp/signup.html', {'msg': ['You need To Login/Register First :)']})
+
+
+def emglogin(request):
+    if request.method == 'POST':
+        data=request.POST
+        username = data['username']
+        admin_username = data['admin_username']
+        admin_password = data['admin_password']
+        extra_time=data['extra_time']
+        # user = authenticate(request, username=username)
+        super_user = authenticate(request, username=admin_username, password=admin_password)
+        try:
+            getuser = User.objects.get(username=username)
+            if getuser and super_user:
+                setuser=Register.objects.get(user=getuser)
+                #print(len(json.loads(setuser.quelist)))
+                if len(json.loads(setuser.quelist))==1:
+                    return render(request, 'task2part2temp/emglogin.html', {'msg': ['The Player has Completed All Question..!!']})
+                setuser.status = True
+                setuser.extra_time = extra_time
+                setuser.save()
+                return render(request, 'task2part2temp/emglogin.html', {'msg': ['Time added successfully!']})
+            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
+        except:
+            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid']})
+    return render(request, 'task2part2temp/emglogin.html')
