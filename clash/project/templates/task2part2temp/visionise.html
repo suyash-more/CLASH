@@ -36,7 +36,7 @@
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 
 <p><b>{{user.user.first_name}}</b> with username <b>{{ user.user.username }}</b> has logged in Successfully
-<p><a href="{% url 'logout' %}">logout</a></p>
+<!--<p><a href="{% url 'logout' %}">logout</a></p>-->
 
 
 <p>
@@ -70,6 +70,10 @@
 </div>
 
 <h1>Your score is: {{user.total_score}}</h1>
+<form method="post" action="{% url 'logout' %}">
+    {%csrf_token%}
+<input type="submit" value="End the Quiz">
+</form>
 </body>
 
 </html>

@@ -152,6 +152,19 @@ def recfun(getuser):
     getuser.save()
 
 
+def get_p_score(request):
+    try:
+        getuser = Register.objects.get(user=request.user)
+        if request.method == "POST":
+            data = request.POST
+            p_score = data['predicted_score']
+            getuser.predicted_score=p_score
+            getuser.save()
+            return HttpResponseRedirect(reverse('success'))
+    except:
+        return HttpResponseRedirect(reverse('success'))
+
+
 def visionise(request):
     try:
         getuser = Register.objects.get(user=request.user)

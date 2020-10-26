@@ -51,6 +51,7 @@
     {% endfor%}
 {% endfor%}
 <h2>new time {{user.time_rem}}</h2>
+<h2>Your Predicted Score is: {{user.predicted_score}}</h2>
 </p>
     <div>
             <h3>Progress Bar</h3>
@@ -109,7 +110,16 @@
         <input type="text" name="quenum" id="reattempt"><br>
         <input type="submit" value="Go to question" id="attempt_button">
         </form>
-        <input type="submit" value="Enable checkbox" id="enable_reattempt">
+
+        <input type="submit" value="Enable checkbox" id="enable_reattempt"><br><br>
+
+        <form method="post" action="{% url 'get_p_score' %}">
+            {% csrf_token %}
+            <input type="text" name="predicted_score" id="predicted_score"><br><br>
+            <input type="submit" value="Set the Predicted Score" id="p_score_button">
+        </form>
+
+
         <div class="wheel">
            <canvas id="canvas" width="434" height="434" style="border:1px solid #000000";></canvas>
         </div>
@@ -208,6 +218,14 @@
                 }
             }
             checkbutton();
+
+            function p_score(){
+                if({{user.predicted_score}}!=0){
+                    $('#predicted_score').hide();
+                    $('#p_score_button').hide();
+                }
+            }
+            p_score();
 
             //Disabling get assured button when spin button is clicked
             $('input#spin_button').click(function(){

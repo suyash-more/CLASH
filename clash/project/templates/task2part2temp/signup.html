@@ -82,13 +82,18 @@
             $('input#confpass').keyup(function(){
 				let pass = $('#pass').val();
 				let confpass = $(this).val();
-
-				if(pass == confpass){
+                if(pass!="" && confpass!=""){
+                    if(pass == confpass){
                      $('#msg').html("<h3 style='color:green;'>Passwords Match, You can proceed!</h3>");
                      $('#submit').prop("disabled", false);
-				}else{
+				    }else{
                      $('#msg').html("<h3 style='color:red;'>Passwords Don't Match</h3>");
                      $('#submit').prop("disabled", true);
+				    }
+                }
+                else{
+				       $('#msg').html("<h3 style='color:red;'>Please Enter your Password or Confirm Password</h3>");
+				       $('#submit').prop("disabled", true);
 				}
 			});
         });

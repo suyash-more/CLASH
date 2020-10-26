@@ -3,6 +3,7 @@
 {%for msg in msg%}
 <h2>{{msg}}</h2>
 {%endfor%}
+<h1>Emergency Login Page</h1><br>
 <form method="POST" action="{%url 'emglogin'%}">
     {% csrf_token %}
     <label for="username" >Username: - <input type="text" name="username" ></label><br>
