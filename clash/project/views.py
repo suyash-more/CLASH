@@ -21,10 +21,10 @@ number_of_questions = 12
 def checkspin(request):
     flag=request.GET.get('flag')
     getuser = Register.objects.get(user=request.user)
-    getuser.flag =0
+    getuser.flag =int(flag)
     if getuser.spincount<=0:
         getuser.checkpoint=-1
-    flag=0
+    flag=int(flag)
     if int(flag)==2 and getuser.freezetimestart==None:
         getuser.freezetimestart=timezone.now()
     getuser.spin_wheel=True
@@ -91,7 +91,7 @@ def signup(request):
             newuser.save()
             lst = []
             if newuser.level=='fe':
-                cp=random.randint(1,2)
+                cp=random.randint(5,7)
                 newuser.checkpoint=cp
             elif newuser.level=='se':
                 cp=random.randint(8,10)
@@ -336,7 +336,7 @@ def success(request):
                             getuser.progress-=30
                         score = -5
                         getuser.marks = 2
-                else:
+                elif(getuser.marks == 10):
                     score=0
 
                 respo = Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
