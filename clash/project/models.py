@@ -41,6 +41,7 @@ class Register(models.Model):  # extended user model
     time_rem=models.IntegerField(default=1680)
     queflist=models.TextField(max_length=255, default="[]")
     quefulllist = models.TextField(max_length=255, default="[]")
+    visionlst=models.TextField(max_length=255,default="[]")
     spin_wheel=models.BooleanField(default=False)
     checkpoint=models.IntegerField(default=0)
     flag=models.IntegerField(default=-1)

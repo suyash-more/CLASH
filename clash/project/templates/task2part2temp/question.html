@@ -38,7 +38,10 @@
 
 <p><b>{{user.user.first_name}}</b> with username <b>{{ user.user.username }}</b> has logged in Successfully
 <p><a href="{% url 'logout' %}">logout</a></p>
-
+<form action="{% url 'visionise'%}" method="post">
+    {% csrf_token %}
+    <button type="submit" name = 'visionise' value={{question.id}}  style="margin: 10px;">Visionise</button>
+</form>
 
 
 <p>

@@ -54,6 +54,7 @@ def check(request):
     return JsonResponse(data)
 
 
+
 def signup(request):
     if request.user.is_authenticated and not request.user.is_superuser:
         return redirect('success')
@@ -90,6 +91,7 @@ def signup(request):
             newuser.status = False
             newuser.save()
             lst = []
+            visionlst=[]
             if newuser.level=='fe':
                 cp=random.randint(5,7)
                 newuser.checkpoint=cp
@@ -105,8 +107,15 @@ def signup(request):
                     if questionNo not in lst:
                         break
                 lst.append(questionNo)
+            for i in range(5):
+                while True:
+                    questionNo = random.randint(21, 25)
+                    if questionNo not in visionlst:
+                        break
+                visionlst.append(questionNo)
             newuser.quelist = json.dumps(lst)
             newuser.quefulllist = json.dumps(lst)
+            newuser.visionlst=json.dumps(visionlst)
             auth.login(request, ouruser)
             newuser.save()
             return HttpResponseRedirect(reverse('success'))
@@ -143,14 +152,46 @@ def recfun(getuser):
     getuser.save()
 
 
-
+def visionise(request):
+    try:
+        getuser = Register.objects.get(user=request.user)
+        time_diff = timezone.now() - getuser.user.last_login
+        time_rem = datetime.timedelta(minutes=3) - time_diff
+        total_seconds = time_rem.total_seconds()
+        getuser.time_rem = int(total_seconds)
+        getuser.save()
+        time = [getuser.time_rem // 60, getuser.time_rem % 60]
+        vislst = json.loads(getuser.visionlst)
+        if not getuser.user.is_authenticated:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Login first..!!"]})
+        if request.method == 'GET' and getuser.user.is_authenticated:
+            pass
+        if request.method == "POST":
+            if request.POST.get('submit') == str(vislst[-1]):
+                user_input = request.POST['user_ans']
+                pre_question = Questions.objects.get(pk=vislst[-1])
+                if pre_question.correct_answer == user_input:
+                    score = +5
+                else:
+                    score = -5
+                respo = Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
+                respo.save()
+                getuser.total_score += respo.score
+                vislst.pop()
+            if len(vislst) <=2 :
+                return HttpResponseRedirect(reverse('logout'))
+            getuser.visionlst = json.dumps(vislst)
+            question = Questions.objects.get(pk=vislst[-1])
+            getuser.save()
+            return render(request, 'task2part2temp/visionise.html',{'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]]})
+    except Exception as e:
+        return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
 def success(request):
     try:
         msg3=""
-
         getuser = Register.objects.get(user=request.user)
         time_diff = timezone.now() - getuser.user.last_login
         minute=getuser.extra_time//60
@@ -169,6 +210,8 @@ def success(request):
         msg2 = "TIME REMAINING  = " + str(minutes) + ":" + str(seconds)
         lst = json.loads(getuser.quelist)
         flst=json.loads(getuser.queflist)
+        if not getuser.user.is_authenticated:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Login first..!!"]})
         if request.method == 'GET' and getuser.user.is_authenticated:
             pass
         if (getuser.total_score%getuser.checkpoint==0) and getuser.spin_wheel==True:
@@ -230,9 +273,6 @@ def success(request):
                 else :
                     score = -18
                     getuser.marks = 2
-
-
-
             getuser.progress=0
             respo = Response(question=pre_question, user=getuser.user, selected_answer=user_input1, score=score)
             respo.save()

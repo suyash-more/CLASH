@@ -11,6 +11,7 @@ urlpatterns = [
     path('getrequest/',views.check,name='check'),
     path('emglogin/',views.emglogin,name='emglogin'),
     path('spincheck/',views.checkspin, name='spincheck'),
-    path('getassured/',views.getassured,name='getassured')
+    path('getassured/',views.getassured,name='getassured'),
+    path('visionise/',views.visionise,name='visionise')
 
 ]
