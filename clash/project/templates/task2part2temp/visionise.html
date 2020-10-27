@@ -72,8 +72,18 @@
 <h1>Your score is: {{user.total_score}}</h1>
 <form method="post" action="{% url 'logout' %}">
     {%csrf_token%}
-<input type="submit" value="End the Quiz">
+<input type="submit" id="end" value="End the Quiz">
 </form>
+<script>
+$('#end').hide();
+    function end()
+    {
+    if({{buttonshow}}===1)
+    {$('#end').show();}
+    }
+    end();
+
+</script>
 </body>
 
 </html>

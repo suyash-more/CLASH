@@ -36,7 +36,7 @@ class Register(models.Model):  # extended user model
     quelist = models.TextField(max_length=255, default="[]")
     marks = models.IntegerField(default=1)
     status = models.BooleanField(default=True)
-    logouttime = models.TimeField(blank=True, null=True)
+    logouttime = models.DateTimeField(blank=True, null=True,default=None)
     extra_time=models.IntegerField(default=0)
     time_rem=models.IntegerField(default=1680)
     queflist=models.TextField(max_length=255, default="[]")

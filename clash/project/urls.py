@@ -13,5 +13,6 @@ urlpatterns = [
     path('spincheck/',views.checkspin, name='spincheck'),
     path('getassured/',views.getassured,name='getassured'),
     path('visionise/',views.visionise,name='visionise'),
-    path('get_p_score/',views.get_p_score,name='get_p_score')
+    path('get_p_score/',views.get_p_score,name='get_p_score'),
+    path('modalpage/',views.rendmodal,name="modal")
 ]

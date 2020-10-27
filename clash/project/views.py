@@ -109,7 +109,7 @@ def signup(request):
                     if questionNo not in lst:
                         break
                 lst.append(questionNo)
-            for i in range(5):
+            for i in range(3):
                 while True:
                     questionNo = random.randint(21, 25)
                     if questionNo not in visionlst:
@@ -157,7 +157,7 @@ def recfun(getuser):
 def get_p_score(request):
     try:
         getuser = Register.objects.get(user=request.user)
-        if request.method == "POST" and getuser.time_rem >= 1380:
+        if request.method == "POST" and (getuser.time_rem >= 1380 or getuser.total_score==getuser.predicted_score):
             data = request.POST
             p_score = data['predicted_score']
             getuser.predicted_score=p_score
@@ -170,13 +170,15 @@ def get_p_score(request):
 def visionise(request):
     try:
         getuser = Register.objects.get(user=request.user)
-        time_diff = timezone.now() - getuser.user.last_login
+        time_diff = timezone.now() - getuser.logouttime
         time_rem = datetime.timedelta(minutes=3) - time_diff
         total_seconds = time_rem.total_seconds()
         getuser.time_rem = int(total_seconds)
         getuser.save()
         time = [getuser.time_rem // 60, getuser.time_rem % 60]
         vislst = json.loads(getuser.visionlst)
+        if total_seconds <= 0:
+            return redirect('logout')
         if not getuser.user.is_authenticated:
             return render(request, 'task2part2temp/signup.html', {'msg': ["Login first..!!"]})
         if request.method == 'GET' and getuser.user.is_authenticated:
@@ -186,19 +188,19 @@ def visionise(request):
                 user_input = request.POST['user_ans']
                 pre_question = Questions.objects.get(pk=vislst[-1])
                 if pre_question.correct_answer == user_input:
-                    score = +5
+                    score = getuser.total_score//5
                 else:
-                    score = -5
+                    score = -(getuser.total_score//5)
                 respo = Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
                 respo.save()
                 getuser.total_score += respo.score
                 vislst.pop()
-            if len(vislst) <=2 :
+            if len(vislst)==0:
                 return HttpResponseRedirect(reverse('logout'))
             getuser.visionlst = json.dumps(vislst)
             question = Questions.objects.get(pk=vislst[-1])
             getuser.save()
-            return render(request, 'task2part2temp/visionise.html',{'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]]})
+            return render(request, 'task2part2temp/visionise.html',{'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]],'buttonshow':len(json.loads(getuser.visionlst))})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
 
@@ -221,7 +223,7 @@ def success(request):
         if getuser.progress>=100:
             getuser.freezebar=True
         if total_seconds <= 0:
-            return redirect('logout')
+            return redirect('modal')
         msg2 = "TIME REMAINING  = " + str(minutes) + ":" + str(seconds)
         lst = json.loads(getuser.quelist)
         flst=json.loads(getuser.queflist)
@@ -406,7 +408,9 @@ def success(request):
                 getuser.save()
 
         if len(lst) == 0:
-            return HttpResponseRedirect(reverse('logout'))
+            getuser.logouttime = timezone.now()
+            getuser.save()
+            return HttpResponseRedirect(reverse('modal'))
         question = Questions.objects.get(pk=lst[-1])
         getuser.quelist = json.dumps(lst)
         getuser.queflist=json.dumps(flst)
@@ -416,6 +420,11 @@ def success(request):
         return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
     #return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
+
+
+def rendmodal(request):
+    getuser=Register.objects.get(user=request.user)
+    return render(request, 'task2part2temp/modalpage.html', {'user': getuser})
 
 
 def userlogout(request):
