@@ -47,8 +47,8 @@
     <option value="C/C++">C/C++</option>
     <option value="Python">Python</option>
   </select></label><br>
-  <label for="password">Password: - <input type="password" name="password" value="" id="pass"/></label><br>
-  <label for="confirm_password">Confirm Password: - <input type="password" name="confirm_password" value="" id="confpass"></label><br>
+  <label for="password">Password: - <input type="password" name="password" value="" id="pass" ></label><br>
+  <label for="confirm_password">Confirm Password: - <input type="password" name="confirm_password" value="" id="confpass" ></label><br>
   <div id="msg"></div><br>
   <input type="submit" id="submit" value="Submit Data" />
 </form>
@@ -82,20 +82,16 @@
             $('input#confpass').keyup(function(){
 				let pass = $('#pass').val();
 				let confpass = $(this).val();
-                if(pass!="" && confpass!=""){
                     if(pass == confpass){
-                     $('#msg').html("<h3 style='color:green;'>Passwords Match, You can proceed!</h3>");
-                     $('#submit').prop("disabled", false);
-				    }else{
-                     $('#msg').html("<h3 style='color:red;'>Passwords Don't Match</h3>");
-                     $('#submit').prop("disabled", true);
-				    }
-                }
-                else{
-				       $('#msg').html("<h3 style='color:red;'>Please Enter your Password or Confirm Password</h3>");
-				       $('#submit').prop("disabled", true);
-				}
+                         $('#msg').html("<h3 style='color:green;'>Passwords Match, You can proceed!</h3>");
+                         $('#submit').prop("disabled", false);
+                        }else{
+                         $('#msg').html("<h3 style='color:red;'>Passwords Don't Match</h3>");
+                         $('#submit').prop("disabled", true);
+                    }
 			});
         });
+
+
     </script>
 {% endblock %}

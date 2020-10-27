@@ -40,7 +40,7 @@
 <p><a href="{% url 'logout' %}">logout</a></p>
 <form action="{% url 'visionise'%}" method="post">
     {% csrf_token %}
-    <button type="submit" name = 'visionise' value={{question.id}}  style="margin: 10px;">Visionise</button>
+    <button type="submit" name = 'visionise' value={{question.id}}  style="margin: 10px;" id="visionise_button">Visionise</button>
 </form>
 
 
@@ -220,12 +220,20 @@
             checkbutton();
 
             function p_score(){
-                if({{user.predicted_score}}!=0){
+                if({{user.predicted_score}}!=0 || {{user.time_rem}}<1380){
                     $('#predicted_score').hide();
                     $('#p_score_button').hide();
                 }
             }
             p_score();
+
+            $('#visionise_button').prop("disabled", true);
+            function vision_button(){
+                if({{user.quelist}}.length==1 && {{user.predicted_score}}<=total_score+5 && {{user.predicted_score}}>=total_score-5){
+                    $('#visionise_button').prop("disabled", false);
+                }
+            }
+            vision_button();
 
             //Disabling get assured button when spin button is clicked
             $('input#spin_button').click(function(){

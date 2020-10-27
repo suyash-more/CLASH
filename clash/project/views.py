@@ -83,6 +83,8 @@ def signup(request):
             return render(request, 'task2part2temp/signup.html', {'msg': ["Invalid Phone Number is Entered"]})
         if password != conf_pass:
             return render(request, 'task2part2temp/signup.html', {'msg': ["Passwords Don't match"]})
+        if len(password) == 0 or len(conf_pass) == 0:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password or confirm password"]})
         try:
             ouruser = User.objects.create_user(username=username, first_name=firstname, last_name=lastname, email=email,
                                                password=password)
@@ -155,7 +157,7 @@ def recfun(getuser):
 def get_p_score(request):
     try:
         getuser = Register.objects.get(user=request.user)
-        if request.method == "POST":
+        if request.method == "POST" and getuser.time_rem >= 1380:
             data = request.POST
             p_score = data['predicted_score']
             getuser.predicted_score=p_score
