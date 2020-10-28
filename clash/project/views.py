@@ -160,6 +160,7 @@ def get_p_score(request):
         if request.method == "POST" and (getuser.time_rem >= 1380 or getuser.total_score==getuser.predicted_score):
             data = request.POST
             p_score = data['predicted_score']
+            getuser.logouttime=timezone.now()
             getuser.predicted_score=p_score
             getuser.save()
             return HttpResponseRedirect(reverse('success'))
