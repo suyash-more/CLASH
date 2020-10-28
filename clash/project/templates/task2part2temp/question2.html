@@ -38,20 +38,12 @@
 <p><b>{{user.user.first_name}}</b> with username <b>{{ user.user.username }}</b> has logged in Successfully
 <p><a href="{% url 'logout' %}">logout</a></p>
 
-<h3>Your progress is {{user.progress}}</h3>
-<form action="{% url 'getassured'%}" method="post">
-    {% csrf_token %}
-    <button type="submit" name = 'GetAssured' value={{question.id}}  style="margin: 10px;">submit</button>
-
-</form>
-
 <p>
     {%for min in timemin%}
     {%for sec in timesec%}
         <h2>Time Remaining is {{min}}:{{sec}}</h2>
     {% endfor%}
 {% endfor%}
-<h2>new time {{user.time_rem}}</h2>
 </p>
 <div class="queblock">
     {{question.question}}
@@ -97,6 +89,7 @@
 
 
 
+<h1>Your score is: {{user.total_score}}</h1>
 
 
 </body>

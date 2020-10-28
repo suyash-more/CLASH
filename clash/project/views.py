@@ -296,11 +296,12 @@ def success(request):
             getuser.total_score += respo.score
             flst.append(lst[-1])
             lst.pop()
+            getuser.getassured=False
             getuser.save()
 
         if request.method == 'POST' and getuser.flag!=0 and getuser.getassured==False:
             if request.POST.get('submit') == str(lst[-1]):
-                getuser.getassured = False
+                #getuser.getassured = False
                 user_input = request.POST['user_ans']
                 pre_question = Questions.objects.get(pk=lst[-1])
                 if getuser.freezetimestart!=None:
