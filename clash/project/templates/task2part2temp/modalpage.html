@@ -29,7 +29,7 @@
     let total_score={{user.total_score}};
     $('#visionise_button').prop("disabled", true);
             function vision_button(){
-                if({{user.predicted_score}}<=total_score+5 && {{user.predicted_score}}>=total_score-5){
+                if({{user.predicted_score}}<=total_score+5 && {{user.predicted_score}}>=total_score-5 && {{user.predicted_score}}!=0){
                     $('#visionise_button').prop("disabled", false);
                 }
             }
