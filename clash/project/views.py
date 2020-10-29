@@ -97,21 +97,33 @@ def signup(request):
             if newuser.level=='fe':
                 cp=random.randint(5,7)
                 newuser.checkpoint=cp
+                for i in range(0, 15):
+                    while True:
+                        questionNo = random.randint(1, 20)
+                        if questionNo not in lst:
+                            break
+                    lst.append(questionNo)
             elif newuser.level=='se':
                 cp=random.randint(8,10)
                 newuser.checkpoint=cp
+                for i in range(0, 15):
+                    while True:
+                        questionNo = random.randint(26, 45)
+                        if questionNo not in lst:
+                            break
+                    lst.append(questionNo)
             else:
                 cp=random.randint(9,12)
                 newuser.checkpoint=cp
-            for i in range(0, 10):
-                while True:
-                    questionNo = random.randint(1, number_of_questions)
-                    if questionNo not in lst:
-                        break
-                lst.append(questionNo)
+                for i in range(0, 15):
+                    while True:
+                        questionNo = random.randint(46,64)
+                        if questionNo not in lst:
+                            break
+                    lst.append(questionNo)
             for i in range(3):
                 while True:
-                    questionNo = random.randint(21, 25)
+                    questionNo = random.randint(65, 69)
                     if questionNo not in visionlst:
                         break
                 visionlst.append(questionNo)
