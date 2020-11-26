@@ -1,0 +1,167 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Clash Instructions Page</title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+      <link href="{% static '/css/instruction.css' %}" rel='stylesheet' type='text/css'>
+  </head>
+  <body style="background-color:#b69d74;">
+
+    <!--nav class="navbar navbar-expand-sm navbar-dark justify-content-center " style="background-color: #001833;">
+      <a class="navbar-brand" href="#">
+        <img src="clashwhite.png" alt="logo" style="width:80px;height:40px ;">
+      </a>
+      <a class="nav-link" href="#" style="color:white!important;font-family: 'Segoe UI',Roboto,Arial,sans-serif;font-size:1.25em;margin-left: auto;margin-right: auto;" >
+
+    </a>
+    <a class="navbar-brand" href="#">
+      <img src="logo pisb_2.png" alt="logo" style="width:115px;height:40px ;">
+    </a>
+  </nav-->
+        <nav class="navbar fixed-top navbar-light" style="background-color:#1f2839;">
+        <a class="navbar-brand mr-0 ml-0 pb-0" href="#" style="margin-right: 0; padding: 0em;"> <img id="clashlogo"
+            src="{% static '/images/clashwhite.png' %}" width="80px" height="40px" alt=""> </a>
+    <ul class=" nav navbar-nav ml-auto mx-0">
+        <a class="navbar-brand mr-0 ml-0 pb-0" href="#" style="margin-right: 0; padding: 0em;"> <img
+                src="{% static '/images/logo pisb_2.png' %}" id="pisblogo" class="d-inline-block align-top" width="115px" height="40px"  alt="PISB logo"> </a>
+    </ul>
+    </nav>
+        <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-2">
+             <!--BLANK-->
+          </div>
+          <div class="col-sm-8">
+            <div class="card card1" style="
+              border: 0.5px solid black;
+              border-radius: 8px;">
+              <div class="card-header cent" style="background-color:#f5f5ef; color:black ; font-size: 3vh;">GENERAL INSTRUCTIONS</div>
+              <div class="card-body " style="background-color:#1f2839;">
+                <!--p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                   At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p-->
+                   <ul style="text-align: left;">
+                    <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</li>
+                    <li>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+                    <li>At vero eos et accusam et justo duo dolores et ea rebum.</li>
+                  </ul>
+                   <br>
+                <form action="{%url 'instruction'%}" method="post">
+                    {% csrf_token %}
+                <div class="custom-control custom-checkbox">
+                   <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+                  <label class="custom-control-label" for="customCheck">I have read the instructions carefully.</label>
+                  </div>
+                    <button class="button" >Proceed</button>
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
+          <div class="col-sm-2">
+             <!--BLANK-->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card card2" >
+              <div class="card-header" style="background-color:#f5f5ef;color:black;font-size: 3vh;">
+                    LIFELINE #1
+                    <div class="right">
+                      <i class="far fa-check-circle"></i>
+                      <div class="arrow">
+                        <i class="fas fa-chevron-down" style="font-size: 4vh;"></i>
+                      </div>
+                    </div>
+
+                    <br><strong>Get It Assured</strong>
+              </div>
+              <div class="card-body card-body2" style="background-color:#1f2839;">
+                <ul style="text-align: left;">
+                  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</li>
+                  <li>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+                  <li>At vero eos et accusam et justo duo dolores et ea rebum.</li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card card2">
+              <div class="card-header" style="background-color:#f5f5ef;color: black;font-size: 3vh;">
+                LIFELINE #2
+                <div class="right">
+                  <i class="fas fa-dharmachakra"></i>
+                  <div class="arrow">
+                    <i class="fas fa-chevron-down" style="font-size: 4vh;"></i>
+                  </div>
+                </div>
+
+                <br><strong>Spin The Wheel</strong>
+              </div>
+              <div class="card-body card-body2" style="background-color:#1f2839">
+                <ul style="text-align: left;">
+                  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</li>
+                  <li>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+                  <li>At vero eos et accusam et justo duo dolores et ea rebum.</li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card card2 last">
+              <div class="card-header" style="background-color:#f5f5ef;font-size: 3vh;color: black;">
+                LIFELINE #3
+                    <div class="right">
+                      <i class="fas fa-eye"></i>
+                      <div class="arrow">
+                        <i class="fas fa-chevron-down" style="font-size: 4vh;"></i>
+                      </div>
+                    </div>
+
+                    <br><strong>Visionise Yourself</strong>
+              </div>
+              <div class="card-body " style="background-color:#1f2839;">
+                <ul style="text-align: left;">
+                  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</li>
+                  <li>Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+                  <li>At vero eos et accusam et justo duo dolores et ea rebum.</li>
+                </ul>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    <nav class="navbar navbar-expand-sm  navbar-dark justify-content-center fixed-bottom" style="background-color:#1f2839;">
+        <a class="navbar-brand mc-auto" style="color:white;font-family: 'Segoe UI',Roboto,Arial,sans-serif; font-size:1.25em;">&#169PICT IEEE Student Branch</a>
+      </nav>
+      <!--footer class="text-center fixed-bottom " style="background-color: #001833;">
+        <div class="container-fluid">
+            <div class="footer-text pt-3 pb-3 text-white">&#169PICT IEEE Student Branch</div>
+
+        </div>
+    </footer-->
+
+
+
+
+
+  </body>
+
+</html>

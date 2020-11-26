@@ -17,14 +17,13 @@ from collections import Counter
 app_name = 'project'
 number_of_questions = 12
 
-
 def checkspin(request):
     flag=request.GET.get('flag')
     getuser = Register.objects.get(user=request.user)
-    getuser.flag =int(flag)
+    getuser.flag =0
     if getuser.spincount<=0:
         getuser.checkpoint=-1
-    flag=int(flag)
+    flag=0
     if int(flag)==2 and getuser.freezetimestart==None:
         getuser.freezetimestart=timezone.now()
     getuser.spin_wheel=True
@@ -53,7 +52,11 @@ def check(request):
         data = {'is_taken': True}
     return JsonResponse(data)
 
+def instruction(request):
+    return HttpResponseRedirect(reverse('success'))
 
+def rendinst(request):
+    return render(request, 'task2part2temp/instruction.html')
 
 def signup(request):
     if request.user.is_authenticated and not request.user.is_superuser:
@@ -61,34 +64,33 @@ def signup(request):
     if request.method == 'POST':
         data = request.POST
         username = data['username']
-        firstname = data['firstname']
-        lastname = data['lastname']
+        # firstname = data['firstname']
+        # lastname = data['lastname']
         email = data['email']
         phone = data['phone']
         password = data['password']
-        conf_pass = data['confirm_password']
+        # conf_pass = data['confirm_password']
         level = data['level']
-        language = data['language']
+        # language = data['language']
         regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
         regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         if not re.search(regexusername, username):
             return render(request, 'task2part2temp/signup.html', {'msg': ["Username is Not Valid"]})
         if not re.search(regexemail, email):
             return render(request, 'task2part2temp/signup.html', {'msg': ["Email ID is not Valid"]})
-        if not str(firstname).isalpha():
-            return render(request, 'task2part2temp/signup.html', {'msg': ["First Name is not Valid"]})
-        if not str(lastname).isalpha():
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Last Name is not Valid"]})
+        # if not str(firstname).isalpha():
+        #     return render(request, 'task2part2temp/signup.html', {'msg': ["First Name is not Valid"]})
+        # if not str(lastname).isalpha():
+        #     return render(request, 'task2part2temp/signup.html', {'msg': ["Last Name is not Valid"]})
         if not str(phone).isnumeric() and len(phone) == 10 and phone < 59999999999:
             return render(request, 'task2part2temp/signup.html', {'msg': ["Invalid Phone Number is Entered"]})
-        if password != conf_pass:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Passwords Don't match"]})
-        if len(password) == 0 or len(conf_pass) == 0:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password or confirm password"]})
+        # if password != conf_pass:
+        #     return render(request, 'task2part2temp/signup.html', {'msg': ["Passwords Don't match"]})
+        if len(password) == 0:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password"]})
         try:
-            ouruser = User.objects.create_user(username=username, first_name=firstname, last_name=lastname, email=email,
-                                               password=password)
-            newuser = Register(user=ouruser, phone=phone, level=level, language=language)
+            ouruser = User.objects.create_user(username=username, email=email, password=password)
+            newuser = Register(user=ouruser, phone=phone, level=level)
             ouruser.save()
             newuser.status = False
             newuser.save()
@@ -132,7 +134,7 @@ def signup(request):
             newuser.visionlst=json.dumps(visionlst)
             auth.login(request, ouruser)
             newuser.save()
-            return HttpResponseRedirect(reverse('success'))
+            return render(request, 'task2part2temp/instruction.html')
         except:
             return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
     return render(request, 'task2part2temp/signup.html')
@@ -202,6 +204,7 @@ def visionise(request):
                 pre_question = Questions.objects.get(pk=vislst[-1])
                 if pre_question.correct_answer == user_input:
                     score = getuser.total_score//5
+                    getuser.correct_answered+=1
                 else:
                     score = -(getuser.total_score//5)
                 respo = Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
@@ -213,7 +216,7 @@ def visionise(request):
             getuser.visionlst = json.dumps(vislst)
             question = Questions.objects.get(pk=vislst[-1])
             getuser.save()
-            return render(request, 'task2part2temp/visionise.html',{'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]],'buttonshow':len(json.loads(getuser.visionlst))})
+            return render(request, 'task2part2temp/visionise.html',{'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]],'buttonshow':len(json.loads(getuser.visionlst)),'mks':getuser.total_score//5})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
 
@@ -223,6 +226,7 @@ def success(request):
     try:
         msg3=""
         getuser = Register.objects.get(user=request.user)
+        getuser.logouttime = timezone.now()
         time_diff = timezone.now() - getuser.user.last_login
         minute=getuser.extra_time//60
         second=getuser.extra_time%60
@@ -296,6 +300,7 @@ def success(request):
                 if pre_question.correct_answer == user_input1:
                     score = 10
                     getuser.marks = 1
+                    getuser.correct_answered += 1
             else:
                 if pre_question.correct_answer == user_input2:
                     score = +0
@@ -325,6 +330,7 @@ def success(request):
                     if pre_question.correct_answer == user_input:
                         score = 4
                         getuser.marks=1
+                        getuser.correct_answered += 1
                         if getuser.progress < 100 and getuser.freezebar == False:
                             getuser.progress+=20
                     else:
@@ -336,6 +342,7 @@ def success(request):
                     if pre_question.correct_answer == user_input:
                         score = 2
                         getuser.marks = 1
+                        getuser.correct_answered += 1
                         if getuser.progress < 100 and getuser.freezebar == False:
                             getuser.progress += 20
                     else:
@@ -346,6 +353,7 @@ def success(request):
                 elif getuser.marks==3:
                     if pre_question.correct_answer == user_input:
                         score = +4
+                        getuser.correct_answered += 1
                         if getuser.progress < 100 and getuser.freezebar == False:
                             getuser.progress += 20
                         if getuser.flashblind>1:
@@ -367,6 +375,7 @@ def success(request):
                 elif getuser.marks == 4:
                     if pre_question.correct_answer == user_input:
                         score = +4
+                        getuser.correct_answered += 1
                         if getuser.progress < 100 and getuser.freezebar == False:
                             getuser.progress += 20
                         if getuser.flashblind>1:
@@ -388,6 +397,7 @@ def success(request):
                 elif getuser.marks == 5:
                     if pre_question.correct_answer == user_input:
                         score = +16
+                        getuser.correct_answered += 1
                         if getuser.progress < 100 and getuser.freezebar == False:
                             getuser.progress += 20
                         getuser.marks = 1
@@ -399,6 +409,7 @@ def success(request):
                 elif getuser.marks == 6:
                     if pre_question.correct_answer == user_input:
                         score = +5
+                        getuser.correct_answered += 1
                         if getuser.progress < 100 and getuser.freezebar == False:
                             getuser.progress += 20
                         getuser.marks = 1
@@ -429,11 +440,25 @@ def success(request):
         getuser.quelist = json.dumps(lst)
         getuser.queflist=json.dumps(flst)
         getuser.save()
-        return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
+        if len(getuser.queflist)<12:
+            getuser.length=len(json.loads(getuser.queflist))
+        else:
+            getuser.length=len(json.loads(getuser.queflist))
+        passlst=[i+1 for i in range(max(0,(getuser.length)-12),getuser.length)]
+        '''for i in range(max(0,(getuser.length)-12),getuser.length,-1):
+            passlst[f"{j}"]=i
+            j += 1'''
+        getuser.save()
+        return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]],"passlst":passlst})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
     #return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
+
+
+# @register.filter
+# def intcomma(value):
+#     return value + 1
 
 
 def rendmodal(request):
@@ -448,7 +473,7 @@ def userlogout(request):
         getuser.extra_time=0
         getuser.save()
         logout(request)
-        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': ['Quiz Finished']})
+        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': ['Quiz Finished'], 'ques_answered':len(json.loads(getuser.queflist))})
     except:
         return render(request, 'task2part2temp/signup.html', {'msg': ['You need To Login/Register First :)']})
 

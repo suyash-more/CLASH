@@ -53,6 +53,8 @@ class Register(models.Model):  # extended user model
     freezebar=models.BooleanField(default=False)
     allow=models.BooleanField(default=False)
     predicted_score=models.IntegerField(default=0)
+    correct_answered=models.IntegerField(default=0)
+    length=models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.first_name+f' ({self.user.username})'
