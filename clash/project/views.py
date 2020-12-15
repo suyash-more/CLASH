@@ -319,7 +319,6 @@ def success(request):
 
         if request.method == 'POST' and getuser.flag!=0 and getuser.getassured==False:
             if request.POST.get('submit') == str(lst[-1]):
-                #getuser.getassured = False
                 user_input = request.POST['user_ans']
                 pre_question = Questions.objects.get(pk=lst[-1])
                 if getuser.freezetimestart!=None:
@@ -418,7 +417,7 @@ def success(request):
                             getuser.progress-=30
                         score = -5
                         getuser.marks = 2
-                elif(getuser.marks == 10):
+                elif getuser.marks == 10:
                     score=0
 
                 respo = Response(question=pre_question, user=getuser.user, selected_answer=user_input, score=score)
@@ -456,9 +455,6 @@ def success(request):
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
 
-# @register.filter
-# def intcomma(value):
-#     return value + 1
 
 
 def rendmodal(request):

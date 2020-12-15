@@ -85,12 +85,12 @@ textarea:focus{
 
 .step.completed .circle {
   visibility: visible;
-  background-color: white;
+  background-color: rgb(189, 189, 243);
   border-color: #1f2839;
 
 }
 .icon{
-  padding-left:15px;
+  padding-left:18px;
   padding-top:18px;
   z-index: 1;
 
@@ -378,6 +378,9 @@ p {
   line-height: 38px;
   text-align: center;
   border-radius: .3em;
+  margin-left:20px;
+  background: rgba(255,255,255,.03);
+  margin-right:20px;
 }
 .tab {
   display: inline-block;

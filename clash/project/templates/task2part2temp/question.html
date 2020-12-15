@@ -4,21 +4,21 @@
 
 <head>
     <title>Coding page</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- jQuery and JS bundle w/ Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" href="{% static '/css/main.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static '/css/main.css' %}" type="text/css"/>
     <script type="text/javascript" src="{% static '/js/Winwheel.js' %}"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 </head>
 <script type="text/javascript">
@@ -27,147 +27,152 @@
         {
             window.history.forward();
         }
+
 </script>
-<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="" style="background-color:#b69d74; height:100vh">
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""
+      style="background-color:#b69d74; height:100vh">
 
-    <!-- navbar begins -->
+<!-- navbar begins -->
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#1f2839;">
-        <a class="navbar" href="#">
-            <img src="{% static '/images/clashwhite.png' %}" style="width: 80px; height: 40px;"></a>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#1f2839;">
+    <a class="navbar" href="#">
+        <img src="{% static '/images/clashwhite.png' %}" style="width: 80px; height: 40px;"></a>
 
 
-        <span class="clock" style="margin-left:20px"></span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    <span class="clock" style="margin-left:20px"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
 
+    <div class="collapse navbar-collapse justify justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item fromLeft active">
+                <a class="nav-link active" href="{%url 'rendinst'%}" style="color: white;">Instruction <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#"
+                   style="color:white">Log out</a>
+            </li>
 
-        <div class="collapse navbar-collapse justify justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item fromLeft active">
-                    <a class="nav-link active" href="{%url 'rendinst'%}" style="color: white;">Instruction <span
-                            class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#"
-                        style="color:white">Log out</a>
-                </li>
-
-                <li class="nav-item">
-                    <img src="{% static '/images/logo pisb_2.png' %}" style="width:115px ;height:40px ;">
-                </li>
-            </ul>
-        </div>
-
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Log out</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Do you really want to Log out?
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{%url 'logout'%}"><button type="button" class="btn mybtn btn-light">Yes</button></a>
-                        <button type="submit" class="btn mybtn btn-light" data-dismiss="modal">No</button>
-                        <form action="{%url 'visionise'%}" method="post">
-                            {% csrf_token %}
-                        <button type="submit" name = 'submit' id="visionise_button" class="btn mybtn btn-light">Visionise</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </nav>
-    <!-- navbar ends -->
-
-<h2>Your checkpoint is: {{user.checkpoint}}</h2>
-
-    <!-- progress bar    -->
-    <div class="progress" style="margin:6px;">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressbar" role="progressbar" aria-valuenow="75"
-            aria-valuemin="0" aria-valuemax="100"></div>
+            <li class="nav-item">
+                <img src="{% static '/images/logo pisb_2.png' %}" style="width:115px ;height:40px ;">
+            </li>
+        </ul>
     </div>
 
-    <!-- main layout -->
-    <div class="container-fluid">
-        <div class="row myrow mt-2">
-            <!-- left column begins -->
-            <div class="col-12 col-md-2 mt-3 d-flex flex-column">
-
-                <!-- marking scheme -->
-                <div class="card-header text-center" style="background-color: #f5f5ef; font-weight:bolder;">
-                    Marking Scheme
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Log out</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="card text-center" style="background-color:#1f2839;">
-                    <div class="card-body" style="color:white;">
-                        {%ifequal 1 user.marks%}
-                        <h2 class="card-title">+4 | -2</h2>
-                        {%endifequal%}
-                        {%ifequal 2 user.marks%}
-                        <h2 class="card-title">+2 | -1</h2>
-                        {%endifequal%}
-                        {%ifequal 3 user.marks%}
-                        <h2 class="card-title">+4 | -8</h2>
-                        {%endifequal%}
-                        {%ifequal 4 user.marks%}
-                        <h2 class="card-title">+4 | 0</h2>
-                        {%endifequal%}
-                        {%ifequal 5 user.marks%}
-                        <h2 class="card-title">+16 | -10</h2>
-                        {%endifequal%}
-                        {%ifequal 6 user.marks%}
-                        <h2 class="card-title">+5 | -5</h2>
-                        {%endifequal%}
-                    </div>
+                <div class="modal-body">
+                    Do you really want to Log out?
                 </div>
-
-              <div class="card-header text-center" style="background-color: #f5f5ef;font-weight:bolder;margin-top:1.2em">
-                Your Score
-               </div>
-             <div class="card text-center" style="background-color:#1f2839;" >
-                 <div class="card-body" style="color:white;">
-                   <h3 class="card-title">{{user.total_score}}</h3>
-                 </div>
-               </div>
-
-
-              <div class="card-header text-center" style="background-color: #f5f5ef;;font-weight:bolder;margin-top:1.2em">
-                Predicted Score
-               </div>
-             <div class="card text-center" style="background-color:#1f2839;" >
-                 <div class="card-body" style="color:white;">
-                   <h3 class="card-title">{{user.predicted_score}}</h3>
-                 </div>
-               </div>
-
-
+                <div class="modal-footer">
+                    <a href="{%url 'logout'%}">
+                        <button type="button" class="btn mybtn btn-light">Yes</button>
+                    </a>
+                    <button type="submit" class="btn mybtn btn-light" data-dismiss="modal">No</button>
+                    <form action="{%url 'visionise'%}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" name='submit' id="visionise_button" class="btn mybtn btn-light">
+                            Visionise
+                        </button>
+                    </form>
+                </div>
             </div>
-            <!-- left column ends -->
+        </div>
+    </div>
 
-            <!-- middle column begins -->
-            <div class="col-md-8 mt-3">
-                <div class="row ">
+</nav>
+<!-- navbar ends -->
 
-                    <!-- question area -->
-                    <div class="card mycard" style="height: 42vh;width:100%;background-color: #1f2839; margin:auto">
-                        <div class="card-body" style="color:white; font-family:sans-serif;padding:0">
-                            <textarea readonly>{{question.question}}</textarea>
-                        </div>
+
+<!-- progress bar    -->
+<div class="progress" style="margin:6px;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressbar" role="progressbar"
+         aria-valuenow="75"
+         aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<!-- main layout -->
+<div class="container-fluid">
+    <div class="row myrow mt-2">
+        <!-- left column begins -->
+        <div class="col-12 col-md-2 mt-3 d-flex flex-column">
+
+            <!-- marking scheme -->
+            <div class="card-header text-center" style="background-color: #f5f5ef; font-weight:bolder;">
+                Marking Scheme
+            </div>
+            <div class="card text-center" style="background-color:#1f2839;">
+                <div class="card-body" style="color:white;">
+                    {%ifequal 1 user.marks%}
+                    <h2 class="card-title">+4 | -2</h2>
+                    {%endifequal%}
+                    {%ifequal 2 user.marks%}
+                    <h2 class="card-title">+2 | -1</h2>
+                    {%endifequal%}
+                    {%ifequal 3 user.marks%}
+                    <h2 class="card-title">+4 | -8</h2>
+                    {%endifequal%}
+                    {%ifequal 4 user.marks%}
+                    <h2 class="card-title">+4 | 0</h2>
+                    {%endifequal%}
+                    {%ifequal 5 user.marks%}
+                    <h2 class="card-title">+16 | -10</h2>
+                    {%endifequal%}
+                    {%ifequal 6 user.marks%}
+                    <h2 class="card-title">+5 | -5</h2>
+                    {%endifequal%}
+                </div>
+            </div>
+
+            <div class="card-header text-center" style="background-color: #f5f5ef;font-weight:bolder;margin-top:1.2em">
+                Your Score
+            </div>
+            <div class="card text-center" style="background-color:#1f2839;">
+                <div class="card-body" style="color:white;">
+                    <h3 class="card-title">{{user.total_score}}</h3>
+                </div>
+            </div>
+
+
+            <div class="card-header text-center" style="background-color: #f5f5ef;;font-weight:bolder;margin-top:1.2em">
+                Predicted Score
+            </div>
+            <div class="card text-center" style="background-color:#1f2839;">
+                <div class="card-body" style="color:white;">
+                    <h3 class="card-title">{{user.predicted_score}}</h3>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- left column ends -->
+
+        <!-- middle column begins -->
+        <div class="col-md-8 mt-3">
+            <div class="row ">
+
+                <!-- question area -->
+                <div class="card mycard" style="height: 42vh;width:100%;background-color: #1f2839; margin:auto">
+                    <div class="card-body" style="color:white; font-family:sans-serif;padding:0">
+                        <textarea readonly>{{question.question}}</textarea>
                     </div>
                 </div>
+            </div>
 
-                <form action="{% url 'success' %}" method="post">
-                    {% csrf_token %}
+            <form action="{% url 'success' %}" method="post">
+                {% csrf_token %}
                 <div class="row mt-3">
 
                     <div class="col-md-12">
@@ -196,199 +201,229 @@
 
                 <!-- Submit button for options -->
                 <div class="row mt-2">
-                    <button type="submit" name = 'submit' value={{question.id}} class="btn mybtn btn-light"
-                        style="margin:auto;  font-weight:bolder; font-size:20px;">Submit</button>
+                    <button type="submit" name='submit' value={{question.id}} class="btn mybtn btn-light"
+                            style="margin:auto;  font-weight:bolder; font-size:20px;">Submit
+                    </button>
                     <!-- <a href="#" class="btn btn-primary btn-lg active mybtn" style="margin:auto; background-color:#f5f5ef;border:none; color: black;" role="button" aria-pressed="true">Submit</a> -->
-                    </div>
-                </form>
-             </div> 
-                <!-- middle column ends  -->
+                </div>
+            </form>
+        </div>
+        <!-- middle column ends  -->
 
 
             <!-- right column begins -->
+
             <div class="col-md-2 mt-3" style="padding:0">
+                <!-- checkpoint -->
+                <div class="d-flex justify-content-center " style="height: 60px; margin:auto;width:220px;">
+                    <div class="container text-white box-shadow score rounded d-flex other-containers">
+                        <div class="col d-flex align-items-center justify-content-center"
+                            style="background-color: #1f2839;">
+                            <div class="text-center heading-text" style="font-weight:bold">
+                                Checkpoint
+                            </div>
+                        </div>
+                        <div class="col d-flex align-items-center justify-content-center"
+                            style="background-color: #f5f5ef;">
+                            <div class="score-number number-text text-center" style="color:black; font-weight:bold">
+                                {{user.checkpoint}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- get it Assured button -->
-                <div class="d-flex justify-content-center">
-                    <form action="{%url 'getassured'%}" method="post">
-                        {% csrf_token %}
+            <!-- get it Assured button -->
+            <div class="d-flex justify-content-center">
+                <form action="{%url 'getassured'%}" method="post">
+                    {% csrf_token %}
                     <button type="submit" id="get_assured" style="background-color:#1f2839; color: white;font-size:16px"
-                        class="btn btn-dark btn-lg active mybtn ">Get it Assured</button>
-                    </form>
-                </div>
+                            class="btn btn-dark btn-lg active mybtn ">Get it Assured
+                    </button>
+                </form>
+            </div>
 
 
-                <!-- wheel -->
-                <div class="d-flex justify-content-center wheel">
-                    <table cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td width="220" height="292" class="the_wheel" valign="center">
-                                <div class="arrow-up"></div>
-                                <canvas id="canvas" class="mycanvas" width="434" height="434" style="width:210px;">
-                                    <p style="color: white" text-align="center">Sorry, your browser doesn't
-                                        support canvas. Please try another.</p>
-                                </canvas>
+            <!-- wheel -->
+            <div class="d-flex justify-content-center wheel">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="220" height="292" class="the_wheel" valign="center">
+                            <div class="arrow-up"></div>
+                            <canvas id="canvas" class="mycanvas" width="434" height="434" style="width:210px;">
+                                <p style="color: white" text-align="center">Sorry, your browser doesn't
+                                    support canvas. Please try another.</p>
+                            </canvas>
 
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="power_controls d-flex justify-content-center" style="margin:0;padding:0">
-                    <!-- <img id="spin_button" src="spin_off.png" alt="Spin" onClick="startSpin();" /> -->
-                    <button type="submit" id="spin_button" onClick="startSpin();" class="btn btn-dark mybtn"
-                        style="width:100px;background-color:#1f2839; color: white;height:50px;font-size:16px">Spin</button>
-                    <!-- &nbsp;&nbsp;<a href="#" onClick="resetWheel(); return false;">Reset</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="power_controls d-flex justify-content-center" style="margin:0;padding:0">
+                <!-- <img id="spin_button" src="spin_off.png" alt="Spin" onClick="startSpin();" /> -->
+                <button type="submit" id="spin_button" onClick="startSpin();" class="btn btn-dark mybtn"
+                        style="width:100px;background-color:#1f2839; color: white;height:50px;font-size:16px">Spin
+                </button>
+                <!-- &nbsp;&nbsp;<a href="#" onClick="resetWheel(); return false;">Reset</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
             </div>
         </div>
     </div>
+</div>
 <!-- right column ends -->
 
 
-    <footer class="text-center fixed-bottom " style="background-color:#1f2839;">
-        <div class="container-fluid">
-            <div class="footer-text pt-2 pb-3 text-white" style="font-size: 1.25em; font-family:'Segoe UI'">&#169PICT
-                IEEE Student Branch</div>
+<footer class="text-center fixed-bottom " style="background-color:#1f2839;">
+    <div class="container-fluid">
+        <div class="footer-text pt-2 pb-3 text-white" style="font-size: 1.25em; font-family:'Segoe UI'">&#169PICT
+            IEEE Student Branch
         </div>
-    </footer>
+    </div>
+</footer>
 
 
 <!-- PREDICT SCORE MODAL -->
-    <!-- <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Predict Score</h5>
+ <div id="pModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Predict Score</h5>
 
-                </div>
-                <div class="modal-body" style="background-color: #1f2839;">
-                    <p style="color:white;  font-size:20px;">Can you predict your final score?</p>
-
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Predicted Score" style="width:50%">
-                        </div>
-
-                        <button type="submit" class="btn"
-                            style="background-color:white; color:black; font-weight:bolder">Submit</button>
-                    </form>
-                </div>
             </div>
-        </div>
-    </div> -->
+            <div class="modal-body" style="background-color: #1f2839;">
+                <p style="color:white;  font-size:20px;">Can you predict your final score?</p>
 
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Predicted Score" style="width:50%">
+                    </div>
 
-    <!-- REATTEMPT MODAL -->
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="height:300px;">
-                <div class="modal-header">
-                    <h5 class="modal-title">Reattempt</h5>
-                </div>
-                <div class="modal-body" style="background-color: #1f2839;">
-                    <p style="color:white;  font-size:20px;">Which question do you want to reattempt?</p>
-                    <form id="qosuns" action="{% url 'success' %}" method="post">
-                        {% csrf_token%}
-                        <div id="s1" class="rb">
-                            {% for num in passlst%}
-<!--                            <div class="tab"  data-value={{num}}>-->
-<!--                                <div class="spot">-->
-<!--                                    <span class="txt" name="quenum" >{{num}}</span>-->
-
-<!--                                </div>-->
-<!--                            </div>-->
-                            <button class="tab" name="quenum" value={{num}}>{{num}}</button>
-                            {%endfor%}
-<!--                            <button type="submit" class="btn mybtn" style="background-color:white; color:black; font-weight:bolder; margin-top:20px;">Continue</button>-->
-                        </div>
-                    </form>
-                </div>
+                    <button type="submit" class="btn"
+                        style="background-color:white; color:black; font-weight:bolder">Submit</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- javascript for clock -->
+</div>
 
+
+<!-- REATTEMPT MODAL -->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:300px;">
+            <div class="modal-header">
+                <h5 class="modal-title">Reattempt</h5>
+            </div>
+            <div class="modal-body" style="background-color: #1f2839;">
+                <p style="color:white;  font-size:20px;">Which question do you want to reattempt?</p>
+                <form id="qosuns" action="{% url 'success' %}" method="post">
+                    {% csrf_token%}
+                    <div id="s1" class="rb">
+                        {% for num in passlst%}
+                        <button class="tab" name="quenum" value={{num}}>{{num}}</button>
+                        {%endfor%}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- javascript for clock -->
+<!--<script>-->
+
+<!--var deadline = new Date("dec 31, 2017 15:37:25").getTime();-->
+
+<!--var x = setInterval(function() {-->
+
+<!--var now = new Date().getTime();-->
+<!--var t = deadline - now;-->
+<!--var days = Math.floor(t / (1000 * 60 * 60 * 24));-->
+<!--var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60));-->
+<!--var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));-->
+<!--var seconds = Math.floor((t % (1000 * 60)) / 1000);-->
+<!--document.getElementById("day").innerHTML =days ;-->
+<!--document.getElementById("hour").innerHTML =hours;-->
+<!--document.getElementById("minute").innerHTML = minutes;-->
+<!--document.getElementById("second").innerHTML =seconds;-->
+<!--if (t < 0) {-->
+<!--        clearInterval(x);-->
+<!--        document.getElementById("demo").innerHTML = "TIME UP";-->
+<!--        document.getElementById("day").innerHTML ='0';-->
+<!--        document.getElementById("hour").innerHTML ='0';-->
+<!--        document.getElementById("minute").innerHTML ='0' ;-->
+<!--        document.getElementById("second").innerHTML = '0'; }-->
+<!--}, 1000);-->
+
+
+<!--</script>-->
     <script>
-        var Clock = (function () {
-
-            var exports = function (element) {
-                this._element = element;
-                var html = '';
-                for (var i = 0; i < 6; i++) {
-                    html += '<span>&nbsp;</span>';
-                }
-                this._element.innerHTML = html;
-                this._slots = this._element.getElementsByTagName('span');
-                this._tick();
-            };
-
-            exports.prototype = {
-
-                _tick: function () {
-                    var time = new Date();
-                    this._update(this._pad(time.getHours()) + this._pad(time.getMinutes()) + this._pad(time.getSeconds()));
-                    var self = this;
-                    setTimeout(function () {
-                        self._tick();
-                    }, 1000);
-                },
-
-                _pad: function (value) {
-                    return ('0' + value).slice(-2);
-                },
-
-                _update: function (timeString) {
-
-                    var i = 0, l = this._slots.length, value, slot, now;
-                    for (; i < l; i++) {
-
-                        value = timeString.charAt(i);
-                        slot = this._slots[i];
-                        now = slot.dataset.now;
-
-                        if (!now) {
-                            slot.dataset.now = value;
-                            slot.dataset.old = value;
-                            continue;
+        var Clock = (function(){
+                      var exports = function(element) {
+                        this._element = element;
+                        var html = '';
+                        for (var i=0;i<6;i++) {
+                          html += '<span>&nbsp;</span>';
                         }
+                        this._element.innerHTML = html;
+                        this._slots = this._element.getElementsByTagName('span');
+                        this._tick();
+                      };
+                      exports.prototype = {
+                        _tick:function() {
+                          var time = new Date().getTime();
+                          var end=new Date("Nov 28, 2020 01:37:25").getTime();
+                          var distance= end-time;
 
-                        if (now !== value) {
-                            this._flip(slot, value);
+                          // Time calculations for days, hours, minutes and seconds
+                            //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                          this._update(this._pad(hours) + this._pad(minutes) + this._pad(seconds));
+                          var self = this;
+                          setTimeout(function(){
+                            self._tick();
+                          },1000);
+                        },
+                        _pad:function(value) {
+                          return ('0' + value).slice(-2);
+                        },
+                        _update:function(timeString) {
+                          var i=0,l=this._slots.length,value,slot,now;
+                          for (;i<l;i++) {
+                            value = timeString.charAt(i);
+                            slot = this._slots[i];
+                            now = slot.dataset.now;
+                            if (!now) {
+                              slot.dataset.now = value;
+                              slot.dataset.old = value;
+                              continue;
+                            }
+                            if (now !== value) {
+                              this._flip(slot,value);
+                            }
+                          }
+                        },
+                        _flip:function(slot,value) {
+                          slot.classList.remove('flip');
+                          slot.dataset.old = slot.dataset.now;
+                          slot.dataset.now = value;
+                          slot.offsetLeft;
+                          slot.classList.add('flip');
                         }
+                      };
+                      return exports;
+                    }());
+                    var i=0,clocks = document.querySelectorAll('.clock'),l=clocks.length;
+                    for (;i<l;i++) {
+                      new Clock(clocks[i]);
                     }
-                },
-
-                _flip: function (slot, value) {
-
-                    // setup new state
-                    slot.classList.remove('flip');
-                    slot.dataset.old = slot.dataset.now;
-                    slot.dataset.now = value;
-
-                    // force dom reflow
-                    slot.offsetLeft;
-
-                    // start flippin
-                    slot.classList.add('flip');
-
-                }
-
-            };
-
-            return exports;
-        }());
-
-        var i = 0, clocks = document.querySelectorAll('.clock'), l = clocks.length;
-        for (; i < l; i++) {
-            new Clock(clocks[i]);
-        }
     </script>
 
 
 <!-- javascipt for wheel -->
 
-    <script>
+<script>
         // Create new wheel object specifying the parameters at creation time.
         let Wheel = new Winwheel({
             'numSegments': 7,     // Specify number of segments.
@@ -557,19 +592,23 @@
                     }
                 });
             }
-    </script>
+
+
+</script>
 
 <!-- javascript for reattempt modal to toggle between questions -->
-    <script>
+<script>
         $(".tab").click(function () {
             $(this).parent().find(".tab").removeClass("activeTab");
             $(this).addClass("activeTab");
         });
-    </script>
+
+
+</script>
 
 <script>
 <!--    $(document).ready(function() {-->
-
+<!--$("#pModal").modal('show');-->
 <!--    });-->
 </script>
 
