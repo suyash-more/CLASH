@@ -13,7 +13,7 @@
 
 </head>
 <header class="navbar navbar-expand-lg navbar-light" style="background:
-      #1F2839;">
+      #010c16;">
 
       <a class="navbar" href="#">
         <img src="{% static '/images/clashwhite.png' %}" height="35px" width="55px" alt="LOGO">
@@ -34,10 +34,8 @@
     <div class="row mx-auto  align-items-center" >
         <div class=" col-lg-3" style="margin-top: 8vh;  ">
             <div class="card animated animatedFadeInUp fadeInUp box mb-5 text-light" style="height: 60vh;">
-                <div class="card-header">
-                   <h3 class="card-title text-center" style="background-color:white;">Reverse Coding</h3>
-                </div>
                 <div class="card-body" style="font-size:18px;">
+                    <h3 class="card-title text-center">Reverse Coding</h3>
                      <p style="text-align: center;">Reverse coding is a game which tests your logic and speed of developing algorithms
                        of various mathematical phenomena.In this game you have to find answers of integer
                       type questions using C/C++ code. </p>
@@ -48,7 +46,7 @@
       <div class=" col-lg-6 text-center "  >
 
             <i class="fas fa-user-circle fa-4x" ></i>
-            <p style="color: #1F2839; font-size: 5vh; ">{{user.user.username}}</p>
+            <p style="color: black; font-size: 5vh; ">{{user.user.username}}</p>
 
           <div class="container " style="margin-top: 100px; ">
 
@@ -68,7 +66,7 @@
                 </div>
 
               </div>
-              <div class="centered" >Score</div>
+              <div class="centered" >SCORE</div>
              <div class="center-top" >{{user.total_score}}</div>
           </div>
 
@@ -133,11 +131,8 @@
 
         <div class=" col-lg-3 adjust1" style="margin-top: 8vh;">
             <div class="card animated animatedFadeInUp fadeInUp box mb-5 text-light" style="height: 60vh;">
-                            <div class="card-header">
-                   <h3 class="card-title text-center" style="background-color:white;">Sponsors</h3>
-                </div>
                 <div class="card-body" style="font-size:18px;">
-                  
+                    <h3 class="card-title text-center">Sponsors</h3>
                     <ul>
                     <li><img src="" height="35px" width="55px" alt="L1"></li>
                     <p> </p>
@@ -178,6 +173,6 @@ document.getElementsByClassName("shutter2")[0].setAttribute("class", "shutter2 t
 <!--adjust height between cards and footer-->
 <div id="adjust"></div>
 
-<nav class="navbar navbar-expand-sm   justify-content-center fixed-bottom" style="background-color: #1F2839;">
+<nav class="navbar navbar-expand-sm  navbar-dark justify-content-center fixed-bottom" style="background-color: black;">
   <a class="navbar-brand mc-auto" style="color:white;font-family: 'Segoe UI',Roboto,Arial,sans-serif; font-size:1.25em;">&#169PICT IEEE Student Branch</a>
 </nav>

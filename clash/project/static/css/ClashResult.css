@@ -1,7 +1,7 @@
 body
 {
     overflow: hidden;
-    background-image: url("static/images/bg1.png");
+    background-color:#B69D74;
 }
 
 /*cards*/
@@ -12,27 +12,26 @@ body
     vertical-align: middle;
     border: 0px;
     font-family: sans-serif;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
-    border-radius: 20px;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 1);
 }
 
-.card-title
+.card-header
 {
-  color: white;
-  padding: 5px;
+  color: #1F2839;
+  padding-bottom:0;
 }
+
 
 .card-body
 {
-  color: white;
-  background-color: rgba(0,0,0,1);
-    border-radius: 20px;
+  color: #F5F5EF;
+  background-color: #1F2839;
 
 }
 
 footer {
-    background-color: #010c16;
-    color: #010c16;
+    background-color: #1F2839;
+
 }
 
 .container{
@@ -441,7 +440,7 @@ top: -7px;
     {
       .centered{
 
-        left: 47% !important;
+        left: 46% !important;
 
     }
     .center-top{
@@ -468,38 +467,6 @@ top: -7px;
     .bottom-right{
 
       left: 46% !important;
-    }
-    }
-
-    @media only screen and (max-width:1650px)
-    {
-      .centered{
-
-      left: 46% !important;
-
-    }
-    .center-top{
-
-      left: 47.5% !important;
-
-    }
-
-    .bottom-left{
-
-        right: 46% !important;
-    }
-    .bottom-right{
-      left: 44% !important;
-    }
-    .text-right{
-
-      left: 34% !important;
-
-    }
-    .text-left{
-
-      right: 32% !important;
-
     }
     }
 
@@ -572,7 +539,7 @@ top: -7px;
     {
       .centered{
 
-      left: 43.5% !important;
+      left: 44.5% !important;
 
     }
     .center-top{
@@ -644,13 +611,11 @@ top: -7px;
 
     @media only screen and (max-width: 769px)
     {
-      .adjust1
-      {margin-top: 10vh !important;}
         #adjust
         {padding: 3% !important;}
     .centered{
 
-      left: 45.5% !important;
+      left: 46.5% !important;
 
     }
     .center-top{
@@ -685,8 +650,6 @@ top: -7px;
     }
 
     @media (max-width: 454px) {
-      .adjust1
-      {margin-top: 12vh !important;}
             #adjust
         {padding: 3% !important;}
     .centered{
@@ -726,9 +689,7 @@ top: -7px;
      }
 
      @media (max-width: 380px) {
-      .adjust1
-      {margin-top: 16vh !important;}
-      #adjust
+                 #adjust
         {padding: 3% !important;}
     .centered{
 
@@ -803,3 +764,7 @@ top: -7px;
 
     }
         }
+
+
+
+
