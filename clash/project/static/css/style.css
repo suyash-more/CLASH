@@ -1,5 +1,4 @@
 
-
 html,body{
   overflow-x: hidden !important;
   max-width:100%;
@@ -69,16 +68,16 @@ textarea:focus{
   background-color: white;
   border: 5px solid gray;
   border-radius: 100%;
-  width: 60px;
+  width: 60px;  
   height: 60px;
   display: inline-block;
-
+  
 }
 
 .step .line {
     top: 60px;
   left: 30px;
-  height: 180px;
+  height: 180px;  
     position: absolute;
     border-left: 3px solid gray;
 }
@@ -87,29 +86,24 @@ textarea:focus{
   visibility: visible;
   background-color: rgb(189, 189, 243);
   border-color: #1f2839;
-
+   
 }
 .icon{
   padding-left:18px;
   padding-top:18px;
   z-index: 1;
-
+ 
 }
-
-
 .step.completed .line {
   border-left: 3px solid #1f2839;
 }
-
 .step.active .circle {
 visibility: visible;
   border-color: #1f2839;
 }
-
 .step.empty .circle {
     visibility: hidden;
 }
-
 .step.empty .line {
 
   top: 0;
@@ -117,7 +111,7 @@ visibility: visible;
 }
 .step:last-child .line {
   border-left: 3px solid white;
-  z-index: -1;
+  z-index: -1; 
 }
 .content {
   margin-left: 20px;
@@ -143,7 +137,7 @@ visibility: visible;
 }
 .status{
   width: 300px;
-
+  
 }
 
 /* clock styling */
@@ -174,7 +168,7 @@ visibility: visible;
 
 .clock span {
 	position:relative;
-  display:inline-block;
+  display:inline-block; 
 	padding:0 .25em;
 	margin:0 .06125em;
 	z-index:1;
@@ -212,7 +206,7 @@ visibility: visible;
 	text-shadow:0 1px 0 #fff;
 	background:#1f2839;
 	border-radius:.125em;
-	outline:1px solid transparent;
+	outline:1px solid transparent; 
 	-webkit-backface-visibility:hidden;
 	-moz-backface-visibility:hidden;
 	-ms-backface-visibility:hidden;
@@ -275,29 +269,29 @@ visibility: visible;
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px grey;
+  box-shadow: inset 0 0 2px grey; 
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background:rgba(0,0,0,0.1);
+  background:rgba(0,0,0,0.1); 
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background:rgba(0,0,0,0.3)
+  background:rgba(0,0,0,0.3) 
 }
 ::-moz-scrollbar {
   width: 15px;
 }
 ::-moz-scrollbar-track {
-  box-shadow: inset 0 0 2px grey;
+  box-shadow: inset 0 0 2px grey; 
   border-radius: 10px;
 }
 ::-moz-scrollbar-thumb {
-  background:rgba(0,0,0,0.1);
+  background:rgba(0,0,0,0.1); 
   border-radius: 10px;
 }
 ::-moz-scrollbar-thumb:hover {
-  background:rgba(0,0,0,0.3)
+  background:rgba(0,0,0,0.3) 
 }
 
 /* 4 options or radio buttons customized*/
@@ -328,7 +322,7 @@ label{
 	line-height: 1.5;
   text-align: center;
   overflow-y:auto;
-  padding: 8px;
+  padding: 8px; 
   justify-content:center;
   align-items:center;
   border:none;
@@ -346,16 +340,9 @@ label{
 }
 
 /* footer */
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  background-color: #343a40;
-  color: white;
-  text-align: center;
+footer {
+ 
+  margin-top:10px;
 }
 .footertext{
   font-size: 1.25rem;
@@ -363,56 +350,46 @@ label{
 
 /* footer for mobile view */
 @media (max-width: 768px){
-  .fixed-bottom {
-  position: relative;
+  .fixed-bottom { 
+  position: relative; 
 }
 }
-
-
-/* styling for reattempt modal   */
+      
+   
+/* styling for reattempt modal   */    
 p {
   font-size: .9em;
 }
 .rb {
-  height: 50px;
   line-height: 38px;
-  text-align: center;
   border-radius: .3em;
   margin-left:20px;
   background: rgba(255,255,255,.03);
   margin-right:20px;
 }
-.tab {
-  display: inline-block;
-  position: relative;
-  width: 20%;
-  font-size: 40px;
+.tab{
+  width:40px;
+  height:40px;
+  border-radius:50%; 
+  margin:10px 25px 10px 25px;
+  color:white;
+  background-color:#1f2839;
+  border: 2px solid rgba(255,255,255,.3);  
+  
 }
-.txt {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: .5em;
-  color: #FFFFFF;
-}
-.spot {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  border: 2px solid rgba(255,255,255,.3);
-  border-radius: 100%;
-  cursor: pointer;
-  transition: ease .5s;
-}
-.activeTab .spot {
-  background: rgba(0,0,0,.35);
+.tab:hover{
   border: 2px solid rgb(253,0,51, 0.6);
+  background: rgba(0,0,0,.35);
+  color:white;
 }
+
+.tab:focus, .tab:active {
+  outline: none !important;
+  box-shadow: none !important;
+ 
+}
+
+
 
 /* dropdown styling */
 .box select {
@@ -421,14 +398,12 @@ p {
   padding: 12px;
   width: 180px;
   border: none;
-
   font-size: 20px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
   -webkit-appearance: button;
   appearance: button;
   outline: none;
 }
-
 
 .box:hover::before {
   color: rgba(255, 255, 255, 0.6);
@@ -438,19 +413,23 @@ p {
 .box select option {
   padding: 30px;
 }
-
+ 
 .attemptoptions{
-  margin-right:20px;
   margin-bottom:40px;
+  margin-right:20px;
+  margin-left:20px;
   border-radius:5px;
-  height:8vh;
-  width:210px;
-  padding:5px;
+  height:60px;
+  width:200px;
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.972);
+  padding:auto;
   text-align: center;
-  font-weight:bold;
-  font-size:16px;
-
+  font-size: 18px;
+  font-family: sans-serif;
 }
+
+
+
 
 
 
