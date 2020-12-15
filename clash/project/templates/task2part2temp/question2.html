@@ -85,30 +85,30 @@
         <div class="row mt-2 myrow">
             <div class="col-12 col-md-2 mt-3 d-flex flex-column">
                 <div class="card-header text-center" style="background-color: #f5f5ef; font-weight:bolder;">
-                   Marking Scheme
+                   Marking Scheme (Attempt 1)
                   </div>
                 <div class="card text-center" style="background-color:#1f2839;" >
                     <div class="card-body" style="color:white;">
-                      <h5 class="card-title">+- ()</h5>
+                      <h5 class="card-title">+10 | -8</h5>
                     </div>
                 </div>
 
                   <div class="card-header text-center" style="background-color: #f5f5ef;font-weight:bolder;margin-top:1.2em">
-                    Your Score
+                    Marking Scheme (Attempt 2)
                    </div>
                 <div class="card text-center" style="background-color:#1f2839;" >
                      <div class="card-body" style="color:white;">
-                       <h3 class="card-title">{{user.total_score}}</h3>
+                       <h5 class="card-title">+8 | -10</h5>
                      </div>
                 </div>
 
 
                     <div class="card-header text-center" style="background-color: #f5f5ef;font-weight:bolder;margin-top:1.2em">
-                    Predicted Score
+                    Your Score
                     </div>
                 <div class="card text-center" style="background-color:#1f2839;" >
                      <div class="card-body" style="color:white;">
-                       <h3 class="card-title">{{user.predicted_score}}</h3>
+                       <h3 class="card-title">{{user.total_score}}</h3>
                      </div>
                 </div>
 
@@ -169,10 +169,10 @@
             
             <div class="col-md-2 mt-3 d-flex flex-column ">
                
-                <textarea class="attemptoptions" readonly>(A) Hello World Hello World Hello World</textarea>
-                <textarea class="attemptoptions" readonly style="background-color:#f5f5ef; color:black">(B) Hello World</textarea>
-                <textarea class="attemptoptions" readonly>(C) Hello World</textarea>
-                <textarea class="attemptoptions" readonly style="background-color:#f5f5ef; color:black">(D) Hello World</textarea>
+                <textarea class="attemptoptions" readonly>(A) {{question.option_A}}</textarea>
+                <textarea class="attemptoptions" readonly style="background-color:#f5f5ef; color:black">(B) {{question.option_B}}</textarea>
+                <textarea class="attemptoptions" readonly>(C) {{question.option_C}}</textarea>
+                <textarea class="attemptoptions" readonly style="background-color:#f5f5ef; color:black">(D) {{question.option_D}}</textarea>
 
             </div>
 

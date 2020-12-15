@@ -147,7 +147,9 @@
 
 
             <div class="card-header text-center" style="background-color: #f5f5ef;;font-weight:bolder;margin-top:1.2em">
-                Predicted Score
+
+                <button type="submit" id="p_score">Predicted Score</button>
+
             </div>
             <div class="card text-center" style="background-color:#1f2839;">
                 <div class="card-body" style="color:white;">
@@ -292,9 +294,10 @@
             <div class="modal-body" style="background-color: #1f2839;">
                 <p style="color:white;  font-size:20px;">Can you predict your final score?</p>
 
-                <form>
+                <form method="post" action="{% url 'get_p_score' %}">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Predicted Score" style="width:50%">
+                        <input type="text" name="predicted_score" class="form-control" placeholder="Predicted Score" style="width:50%">
                     </div>
 
                     <button type="submit" class="btn"
@@ -328,18 +331,18 @@
     </div>
 </div>
 <!-- javascript for clock -->
-<!--<script>-->
+<script>
 
-<!--var deadline = new Date("dec 31, 2017 15:37:25").getTime();-->
+let deadline = new Date("dec 31, 2017 15:37:25").getTime();
 
-<!--var x = setInterval(function() {-->
+<!--let x = setInterval(function() {-->
 
-<!--var now = new Date().getTime();-->
-<!--var t = deadline - now;-->
-<!--var days = Math.floor(t / (1000 * 60 * 60 * 24));-->
-<!--var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60));-->
-<!--var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));-->
-<!--var seconds = Math.floor((t % (1000 * 60)) / 1000);-->
+let now = new Date().getTime();
+let t = deadline - now;
+let days = Math.floor(t / (1000 * 60 * 60 * 24));
+let hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60));
+let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+let seconds = Math.floor((t % (1000 * 60)) / 1000);
 <!--document.getElementById("day").innerHTML =days ;-->
 <!--document.getElementById("hour").innerHTML =hours;-->
 <!--document.getElementById("minute").innerHTML = minutes;-->
@@ -352,73 +355,81 @@
 <!--        document.getElementById("minute").innerHTML ='0' ;-->
 <!--        document.getElementById("second").innerHTML = '0'; }-->
 <!--}, 1000);-->
+clocks = document.querySelectorAll('.clock');
+<!--    new Clock(hours);-->
+{%for min in timemin%}
+    {%for sec in timesec%}
+        let min = new Clock({{min}});
+        let sec= new Clock({{sec}});
+    {% endfor%}
+{% endfor%}
 
 
-<!--</script>-->
+</script>
     <script>
-        var Clock = (function(){
-                      var exports = function(element) {
-                        this._element = element;
-                        var html = '';
-                        for (var i=0;i<6;i++) {
-                          html += '<span>&nbsp;</span>';
-                        }
-                        this._element.innerHTML = html;
-                        this._slots = this._element.getElementsByTagName('span');
-                        this._tick();
-                      };
-                      exports.prototype = {
-                        _tick:function() {
-                          var time = new Date().getTime();
-                          var end=new Date("Nov 28, 2020 01:37:25").getTime();
-                          var distance= end-time;
+<!--        var Clock = (function(){-->
+<!--                      var exports = function(element) {-->
+<!--                        this._element = element;-->
+<!--                        var html = '';-->
+<!--                        for (var i=0;i<6;i++) {-->
+<!--                          html += '<span>&nbsp;</span>';-->
+<!--                        }-->
+<!--                        this._element.innerHTML = html;-->
+<!--                        this._slots = this._element.getElementsByTagName('span');-->
+<!--                        this._tick();-->
+<!--                      };-->
+<!--                      exports.prototype = {-->
+<!--                        _tick:function() {-->
+<!--                          var time = new Date().getTime();-->
+<!--                          var end=new Date("Nov 28, 2020 01:37:25").getTime();-->
+<!--                          var distance= end-time;-->
 
-                          // Time calculations for days, hours, minutes and seconds
-                            //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+<!--                          // Time calculations for days, hours, minutes and seconds-->
+<!--                            //var days = Math.floor(distance / (1000 * 60 * 60 * 24));-->
+<!--                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));-->
+<!--                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));-->
+<!--                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);-->
 
-                          this._update(this._pad(hours) + this._pad(minutes) + this._pad(seconds));
-                          var self = this;
-                          setTimeout(function(){
-                            self._tick();
-                          },1000);
-                        },
-                        _pad:function(value) {
-                          return ('0' + value).slice(-2);
-                        },
-                        _update:function(timeString) {
-                          var i=0,l=this._slots.length,value,slot,now;
-                          for (;i<l;i++) {
-                            value = timeString.charAt(i);
-                            slot = this._slots[i];
-                            now = slot.dataset.now;
-                            if (!now) {
-                              slot.dataset.now = value;
-                              slot.dataset.old = value;
-                              continue;
-                            }
-                            if (now !== value) {
-                              this._flip(slot,value);
-                            }
-                          }
-                        },
-                        _flip:function(slot,value) {
-                          slot.classList.remove('flip');
-                          slot.dataset.old = slot.dataset.now;
-                          slot.dataset.now = value;
-                          slot.offsetLeft;
-                          slot.classList.add('flip');
-                        }
-                      };
-                      return exports;
-                    }());
-                    var i=0,clocks = document.querySelectorAll('.clock'),l=clocks.length;
-                    for (;i<l;i++) {
-                      new Clock(clocks[i]);
-                    }
-    </script>
+<!--                          this._update(this._pad(hours) + this._pad(minutes) + this._pad(seconds));-->
+<!--                          var self = this;-->
+<!--                          setTimeout(function(){-->
+<!--                            self._tick();-->
+<!--                          },1000);-->
+<!--                        },-->
+<!--                        _pad:function(value) {-->
+<!--                          return ('0' + value).slice(-2);-->
+<!--                        },-->
+<!--                        _update:function(timeString) {-->
+<!--                          var i=0,l=this._slots.length,value,slot,now;-->
+<!--                          for (;i<l;i++) {-->
+<!--                            value = timeString.charAt(i);-->
+<!--                            slot = this._slots[i];-->
+<!--                            now = slot.dataset.now;-->
+<!--                            if (!now) {-->
+<!--                              slot.dataset.now = value;-->
+<!--                              slot.dataset.old = value;-->
+<!--                              continue;-->
+<!--                            }-->
+<!--                            if (now !== value) {-->
+<!--                              this._flip(slot,value);-->
+<!--                            }-->
+<!--                          }-->
+<!--                        },-->
+<!--                        _flip:function(slot,value) {-->
+<!--                          slot.classList.remove('flip');-->
+<!--                          slot.dataset.old = slot.dataset.now;-->
+<!--                          slot.dataset.now = value;-->
+<!--                          slot.offsetLeft;-->
+<!--                          slot.classList.add('flip');-->
+<!--                        }-->
+<!--                      };-->
+<!--                      return exports;-->
+<!--                    }());-->
+<!--                    var i=0,clocks = document.querySelectorAll('.clock'),l=clocks.length;-->
+<!--                    for (;i<l;i++) {-->
+<!--                      new Clock(clocks[i]);-->
+<!--                    }-->
+  </script>
 
 
 <!-- javascipt for wheel -->
@@ -482,7 +493,7 @@
             Spin_Count();
             get_it_assured();
             function checkpoint(){
-                if(total_score%cp===0 && total_score!=0  && {{user.flashblind}}<=0) {
+                if(total_score%cp===0 && total_score!=0  && {{user.flashblind}}<=0 && {{user.marks}}<=2){
                     document.getElementById('spin_button').disabled = false;
                 }
                 if(cp===-1 ){
@@ -532,7 +543,7 @@
 
             $('#visionise_button').prop("disabled", true);
             function vision_button(){
-                if({{user.predicted_score}}<=total_score+5 && {{user.predicted_score}}>=total_score-5){
+                if({{user.predicted_score}}<=total_score+5 && {{user.predicted_score}}>=total_score-5 && {{user.predicted_score}}!=0){
                     $('#visionise_button').prop("disabled", false);
                 }
             }
@@ -543,7 +554,14 @@
                 $('#get_assured').prop("disabled", true);
             });
 
+            $('#p_score').prop("disabled", true);
+            function predict_button(){
+                if({{user.time_rem}}>1380){
+                    $('#p_score').prop("disabled", false);
+                }
+            }
 
+            predict_button();
 
             var token = '{{csrf_token}}';
             function alertPrize(indicatedSegment)
@@ -607,9 +625,11 @@
 </script>
 
 <script>
-<!--    $(document).ready(function() {-->
-<!--$("#pModal").modal('show');-->
-<!--    });-->
+    $(document).ready(function() {
+        $('#p_score').click(function(){
+            $("#pModal").modal('show');
+        });
+    });
 </script>
 
 
