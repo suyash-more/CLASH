@@ -428,7 +428,11 @@ p {
   font-family: sans-serif;
 }
 
-
+.predictbtn:focus, .predictbtn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  
+}
 
 
 
