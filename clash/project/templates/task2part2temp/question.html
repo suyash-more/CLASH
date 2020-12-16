@@ -148,7 +148,7 @@
 
             <div class="card-header text-center" style="background-color: #f5f5ef;;font-weight:bolder;margin-top:1.2em">
 
-                <button type="submit" id="p_score">Predicted Score</button>
+                 <button type="submit" class="predictbtn" id="p_score" style="border:none;font-weight:bolder;color: #212529">Predicted Score</button>
 
             </div>
             <div class="card text-center" style="background-color:#1f2839;">
@@ -235,10 +235,10 @@
                 </div>
 
             <!-- get it Assured button -->
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" style="margin-top:15px;">
                 <form action="{%url 'getassured'%}" method="post">
                     {% csrf_token %}
-                    <button type="submit" id="get_assured" style="background-color:#1f2839; color: white;font-size:16px"
+                    <button type="submit" id="get_assured" style="background-color:#1f2839; width:180px; color: white;font-size:16px"
                             class="btn btn-dark btn-lg active mybtn ">Get it Assured
                     </button>
                 </form>
@@ -249,7 +249,7 @@
             <div class="d-flex justify-content-center wheel">
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <td width="220" height="292" class="the_wheel" valign="center">
+                        <td width="220" height="262" class="the_wheel" valign="center">
                             <div class="arrow-up"></div>
                             <canvas id="canvas" class="mycanvas" width="434" height="434" style="width:210px;">
                                 <p style="color: white" text-align="center">Sorry, your browser doesn't
@@ -312,7 +312,7 @@
 <!-- REATTEMPT MODAL -->
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content" style="height:300px;">
+        <div class="modal-content" style="height:300px; width:450px;">
             <div class="modal-header">
                 <h5 class="modal-title">Reattempt</h5>
             </div>
@@ -614,15 +614,7 @@ clocks = document.querySelectorAll('.clock');
 
 </script>
 
-<!-- javascript for reattempt modal to toggle between questions -->
-<script>
-        $(".tab").click(function () {
-            $(this).parent().find(".tab").removeClass("activeTab");
-            $(this).addClass("activeTab");
-        });
 
-
-</script>
 
 <script>
     $(document).ready(function() {
