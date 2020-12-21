@@ -47,6 +47,7 @@
 
 
     <div class="collapse navbar-collapse justify justify-content-end" id="navbarNav">
+        <span style="color: white; padding:8px; margin-right:32px;">Checkpoint: {{user.checkpoint}}</span>
         <ul class="navbar-nav">
             <li class="nav-item fromLeft active">
                 <a class="nav-link active" href="{%url 'rendinst'%}" style="color: white;">Instruction <span
@@ -216,29 +217,14 @@
             <!-- right column begins -->
 
             <div class="col-md-2 mt-3" style="padding:0">
-                <!-- checkpoint -->
-                <div class="d-flex justify-content-center " style="height: 60px; margin:auto;width:220px;">
-                    <div class="container text-white box-shadow score rounded d-flex other-containers">
-                        <div class="col d-flex align-items-center justify-content-center"
-                            style="background-color: #1f2839;">
-                            <div class="text-center heading-text" style="font-weight:bold">
-                                Checkpoint
-                            </div>
-                        </div>
-                        <div class="col d-flex align-items-center justify-content-center"
-                            style="background-color: #f5f5ef;">
-                            <div class="score-number number-text text-center" style="color:black; font-weight:bold">
-                                {{user.checkpoint}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              
+               
 
             <!-- get it Assured button -->
-            <div class="d-flex justify-content-center" style="margin-top:15px;">
+            <div class="d-flex justify-content-center">
                 <form action="{%url 'getassured'%}" method="post">
                     {% csrf_token %}
-                    <button type="submit" id="get_assured" style="background-color:#1f2839; width:180px; color: white;font-size:16px"
+                    <button type="submit" id="get_assured" style="background-color:#1f2839; width:180px; color: white;font-weight:normal"
                             class="btn btn-dark btn-lg active mybtn ">Get it Assured
                     </button>
                 </form>
@@ -249,7 +235,7 @@
             <div class="d-flex justify-content-center wheel">
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <td width="220" height="262" class="the_wheel" valign="center">
+                        <td width="220" height="292" class="the_wheel" valign="center">
                             <div class="arrow-up"></div>
                             <canvas id="canvas" class="mycanvas" width="434" height="434" style="width:210px;">
                                 <p style="color: white" text-align="center">Sorry, your browser doesn't
@@ -263,7 +249,7 @@
             <div class="power_controls d-flex justify-content-center" style="margin:0;padding:0">
                 <!-- <img id="spin_button" src="spin_off.png" alt="Spin" onClick="startSpin();" /> -->
                 <button type="submit" id="spin_button" onClick="startSpin();" class="btn btn-dark mybtn"
-                        style="width:100px;background-color:#1f2839; color: white;height:50px;font-size:16px">Spin
+                        style="width:180px;background-color:#1f2839; color: white;height:50px;font-weight:normal">Spin
                 </button>
                 <!-- &nbsp;&nbsp;<a href="#" onClick="resetWheel(); return false;">Reset</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
