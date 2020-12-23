@@ -161,10 +161,7 @@
                     </div>
                 </div>
                 </form>
-                <form action="{% url 'logout' %} " method="post">
-                    {%csrf_token%}
-                    <button type="button" style="background-color:#f5f5ef; color:black" class="btn mybtn btn-lg  disabled">Skip</button>
-                </form>
+            
             </div>
             <div class="col-md-2 mt-3">
 
@@ -195,7 +192,7 @@
                 </div>
 
                 <!-- next question -->
-                <div class="step">
+                <div class="step" style="height:65px;">
                     <div class="v-stepper">
                         <div class="circle"></div>
 
@@ -205,6 +202,10 @@
                         Question 3
                     </div>
                 </div>
+                    <form action="{% url 'logout' %} " method="post">
+                    {%csrf_token%}
+                    <button type="button" style="background-color:#f5f5ef; color:black" class="btn mybtn btn-lg  disabled">Skip</button>
+                </form>
             </div>
         </div>
     </div>
