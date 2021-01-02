@@ -230,7 +230,7 @@ def success(request):
         time_diff = timezone.now() - getuser.user.last_login
         minute=getuser.extra_time//60
         second=getuser.extra_time%60
-        time_rem = datetime.timedelta(minutes=28+minute,seconds=second) - time_diff
+        time_rem = datetime.timedelta(minutes=1+minute,seconds=second) - time_diff
         total_seconds = time_rem.total_seconds()
         getuser.time_rem = int(total_seconds)
         getuser.save()
@@ -239,8 +239,8 @@ def success(request):
         seconds = int(total_seconds % 60)
         if getuser.progress>=100:
             getuser.freezebar=True
-        if total_seconds <= 0:
-            return redirect('modal')
+        # if total_seconds <= 0:
+        #     return redirect('modal')
         msg2 = "TIME REMAINING  = " + str(minutes) + ":" + str(seconds)
         lst = json.loads(getuser.quelist)
         flst=json.loads(getuser.queflist)

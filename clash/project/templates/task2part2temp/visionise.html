@@ -37,7 +37,7 @@
             <img src="{% static '/images/clashwhite.png' %}" style="width: 80px; height: 40px;"></a>
 
 
-        <span class="clock" style="margin-left:20px"></span>
+        <span class="clock" id="time" style="margin-left:20px; color:white;"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -135,18 +135,18 @@
                     <div class="col-md-12">
                         <div class="switch-field d-flex justify-content-around align-items-center">
 
-                            <input type="radio" id="radio-one" name="user_ans" required="required" value={{question.option_A}}/>
+                            <input type="radio" id="radio-one" name="user_ans" required="required" value={{question.option_A}}>
                             <label for="radio-one">{{question.option_A}}</label>
 
-                            <input type="radio" id="radio-two" name="user_ans" value={{question.option_B}}/>
+                            <input type="radio" id="radio-two" name="user_ans" value={{question.option_B}}>
                             <label for="radio-two">{{question.option_B}}</label>
                         </div>
                         <div class="switch-field d-flex justify-content-around align-items-center">
 
-                            <input type="radio" id="radio-three" name="user_ans" value={{question.option_C}}/>
+                            <input type="radio" id="radio-three" name="user_ans" value={{question.option_C}}>
                             <label for="radio-three">{{question.option_C}}</label>
 
-                            <input type="radio" id="radio-four" name="user_ans" value={{question.option_D}}/>
+                            <input type="radio" id="radio-four" name="user_ans" value={{question.option_D}}>
                             <label for="radio-four">{{question.option_D}}</label>
                         </div>
 
@@ -164,12 +164,11 @@
             
             </div>
             <div class="col-md-2 mt-3">
-
-                <!-- completed question-->
-                <div class="step completed">                 
-                    <div class="v-stepper">                    
+                 <!-- completed question-->
+                    <div class="" id="que1">
+                    <div class="v-stepper">
                         <div class="circle">
-                            <i class="fas fa-check icon"></i>
+                            <i class="" id="que1_tick"></i>
                         </div>
                         <div class="line"></div>
                     </div>
@@ -179,10 +178,12 @@
                     </div>
                 </div>
 
-                <!-- current question -->
-                <div class="step active">
+                    <div class="" id="que2">
+
                     <div class="v-stepper">
-                        <div class="circle"></div>
+                        <div class="circle">
+                            <i class="" id="que2_tick"></i>
+                        </div>
                         <div class="line"></div>
                     </div>
 
@@ -191,24 +192,23 @@
                     </div>
                 </div>
 
-                <!-- next question -->
-                <div class="step" style="height:65px;">
-                    <div class="v-stepper">
-                        <div class="circle"></div>
+                        <div class="" id="que3" style="height:115px;">
+                        <div class="v-stepper">
+                            <div class="circle">
+                                <i class="" id="que3_tick"></i>
+                            </div>
+                        </div>
 
+                        <div class="content">
+                            Question 3
+                        </div>
                     </div>
-
-                    <div class="content">
-                        Question 3
-                    </div>
-                </div>
                     <form action="{% url 'logout' %} " method="post">
-                    {%csrf_token%}
-                    <button type="button" style="background-color:#f5f5ef; color:black" class="btn mybtn btn-lg  disabled">Skip</button>
-                </form>
+                        {%csrf_token%}
+                    <button type="submit" id="skip_button" style="background-color:#f5f5ef; color:black" class="btn mybtn btn-lg">Skip</button>
+                    </form>
             </div>
         </div>
-    </div>
     </div>
 
 
@@ -228,92 +228,67 @@
 
     <!-- javascipt for clock -->
     <script>
-        var Clock = (function () {
+    function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-            var exports = function (element) {
-                this._element = element;
-                var html = '';
-                for (var i = 0; i < 6; i++) {
-                    html += '<span>&nbsp;</span>';
-                }
-                this._element.innerHTML = html;
-                this._slots = this._element.getElementsByTagName('span');
-                this._tick();
-            };
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            exports.prototype = {
+        display.textContent = minutes + ":" + seconds;
 
-                _tick: function () {
-                    var time = new Date();
-                    this._update(this._pad(time.getHours()) + this._pad(time.getMinutes()) + this._pad(time.getSeconds()));
-                    var self = this;
-                    setTimeout(function () {
-                        self._tick();
-                    }, 1000);
-                },
-
-                _pad: function (value) {
-                    return ('0' + value).slice(-2);
-                },
-
-                _update: function (timeString) {
-
-                    var i = 0, l = this._slots.length, value, slot, now;
-                    for (; i < l; i++) {
-
-                        value = timeString.charAt(i);
-                        slot = this._slots[i];
-                        now = slot.dataset.now;
-
-                        if (!now) {
-                            slot.dataset.now = value;
-                            slot.dataset.old = value;
-                            continue;
-                        }
-
-                        if (now !== value) {
-                            this._flip(slot, value);
-                        }
-                    }
-                },
-
-                _flip: function (slot, value) {
-
-                    // setup new state
-                    slot.classList.remove('flip');
-                    slot.dataset.old = slot.dataset.now;
-                    slot.dataset.now = value;
-
-                    // force dom reflow
-                    slot.offsetLeft;
-
-                    // start flippin
-                    slot.classList.add('flip');
-
-                }
-
-            };
-
-            return exports;
-        }());
-
-        var i = 0, clocks = document.querySelectorAll('.clock'), l = clocks.length;
-        for (; i < l; i++) {
-            new Clock(clocks[i]);
+        if (--timer < 0) {
+            timer = duration;
         }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = {{user.time_rem}},
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
     </script>
 
 <script>
-$('#end').hide();
+$('#skip_button').prop("disabled",true);
     function end()
     {
-    if({{buttonshow}}===1)
-    {$('#end').show();}
+        if({{buttonshow}}===1)
+        {
+            $('#skip_button').prop("disabled",false);
+        }
     }
     end();
 
 </script>
 
+<script>
+    let buttonshow={{buttonshow}};
+    let que1_state=document.getElementById("que1");
+    let que2_state=document.getElementById("que2");
+    let que3_state=document.getElementById("que3");
+
+    let que1_tick=document.getElementById("que1_tick");
+    let que2_tick=document.getElementById("que2_tick");
+    let que3_tick=document.getElementById("que3_tick");
+
+    buttonshow<=3?que1_tick.className+="fas fa-check icon":que1_tick.className+="";
+    buttonshow<2?que2_tick.className+="fas fa-check icon":que2_tick.className+="";
+    buttonshow<1?que3_tick.className+="fas fa-check icon":que3_tick.className+="";
+
+    let que1_completed=buttonshow<3?que1_state.className+="step completed":que1_state.className+="";
+    let que1_current=buttonshow===3?que1_state.className+="step active":que1_state.className+="";
+    let que2_completed=buttonshow===1?que2_state.className+="step completed":que2_state.className+="";
+    let que2_current=buttonshow===2?que2_state.className+="step active":que2_state.className+="";
+    let que2_next=buttonshow===3?que2_state.className+="step":que2_state.className+="";
+    let que3_current=buttonshow===1?que3_state.className+="step active":que3_state.className+="";
+    let que3_next=buttonshow>=2?que3_state.className+="step":que3_state.className+="";
+
+
+</script>
 </body>
 
 </html>

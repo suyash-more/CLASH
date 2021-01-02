@@ -39,7 +39,7 @@
         <img src="{% static '/images/clashwhite.png' %}" style="width: 80px; height: 40px;"></a>
 
 
-    <span class="clock" style="margin-left:20px"></span>
+    <span class="clock" id="time" style="margin-left:20px; color:white;"></span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -81,7 +81,7 @@
                     <a href="{%url 'logout'%}">
                         <button type="button" class="btn mybtn btn-light">Yes</button>
                     </a>
-                    <button type="submit" class="btn mybtn btn-light" data-dismiss="modal">No</button>
+                    <button type="submit" id="no-button" class="btn mybtn btn-light" data-dismiss="modal">No</button>
                     <form action="{%url 'visionise'%}" method="post">
                         {% csrf_token %}
                         <button type="submit" name='submit' id="visionise_button" class="btn mybtn btn-light">
@@ -353,68 +353,91 @@ clocks = document.querySelectorAll('.clock');
 
 </script>
     <script>
-var Clock = (function(){
-                      var exports = function(element) {
-                        this._element = element;
-                        var html = '';
-                        for (var i=0;i<6;i++) {
-                          html += '<span>&nbsp;</span>';
-                        }
-                        this._element.innerHTML = html;
-                        this._slots = this._element.getElementsByTagName('span');
-                        this._tick();
-                      };
-                      exports.prototype = {
-                        _tick:function() {
-                          var time = new Date().getTime();
-                          var end=new Date("Nov 27, 2020 01:37:25").getTime();
-                          var distance= end-time;
+<!--var Clock = (function(){-->
+<!--                      var exports = function(element) {-->
+<!--                        this._element = element;-->
+<!--                        var html = '';-->
+<!--                        for (var i=0;i<6;i++) {-->
+<!--                          html += '<span>&nbsp;</span>';-->
+<!--                        }-->
+<!--                        this._element.innerHTML = html;-->
+<!--                        this._slots = this._element.getElementsByTagName('span');-->
+<!--                        this._tick();-->
+<!--                      };-->
+<!--                      exports.prototype = {-->
+<!--                        _tick:function() {-->
+<!--                          var time = new Date().getTime();-->
+<!--                          var end=new Date("Jan 3, 2020 01:37:25").getTime();-->
+<!--                          var distance= end-time;-->
 
-                          // Time calculations for days, hours, minutes and seconds
-                            //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+<!--                          // Time calculations for days, hours, minutes and seconds-->
+<!--                            //var days = Math.floor(distance / (1000 * 60 * 60 * 24));-->
+<!--                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));-->
+<!--                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));-->
+<!--                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);-->
 
-                          this._update(this._pad(hours) + this._pad(minutes) + this._pad(seconds));
-                          var self = this;
-                          setTimeout(function(){
-                            self._tick();
-                          },1000);
-                        },
-                        _pad:function(value) {
-                          return ('0' + value).slice(-2);
-                        },
-                        _update:function(timeString) {
-                          var i=0,l=this._slots.length,value,slot,now;
-                          for (;i<l;i++) {
-                            value = timeString.charAt(i);
-                            slot = this._slots[i];
-                            now = slot.dataset.now;
-                            if (!now) {
-                              slot.dataset.now = value;
-                              slot.dataset.old = value;
-                              continue;
-                            }
-                            if (now !== value) {
-                              this._flip(slot,value);
-                            }
-                          }
-                        },
-                        _flip:function(slot,value) {
-                          slot.classList.remove('flip');
-                          slot.dataset.old = slot.dataset.now;
-                          slot.dataset.now = value;
-                          slot.offsetLeft;
-                          slot.classList.add('flip');
-                        }
-                      };
-                      return exports;
-                    }());
-                    var i=0,clocks = document.querySelectorAll('.clock'),l=clocks.length;
-                    for (;i<l;i++) {
-                      new Clock(clocks[i]);
-                    }
+<!--                          this._update(this._pad(hours) + this._pad(minutes) + this._pad(seconds));-->
+<!--                          var self = this;-->
+<!--                          setTimeout(function(){-->
+<!--                            self._tick();-->
+<!--                          },1000);-->
+<!--                        },-->
+<!--                        _pad:function(value) {-->
+<!--                          return ('0' + value).slice(-2);-->
+<!--                        },-->
+<!--                        _update:function(timeString) {-->
+<!--                          var i=0,l=this._slots.length,value,slot,now;-->
+<!--                          for (;i<l;i++) {-->
+<!--                            value = timeString.charAt(i);-->
+<!--                            slot = this._slots[i];-->
+<!--                            now = slot.dataset.now;-->
+<!--                            if (!now) {-->
+<!--                              slot.dataset.now = value;-->
+<!--                              slot.dataset.old = value;-->
+<!--                              continue;-->
+<!--                            }-->
+<!--                            if (now !== value) {-->
+<!--                              this._flip(slot,value);-->
+<!--                            }-->
+<!--                          }-->
+<!--                        },-->
+<!--                        _flip:function(slot,value) {-->
+<!--                          slot.classList.remove('flip');-->
+<!--                          slot.dataset.old = slot.dataset.now;-->
+<!--                          slot.dataset.now = value;-->
+<!--                          slot.offsetLeft;-->
+<!--                          slot.classList.add('flip');-->
+<!--                        }-->
+<!--                      };-->
+<!--                      return exports;-->
+<!--                    }());-->
+<!--                    var i=0,clocks = document.querySelectorAll('.clock'),l=clocks.length;-->
+<!--                    for (;i<l;i++) {-->
+<!--                      new Clock(clocks[i]);-->
+<!--                    }-->
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = {{user.time_rem}},
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
   </script>
 
 
@@ -549,6 +572,14 @@ var Clock = (function(){
 
             predict_button();
 
+
+            function no_button(){
+                if({{user.time_rem}}<=0){
+                    $('#no-button').hide();
+                }
+            }
+            no_button();
+
             var token = '{{csrf_token}}';
             function alertPrize(indicatedSegment)
             {
@@ -607,9 +638,17 @@ var Clock = (function(){
         $('#p_score').click(function(){
             $("#pModal").modal('show');
         });
+
     });
 </script>
-
+<script>
+    function logout_popout(){
+        if({{user.time_rem}}<=0){
+            $("#staticBackdrop").modal('show');
+        }
+    }
+    logout_popout();
+</script>
 
 </body>
 
