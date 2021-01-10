@@ -35,7 +35,7 @@ def checkspin(request):
           "Unlucky! -8 + 4 for next 3 questions",
           "congrats you have no negative marks for next 3 questions",
           "Unlucky! u cannot spin here after",
-          "congrats you have +16-10 marking scmeme fpr current question"]'''
+          "congrats you have +16-10 marking scheme fpr current question"]'''
     data={'flag':int(flag),'useflag':getuser.flag,'flashblind':getuser.flashblind}
     # print(flag)
     return JsonResponse(data)
@@ -75,25 +75,25 @@ def signup(request):
         regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
         regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         if not re.search(regexusername, username):
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Username is Not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Username is Not Valid"]})
         if not re.search(regexemail, email):
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Email ID is not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Email ID is not Valid"]})
         if not str(firstname).isalpha():
-            return render(request, 'task2part2temp/signup.html', {'msg': ["First Name is not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["First Name is not Valid"]})
         if not str(lastname).isalpha():
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Last Name is not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Last Name is not Valid"]})
         if not str(phone).isnumeric() and len(phone) == 10 and phone < 59999999999:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Invalid Phone Number is Entered"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Invalid Phone Number is Entered"]})
         if password != conf_pass:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Passwords Don't match"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Passwords Don't match"]})
         if len(password) == 0:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Please enter password"]})
         try:
             ouruser = User.objects.create_user(username=username, first_name=firstname, email=email, password=password,
                                                last_name=lastname)
-            newuser = Register(user=ouruser, phone=phone, level=level, language=language)
+            newuser = Register(user=ouruser, phone=phone, level=level, language=language,time_rem=1680)
             ouruser.save()
-            newuser.status = False
+            newuser.status = True
             newuser.save()
             lst = []
             visionlst=[]
@@ -134,7 +134,7 @@ def signup(request):
             newuser.quefulllist = json.dumps(lst)
             newuser.visionlst=json.dumps(visionlst)
             newuser.save()
-            return redirect('signin')
+            return HttpResponseRedirect(reverse('signin'))
         except Exception as e:
             return render(request, 'task2part2temp/signup1.html', {'msg': [f'User already exists {e}']})
     return render(request, 'task2part2temp/signup1.html')
@@ -159,11 +159,11 @@ def signin(request):
                     login(request, user)
                     getuser.status = False
                     getuser.save()
-                    return redirect('rendinst')
+                    return HttpResponseRedirect(reverse('rendinst'))
             except Exception as e:
-                return render(request, 'task2part2temp/signup1.html', {'msg': [f'Invalid Credentials! {e}'], 'user': getuser})
+                return render(request, 'task2part2temp/signup.html', {'msg': [f'Invalid Credentials! {e}'], 'user': getuser})
         except Exception as e:
-            return render(request, 'task2part2temp/signup1.html', {'msg': [f'Invalid Credentials! {e}']})
+            return render(request, 'task2part2temp/signup.html', {'msg': [f'Invalid Credentials! {e}']})
     return render(request, 'task2part2temp/signup.html')
 
 
@@ -183,7 +183,7 @@ def get_p_score(request):
             getuser.predicted_score=p_score
             getuser.save()
             return HttpResponseRedirect(reverse('success'))
-    except:
+    except Exception as e:
         return HttpResponseRedirect(reverse('success'))
 
 
@@ -453,7 +453,7 @@ def success(request):
             passlst[f"{j}"]=i
             j += 1'''
         getuser.save()
-        return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]],"passlst":passlst})
+        return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem,"passlst":passlst})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
     #return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
