@@ -64,33 +64,34 @@ def signup(request):
     if request.method == 'POST':
         data = request.POST
         username = data['username']
-        # firstname = data['firstname']
-        # lastname = data['lastname']
+        firstname = data['firstname']
+        lastname = data['lastname']
         email = data['email']
         phone = data['phone']
         password = data['password']
-        # conf_pass = data['confirm_password']
+        conf_pass = data['confirm_password']
         level = data['level']
-        # language = data['language']
+        language = data['language']
         regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
         regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         if not re.search(regexusername, username):
             return render(request, 'task2part2temp/signup.html', {'msg': ["Username is Not Valid"]})
         if not re.search(regexemail, email):
             return render(request, 'task2part2temp/signup.html', {'msg': ["Email ID is not Valid"]})
-        # if not str(firstname).isalpha():
-        #     return render(request, 'task2part2temp/signup.html', {'msg': ["First Name is not Valid"]})
-        # if not str(lastname).isalpha():
-        #     return render(request, 'task2part2temp/signup.html', {'msg': ["Last Name is not Valid"]})
+        if not str(firstname).isalpha():
+            return render(request, 'task2part2temp/signup.html', {'msg': ["First Name is not Valid"]})
+        if not str(lastname).isalpha():
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Last Name is not Valid"]})
         if not str(phone).isnumeric() and len(phone) == 10 and phone < 59999999999:
             return render(request, 'task2part2temp/signup.html', {'msg': ["Invalid Phone Number is Entered"]})
-        # if password != conf_pass:
-        #     return render(request, 'task2part2temp/signup.html', {'msg': ["Passwords Don't match"]})
+        if password != conf_pass:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Passwords Don't match"]})
         if len(password) == 0:
             return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password"]})
         try:
-            ouruser = User.objects.create_user(username=username, email=email, password=password)
-            newuser = Register(user=ouruser, phone=phone, level=level)
+            ouruser = User.objects.create_user(username=username, first_name=firstname, email=email, password=password,
+                                               last_name=lastname)
+            newuser = Register(user=ouruser, phone=phone, level=level, language=language)
             ouruser.save()
             newuser.status = False
             newuser.save()
@@ -132,12 +133,11 @@ def signup(request):
             newuser.quelist = json.dumps(lst)
             newuser.quefulllist = json.dumps(lst)
             newuser.visionlst=json.dumps(visionlst)
-            auth.login(request, ouruser)
             newuser.save()
-            return render(request, 'task2part2temp/instruction.html')
-        except:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["User already exists"]})
-    return render(request, 'task2part2temp/signup.html')
+            return redirect('signin')
+        except Exception as e:
+            return render(request, 'task2part2temp/signup1.html', {'msg': [f'User already exists {e}']})
+    return render(request, 'task2part2temp/signup1.html')
 
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
@@ -148,18 +148,23 @@ def signin(request):
         data = request.POST
         username = data['username']
         password = data['password']
+        email = data['email']
+        phone = data['phone']
+        level = data['level']
         user = authenticate(request, username=username, password=password)
         try:
-            getuser = Register.objects.get(user=user)
-            if user and getuser.status == True:
-                login(request, user)
-                getuser.status = False
-                getuser.save()
-                return HttpResponseRedirect(reverse('success'))
-            return render(request, 'task2part2temp/signin.html', {'msg': ['Invalid Credentials!'], 'user': getuser})
-        except:
-            return render(request, 'task2part2temp/signin.html', {'msg': ['Invalid Credentials!']})
-    return render(request, 'task2part2temp/signin.html')
+            try:
+                getuser = Register.objects.get(user=user)
+                if user and getuser.status == True:
+                    login(request, user)
+                    getuser.status = False
+                    getuser.save()
+                    return redirect('rendinst')
+            except Exception as e:
+                return render(request, 'task2part2temp/signup1.html', {'msg': [f'Invalid Credentials! {e}'], 'user': getuser})
+        except Exception as e:
+            return render(request, 'task2part2temp/signup1.html', {'msg': [f'Invalid Credentials! {e}']})
+    return render(request, 'task2part2temp/signup.html')
 
 
 def recfun(getuser):
