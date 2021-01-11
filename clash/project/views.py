@@ -18,13 +18,12 @@ app_name = 'project'
 number_of_questions = 12
 
 def checkspin(request):
-    flag=request.GET.get('flag')
+    flag=int(request.GET.get('flag'))
     getuser = Register.objects.get(user=request.user)
-    getuser.flag =0
+    getuser.flag =flag
     if getuser.spincount<=0:
         getuser.checkpoint=-1
-    flag=0
-    if int(flag)==2 and getuser.freezetimestart==None:
+    if flag==2 and getuser.freezetimestart==None:
         getuser.freezetimestart=timezone.now()
     getuser.spin_wheel=True
     getuser.spincount -= 1
@@ -35,7 +34,8 @@ def checkspin(request):
           "Unlucky! -8 + 4 for next 3 questions",
           "congrats you have no negative marks for next 3 questions",
           "Unlucky! u cannot spin here after",
-          "congrats you have +16-10 marking scheme fpr current question"]'''
+          "congrats you have +16-10 marking scheme fpr current question"]
+    '''
     data={'flag':int(flag),'useflag':getuser.flag,'flashblind':getuser.flashblind}
     # print(flag)
     return JsonResponse(data)
@@ -235,7 +235,7 @@ def success(request):
         time_diff = timezone.now() - getuser.user.last_login
         minute=getuser.extra_time//60
         second=getuser.extra_time%60
-        time_rem = datetime.timedelta(minutes=1+minute,seconds=second) - time_diff
+        time_rem = datetime.timedelta(minutes=28+minute,seconds=second) - time_diff
         total_seconds = time_rem.total_seconds()
         getuser.time_rem = int(total_seconds)
         getuser.save()
