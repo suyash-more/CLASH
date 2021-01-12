@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 import json
 from django.http import JsonResponse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,update_last_login
 from django.contrib import auth
 from .models import Register, Response, Questions
 from django.http import HttpResponseRedirect
@@ -12,7 +12,6 @@ import random
 import datetime
 from django.utils import timezone
 from collections import Counter
-#from django.views.decorators.cache import cache_control
 
 app_name = 'project'
 number_of_questions = 12
@@ -53,6 +52,12 @@ def check(request):
     return JsonResponse(data)
 
 def instruction(request):
+    # request_user, data = requests.get_parameters(request)
+    # user = request.get_user_by_username(data['username'])
+    # getuser = Register.objects.get(user=request.user)
+    # user=User.objects.filter(username=user.username).update(last_activity=timezone.now())
+    # print(request)
+    # update_last_login(None, user) 
     return HttpResponseRedirect(reverse('success'))
 
 def rendinst(request):
@@ -140,7 +145,6 @@ def signup(request):
     return render(request, 'task2part2temp/signup1.html')
 
 
-# @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
 
 def signin(request):
@@ -151,6 +155,19 @@ def signin(request):
         email = data['email']
         phone = data['phone']
         level = data['level']
+        regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
+        regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
+        levelst=['fe','se','te','be']
+        if level not in levelst:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Proper Level Not Selected"]})
+        if not re.search(regexusername, username):
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Username is Not Valid"]})
+        if not re.search(regexemail, email):
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Email ID is not Valid"]})
+        if not str(phone).isnumeric() and (len(phone) >= 10 or len(phone) <= 12) and phone < 59999999999:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Invalid Phone Number is Entered"]})
+        if len(password) == 0:
+            return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password"]})
         user = authenticate(request, username=username, password=password)
         try:
             try:
@@ -244,8 +261,6 @@ def success(request):
         seconds = int(total_seconds % 60)
         if getuser.progress>=100:
             getuser.freezebar=True
-        # if total_seconds <= 0:
-        #     return redirect('modal')
         msg2 = "TIME REMAINING  = " + str(minutes) + ":" + str(seconds)
         lst = json.loads(getuser.quelist)
         flst=json.loads(getuser.queflist)
@@ -263,7 +278,6 @@ def success(request):
                     msg3="congrats u won chance to reattempt a question"
                     try:
                         quenumber=request.POST['quenum']
-                        print(quenumber)  # take question number!
                         lst.append(flst[int(quenumber) - 1])  # 152
                         getuser.marks = 6  # 43
                     except:
