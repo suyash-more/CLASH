@@ -52,16 +52,7 @@ def check(request):
     return JsonResponse(data)
 
 def instruction(request):
-    # request_user, data = requests.get_parameters(request)
-    # user = request.get_user_by_username(data['username'])
-    # getuser = Register.objects.get(user=request.user)
-    # user=User.objects.filter(username=user.username).update(last_activity=timezone.now())
-    # print(request)
-    # update_last_login(None, user) 
     return HttpResponseRedirect(reverse('success'))
-
-def rendinst(request):
-    return render(request, 'task2part2temp/instruction.html')
 
 def signup(request):
     if request.user.is_authenticated and not request.user.is_superuser:
@@ -150,6 +141,7 @@ def signup(request):
 def signin(request):
     if request.method == 'POST':
         data = request.POST
+        # print(data)
         username = data['username']
         password = data['password']
         email = data['email']
@@ -174,9 +166,8 @@ def signin(request):
                 getuser = Register.objects.get(user=user)
                 if user and getuser.status == True:
                     login(request, user)
-                    getuser.status = False
                     getuser.save()
-                    return HttpResponseRedirect(reverse('rendinst'))
+                    return render(request, 'task2part2temp/instruction.html')
             except Exception as e:
                 return render(request, 'task2part2temp/signup.html', {'msg': [f'Invalid Credentials! {e}'], 'user': getuser})
         except Exception as e:
@@ -244,10 +235,23 @@ def visionise(request):
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
+def setlastlogintime(user,parentuser):
+    user.last_login=timezone.now()
+    user.save(update_fields=['last_login'])
+    parentuser.status=False
+    parentuser.save()
+
+
+def rendinst(request):
+    return render(request, 'task2part2temp/instruction.html')
+
+
 def success(request):
     try:
         msg3=""
         getuser = Register.objects.get(user=request.user)
+        if getuser.status:
+            setlastlogintime(request.user,getuser)
         getuser.logouttime = timezone.now()
         time_diff = timezone.now() - getuser.user.last_login
         minute=getuser.extra_time//60

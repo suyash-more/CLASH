@@ -58,11 +58,7 @@
                    <br>
                 <form action="{%url 'instruction'%}" method="post">
                     {% csrf_token %}
-                <div class="custom-control custom-checkbox">
-                   <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                  <label class="custom-control-label" for="customCheck">I have read the instructions carefully.</label>
-                  </div>
-                    <button class="button" >Proceed</button>
+                    <button type="submit" class="button" >Proceed</button>
                 </form>
 
               </div>
