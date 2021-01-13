@@ -120,7 +120,7 @@
                     <h2 id="marking" class="card-title">+4 | -2</h2>
                     {%endifequal%}
                     {%ifequal 2 user.marks%}
-                    <h2 id="marking" class="card-title">+2 | -1</h2>
+                    <h2 id="marking2" class="card-title">+2 | -1</h2>
                     {%endifequal%}
                     {%ifequal 3 user.marks%}
                     <h2 class="card-title">+4 | -8</h2>
@@ -551,14 +551,6 @@ window.onload = function () {
         });
 
     });
-</script>
-<script>
-    function logout_popout(){
-        if({{user.time_rem}}<=0){
-            $("#staticBackdrop").modal('show');
-        }
-    }
-    logout_popout();
 </script>
 
 </body>

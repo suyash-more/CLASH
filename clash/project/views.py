@@ -464,7 +464,7 @@ def success(request):
         if len(lst) == 0:
             getuser.logouttime = timezone.now()
             getuser.save()
-            return HttpResponseRedirect(reverse('modal'))
+            return HttpResponseRedirect(reverse('logout'))
         question = Questions.objects.get(pk=lst[-1])
         getuser.quelist = json.dumps(lst)
         getuser.queflist = json.dumps(flst)

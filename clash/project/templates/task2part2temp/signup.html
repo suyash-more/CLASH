@@ -65,7 +65,7 @@
                         <i class="fa fa-user icon"> </i>
 
                         <input type="text" id="search" spellcheck="false" placeholder="Username" name="username" required="required">
-                        <p class= "text-success user" style="  " id="message">user found</p>
+                        <p class= "text-success user" style="  " id="message"></p>
                     </div>
                     <div class="txtb">
                         <i class="fas fa-lock icon"></i>
@@ -147,10 +147,10 @@
                     },
                     success: function(data) {
                         if(data.is_taken) {
-                            $('#message').innerText("User Found");
+                            $('#message').html("<h6 style='color:green;'>User Found</h6>");
                             $('#submit').prop("disabled", false);
                         } else {
-                            $('#message').innerText("User Not Found");
+                            $('#message').html("<h6 style='color:red;'>User Not Found</h6>");
                             $('#submit').prop("disabled", true);
                         }
                     }

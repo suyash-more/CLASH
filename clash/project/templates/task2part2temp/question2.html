@@ -130,10 +130,10 @@
                             
                                 <div class="box">
                                     <select id="attempt1" name="attempt1">
-                                      <option value="{{question.option_A}}">{{question.option_A}}</option>
-                                      <option value="{{question.option_B}}">{{question.option_B}}</option>
-                                      <option value="{{question.option_C}}">{{question.option_C}}</option>
-                                      <option value="{{question.option_D}}">{{question.option_D}}</option>
+                                      <option value="{{question.option_A}}">Option A</option>
+                                      <option value="{{question.option_B}}">Option B</option>
+                                      <option value="{{question.option_C}}">Option C</option>
+                                      <option value="{{question.option_D}}">Option D</option>
                                     </select>
                                 </div>
                         </div>
@@ -147,10 +147,10 @@
                    <div class="card text-center" style="background-color:#1f2839;" >
                       <div class="box">
                           <select id="attempt2" name="attempt2">
-                              <option value="{{question.option_A}}">{{question.option_A}}</option>
-                              <option value="{{question.option_B}}">{{question.option_B}}</option>
-                              <option value="{{question.option_C}}">{{question.option_C}}</option>
-                              <option value="{{question.option_D}}">{{question.option_D}}</option>
+                              <option value="{{question.option_A}}">Option A</option>
+                              <option value="{{question.option_B}}">Option B</option>
+                              <option value="{{question.option_C}}">Option C</option>
+                              <option value="{{question.option_D}}">Option D</option>
                           </select>
                         </div>
                      </div>
@@ -184,79 +184,31 @@
 
 
         <script>
-            var Clock = (function () {
+            var freeze=0;
+            function startTimer(duration, display) {
+                var timer = {{time_rem}}, minutes, seconds;
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
 
-                var exports = function (element) {
-                    this._element = element;
-                    var html = '';
-                    for (var i = 0; i < 6; i++) {
-                        html += '<span>&nbsp;</span>';
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    if (freeze==0){
+                    display.textContent = minutes + ":" + seconds;}
+
+
+
+                    if (--timer < 0) {
+                        timer = duration;
                     }
-                    this._element.innerHTML = html;
-                    this._slots = this._element.getElementsByTagName('span');
-                    this._tick();
-                };
-
-                exports.prototype = {
-
-                    _tick: function () {
-                        var time = new Date();
-                        this._update(this._pad(time.getHours()) + this._pad(time.getMinutes()) + this._pad(time.getSeconds()));
-                        var self = this;
-                        setTimeout(function () {
-                            self._tick();
-                        }, 1000);
-                    },
-
-                    _pad: function (value) {
-                        return ('0' + value).slice(-2);
-                    },
-
-                    _update: function (timeString) {
-
-                        var i = 0, l = this._slots.length, value, slot, now;
-                        for (; i < l; i++) {
-
-                            value = timeString.charAt(i);
-                            slot = this._slots[i];
-                            now = slot.dataset.now;
-
-                            if (!now) {
-                                slot.dataset.now = value;
-                                slot.dataset.old = value;
-                                continue;
-                            }
-
-                            if (now !== value) {
-                                this._flip(slot, value);
-                            }
-                        }
-                    },
-
-                    _flip: function (slot, value) {
-
-                        // setup new state
-                        slot.classList.remove('flip');
-                        slot.dataset.old = slot.dataset.now;
-                        slot.dataset.now = value;
-
-                        // force dom reflow
-                        slot.offsetLeft;
-
-                        // start flippin
-                        slot.classList.add('flip');
-
-                    }
-
-                };
-
-                return exports;
-            }());
-
-            var i = 0, clocks = document.querySelectorAll('.clock'), l = clocks.length;
-            for (; i < l; i++) {
-                new Clock(clocks[i]);
+                }, 1000);
             }
+
+            window.onload = function () {
+                var fiveMinutes = {{time_rem}},
+                    display = document.querySelector('#time');
+                startTimer(fiveMinutes, display);
+            };
         </script>
         <!-- <script>
     $(".dropdown-menu li a").click(function(){
