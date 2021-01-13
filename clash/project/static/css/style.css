@@ -153,24 +153,8 @@ visibility: visible;
 	font-size: 1.5rem;
 	line-height:1.375;
 }
-.clock:before,
-.clock:after {
-	position:absolute;
-	top:0;
-	bottom:0;
-	content:':';
-	z-index:2;
-	line-height:1.15;
-	color:white;
-}
 
-.clock:before {
-	left:2.325em;
-}
 
-.clock:after {
-	right:2.325em;
-}
 
 .clock span {
 	position:relative;
