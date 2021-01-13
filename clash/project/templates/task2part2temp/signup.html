@@ -38,7 +38,7 @@
                 src="{% static '/images/logo pisb_2.png' %}" id="pisblogo" class="d-inline-block align-top" width="115px" height="40px"  alt="PISB logo"> </a>
     </ul>
     </nav>
-    <div class="section section-eyeball" style="padding:0;background:#b69d74;">
+    <div class="section section-eyeball" style="padding:0;background-image: #B69D74;background-image: radial-gradient(circle, #ede7dd 0%, #c4b08f 70%, #B69D74 100%);">
         <div class="container eye-ball">
 
             <div class="login-bg">
@@ -57,7 +57,7 @@
                 <!-- Start of login form -->
 
                 <form action="{% url 'signin' %}" method="post" class="login-form" style="
-                margin-top: 20px;">
+                margin-top: 4vh;">
                     {% csrf_token %}
                     <h2 style="color:white; ">Clash Login</h2>
                     <div class="txtb">
@@ -65,7 +65,7 @@
                         <i class="fa fa-user icon"> </i>
 
                         <input type="text" id="search" spellcheck="false" placeholder="Username" name="username" required="required">
-
+                        <p class= "text-success user" style="  " id="message">user found</p>
                     </div>
                     <div class="txtb">
                         <i class="fas fa-lock icon"></i>
@@ -85,8 +85,8 @@
 
                     </div>
                     <div class="form-grp">
-                        <input type="radio" id="junior" name="level" value="fe" class="buton">
-                        <label for="Junior" style="margin-right:20px; font-weight:normal;">FE</label>
+                        <input type="radio" id="junior" name="level" value="fe" class="buton" required="required" checked="checked">
+                        <label for="Junior" style="margin-right:2vh; font-weight:normal;">FE</label>
 
                         <input type="radio" id="senior" name="level" value="se" class="buton">
                         <label for="senior" style="font-weight:normal;">SE</label>
@@ -112,6 +112,51 @@
     <script>
         $(document).ready(function () {
             $(".w-webflow-badge").removeClass("w-webflow-badge").empty();
+        });
+    </script>
+
+    <div class="area" >
+    <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+    </ul>
+    </div >
+    <script>
+    
+    $(document).ready(function() {
+            let delayTimer;
+            $('input#search').keyup(function() {
+                clearTimeout(delayTimer);
+                let name = $(this).val();
+                delayTimer=setTimeout(function(){
+                $.ajax({
+                    method: 'GET',
+                    url: 'http://127.0.0.1:8000/getrequest/',
+                    dataType: 'json',
+                    data : {
+                        'name':name
+                    },
+                    success: function(data) {
+                        if(data.is_taken) {
+                            $('#message').innerText("User Found");
+                            $('#submit').prop("disabled", false);
+                        } else {
+                            $('#message').innerText("User Not Found");
+                            $('#submit').prop("disabled", true);
+                        }
+                    }
+                });
+                }, 1000);
+            });
         });
     </script>
 </body>

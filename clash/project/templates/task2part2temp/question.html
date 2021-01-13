@@ -117,10 +117,10 @@
             <div class="card text-center" style="background-color:#1f2839;">
                 <div class="card-body" style="color:white;">
                     {%ifequal 1 user.marks%}
-                    <h2 class="card-title">+4 | -2</h2>
+                    <h2 id="marking" class="card-title">+4 | -2</h2>
                     {%endifequal%}
                     {%ifequal 2 user.marks%}
-                    <h2 class="card-title">+2 | -1</h2>
+                    <h2 id="marking" class="card-title">+2 | -1</h2>
                     {%endifequal%}
                     {%ifequal 3 user.marks%}
                     <h2 class="card-title">+4 | -8</h2>
@@ -320,7 +320,7 @@
 <script>
 
 
-
+var freeze=0;
 function startTimer(duration, display) {
     var timer = {{time_rem}}, minutes, seconds;
     setInterval(function () {
@@ -329,8 +329,10 @@ function startTimer(duration, display) {
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
+        if (freeze==0){
+        display.textContent = minutes + ":" + seconds;}
+    
+        
 
         if (--timer < 0) {
             timer = duration;
@@ -512,14 +514,17 @@ window.onload = function () {
                         else if(data.flag==2)
                         {
                             alert("congrats ur time is freezed for current question");
+                            freeze=1
                         }
                         else if(data.flag==3)
                         {
                             alert("Unlucky! -8 + 4 for next 3 questions");
+                            document.getElementById("marking").innerHTML = "+4 | -8";
                         }
                         else if(data.flag==4)
                         {
-                            alert("congrats you have no negative marks for next 3 questions");
+                            alert("congrats you have no negative marks for next 3 questions");4
+                            document.getElementById("marking").innerHTML = "+4 | -0";
                         }
                         else if(data.flag==5)
                         {
@@ -528,6 +533,7 @@ window.onload = function () {
                         else if(data.flag==6)
                         {
                             alert("congrats you have +16-10 marking scheme for current question");
+                            document.getElementById("marking").innerHTML = "+16 | -10";
                         }
                     }
                 });
