@@ -320,8 +320,15 @@ def success(request):
                     recfun(getuser)
         if getuser.getassured == True:
             pre_question = Questions.objects.get(pk=lst[-1])
-            user_input1 = request.POST['attempt1']
-            user_input2 = request.POST['attempt2']
+            user_input1,user_input2=0,0
+            try:
+                user_input1 = request.POST['attempt1']
+            except Exception as e:
+                print(e)
+            try:
+                user_input2 = request.POST['attempt2']
+            except Exception as e:
+                print(e)
             # print(user_input1, user_input2)
             getuser.freezebar = False
             if pre_question.correct_answer == user_input1:
@@ -330,6 +337,11 @@ def success(request):
                     getuser.marks = 1
                     getuser.correct_answered += 1
             else:
+                # if getuser.get_chance:
+                #     getuser.get_chance=False
+                #     getuser.getassured = True
+                #     getuser.save()
+                #     return HttpResponseRedirect(reverse('getassured'))
                 if pre_question.correct_answer == user_input2:
                     score = +0
                     getuser.marks = 1

@@ -67,9 +67,14 @@
                         Do you really want to Log out?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light mybtn">Yes</button>
+                        <a href="{%url 'logout'%}"><button type="button" class="btn btn-light mybtn">Yes</button></a>
                         <button type="button" class="btn btn-light mybtn" data-dismiss="modal">No</button>
-                        <button type="button" class="btn btn-light mybtn" id="visionise_button">Visionise</button>
+                        <form action="{%url 'visionise'%}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" name='submit' id="visionise_button" class="btn mybtn btn-light">
+                            Visionise
+                        </button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -122,7 +127,7 @@
                     {%csrf_token%}
                 <div class="d-flex justify-content-between align-items-center dropdown " style="margin:20px; height:100px;">
 
-                    <div class="dropdown">
+                    <div class="dropdown" id="dropdown1">
                         <div class="card-header text-center" style="background-color: #f5f5ef; font-weight:bolder;">
                             Attempt 1
                            </div>
@@ -140,7 +145,7 @@
                     </div>
 
 
-                    <div class="dropdown">
+                    <div class="dropdown" id="dropdown2">
                     <div class="card-header text-center" style="background-color: #f5f5ef;font-weight:bolder;margin-top:1.2em">
                       Attempt 2
                      </div>
@@ -224,6 +229,41 @@
                 }
             }
             vision_button();
+    </script>
+    <script>
+<!--        $(function () {-->
+<!--        if({{user.get_chance}}){-->
+<!--    var sel_imie = $('select[name="dropdown2"]');-->
+<!--    sel_imei.prop('disabled', true); //disable IMEI select-->
+<!--    $('select[name ="city"]').change(function () {-->
+<!--        sel_imei.prop('disabled', false); //enable when value of city select is changed-->
+<!--    });}-->
+<!--    else{-->
+<!--    var sel_imie = $('select[name="dropdown1"]');-->
+<!--    sel_imei.prop('disabled', true); //disable IMEI select-->
+<!--    $('select[name ="city"]').change(function () {-->
+<!--        sel_imei.prop('disabled', false); //enable when value of city select is changed-->
+<!--    });-->
+<!--    }-->
+<!--});-->
+    </script>
+    <script>
+
+function getassured(){
+if({{user.get_chance}}){
+$("#dropdown2").attr("disabled", "disabled").off('click');
+<!--dropdown1=document.getElementById("dropdown1");-->
+<!--dropdown2=document.getElementById("dropdown2");-->
+<!--dropdown2.children().off('click');-->
+}
+else{
+$("#dropdown1").attr("disabled", "disabled").off('click');
+<!--dropdown1=document.getElementById("dropdown1");-->
+<!--dropdown2=document.getElementById("dropdown2");-->
+<!--dropdown1.children().off('click');-->
+}
+
+}
     </script>
 <script>
 

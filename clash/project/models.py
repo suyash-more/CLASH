@@ -39,6 +39,7 @@ class Register(models.Model):  # extended user model
     logouttime = models.DateTimeField(blank=True, null=True,default=None)
     extra_time=models.IntegerField(default=0)
     time_rem=models.IntegerField(default=1680)
+    #get_chance=models.BooleanField(default=True)
     queflist=models.TextField(max_length=255, default="[]")
     quefulllist = models.TextField(max_length=255, default="[]")
     visionlst=models.TextField(max_length=255,default="[]")
