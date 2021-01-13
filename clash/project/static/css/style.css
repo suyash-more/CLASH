@@ -74,6 +74,12 @@ textarea:focus{
   
 }
 
+.predictedbtn:focus, .predictedbtn:active {
+    outline: none !important;
+    box-shadow: none !important;
+    
+  }
+
 .step .line {
     top: 60px;
   left: 30px;

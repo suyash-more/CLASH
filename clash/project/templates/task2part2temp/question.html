@@ -149,7 +149,7 @@
 
             <div class="card-header text-center" style="background-color: #f5f5ef;margin-top:1.2em">
 
-                 <button type="submit" class="predictbtn" id="p_score" style="border:none;font-weight:bolder;color: #212529">Predicted Score</button>
+                 <button type="submit" class="predictedbtn animated hinge infinite zoomIn" id="p_score" style="border:none;font-weight:bolder;color: #212529">Predicted Score</button>
 
             </div>
             <div class="card text-center" style="background-color:#1f2839;">
@@ -443,8 +443,10 @@ window.onload = function () {
 
             function p_score(){
                 if({{user.predicted_score}}!=0 || {{user.time_rem}}<1380){
+                    pbutton=document.getElementById("p_score");
                     $('#predicted_score').hide();
                     $('#p_score_button').hide();
+                    pbutton.className="predictedbtn";
                 }
             }
             p_score();
