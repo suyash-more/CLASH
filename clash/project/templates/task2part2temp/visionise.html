@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse justify justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item fromLeft active">
-                    <a class="nav-link active" href="{%url 'rendinst'%}" style="color: white;">Instruction <span
+                    <a class="nav-link active" href="{%url 'rendinst'%}" style="color: white;">Instructions<span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ">
@@ -192,7 +192,7 @@
                     </div>
                 </div>
 
-                        <div class="" id="que3" style="height:115px;">
+                        <div class="" id="que3" style="height:auto;">
                         <div class="v-stepper">
                             <div class="circle">
                                 <i class="" id="que3_tick"></i>
@@ -205,7 +205,14 @@
                     </div>
                     <form action="{% url 'logout' %} " method="post">
                         {%csrf_token%}
+                        
+                        <div class="row mt-2" >
+                            <div class="col-md-12">
+                                <div class="d-flex align-items-center " style="height:7vh">
                     <button type="submit" id="skip_button" style="background-color:#f5f5ef; color:black" class="btn mybtn btn-lg">Skip</button>
+                                </div>
+                                 </div>
+                             </div>
                     </form>
             </div>
         </div>
