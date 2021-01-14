@@ -450,11 +450,12 @@ function occur_Click(){
                 }
             }
             checkbutton();
-
+            $('#p_score').prop("disabled", false);
             function p_score(){
                 if({{user.predicted_score}}!=0 || {{user.time_rem}}<1380){
                     pbutton=document.getElementById("p_score");
                     $('#p_score').prop("disabled", true);
+                    pbutton.disabled=true;
                     pbutton.className="predictedbtn";
                 }
             }
@@ -473,15 +474,6 @@ function occur_Click(){
             $('#spin_button').click(function(){
                 $('#get_assured').prop("disabled", true);
             });
-
-            $('#p_score').prop("disabled", true);
-            function predict_button(){
-                if({{user.time_rem}}>1380){
-                    $('#p_score').prop("disabled", false);
-                }
-            }
-
-            predict_button();
 
 
             function no_button(){
