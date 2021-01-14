@@ -44,7 +44,7 @@
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#"
+                    <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#" id="logoutcall"
                         style="color:white">Log out</a>
                 </li>
                 <li class="nav-item">
@@ -67,8 +67,8 @@
                         Do you really want to Log out?
                     </div>
                     <div class="modal-footer">
-                        <a href="{%url 'logout'%}"><button type="button" class="btn btn-light mybtn">Yes</button></a>
-                        <button type="button" class="btn btn-light mybtn" data-dismiss="modal">No</button>
+                        <a href="{%url 'logout'%}"><button type="button" class="btn btn-light mybtn" id="log_button">Yes</button></a>
+                        <button type="button" class="btn btn-light mybtn" data-dismiss="modal" id="no-button">No</button>
                         <form action="{%url 'visionise'%}" method="post">
                         {% csrf_token %}
                         <button type="submit" name='submit' id="visionise_button" class="btn mybtn btn-light">
@@ -192,7 +192,7 @@
             var freeze=0;
             function startTimer(duration, display) {
                 var timer = {{time_rem}}, minutes, seconds;
-                setInterval(function () {
+                let newtimer=setInterval(function () {
                     minutes = parseInt(timer / 60, 10);
                     seconds = parseInt(timer % 60, 10);
 
@@ -205,6 +205,15 @@
 
                     if (--timer < 0) {
                         timer = duration;
+                        if({{user.predicted_score}}>=total_score+5 || {{user.predicted_score}}<=total_score-5){
+                            logoutbutton=document.getElementById("logoutcall");
+                            logoutbutton.onclick=occur_Click3();
+                        }
+                        press_button=document.getElementById("log_button");
+                        press_button.onclick=occur_Click2();
+                        clearTimeout(newtimer);
+                        nobutton=document.getElementById("no-button");
+                        nobutton.disabled=true;
                     }
                 }, 1000);
             }
@@ -230,41 +239,7 @@
             }
             vision_button();
     </script>
-    <script>
-<!--        $(function () {-->
-<!--        if({{user.get_chance}}){-->
-<!--    var sel_imie = $('select[name="dropdown2"]');-->
-<!--    sel_imei.prop('disabled', true); //disable IMEI select-->
-<!--    $('select[name ="city"]').change(function () {-->
-<!--        sel_imei.prop('disabled', false); //enable when value of city select is changed-->
-<!--    });}-->
-<!--    else{-->
-<!--    var sel_imie = $('select[name="dropdown1"]');-->
-<!--    sel_imei.prop('disabled', true); //disable IMEI select-->
-<!--    $('select[name ="city"]').change(function () {-->
-<!--        sel_imei.prop('disabled', false); //enable when value of city select is changed-->
-<!--    });-->
-<!--    }-->
-<!--});-->
-    </script>
-    <script>
 
-function getassured(){
-if({{user.get_chance}}){
-$("#dropdown2").attr("disabled", "disabled").off('click');
-<!--dropdown1=document.getElementById("dropdown1");-->
-<!--dropdown2=document.getElementById("dropdown2");-->
-<!--dropdown2.children().off('click');-->
-}
-else{
-$("#dropdown1").attr("disabled", "disabled").off('click');
-<!--dropdown1=document.getElementById("dropdown1");-->
-<!--dropdown2=document.getElementById("dropdown2");-->
-<!--dropdown1.children().off('click');-->
-}
-
-}
-    </script>
 <script>
 
 
@@ -281,10 +256,19 @@ $("#dropdown1").attr("disabled", "disabled").off('click');
             display.textContent = minutes + ":" + seconds;}
         
             
-    
+    let total_score={{user.total_score}}
             if (--timer < 0) {
-                timer = duration;
+            timer = duration;
+            if({{user.predicted_score}}>=total_score+5 || {{user.predicted_score}}<=total_score-5){
+                    logoutbutton=document.getElementById("logoutcall");
+                    logoutbutton.onclick=occur_Click3();
             }
+            press_button=document.getElementById("log_button");
+            press_button.onclick=occur_Click2();
+            nobutton=document.getElementById("no-button");
+             nobutton.disabled=true;
+            clearTimeout(newtimer);
+        }
         }, 1000);
     }
     
@@ -294,7 +278,14 @@ $("#dropdown1").attr("disabled", "disabled").off('click');
         startTimer(fiveMinutes, display);
     };
       </script>
-    
+    <script>
+function occur_Click2(){
+    document.getElementById("log_button").click();
+}
+function occur_Click3(){
+    document.getElementById("logoutcall").click();
+}
+</script>
 
 </body>
 

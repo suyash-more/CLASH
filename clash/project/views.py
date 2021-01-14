@@ -320,7 +320,7 @@ def success(request):
                     recfun(getuser)
         if getuser.getassured == True:
             pre_question = Questions.objects.get(pk=lst[-1])
-            user_input1,user_input2=0,0
+            user_input1,user_input2="no_answer","no_answer"
             try:
                 user_input1 = request.POST['attempt1']
             except Exception as e:
@@ -331,23 +331,28 @@ def success(request):
                 print(e)
             # print(user_input1, user_input2)
             getuser.freezebar = False
+            if getuser.get_chance==1:
+                user_input2="no_answer"
+            if getuser.get_chance==2:
+                user_input1="no_answer"
             if pre_question.correct_answer == user_input1:
-                if pre_question.correct_answer == user_input1:
-                    score = 10
-                    getuser.marks = 1
-                    getuser.correct_answered += 1
+                score = 10
+                getuser.marks = 1
+                getuser.correct_answered += 1
+                getuser.get_chance+=1
+                getuser.save()
+            elif pre_question.correct_answer == user_input2:
+                score = 8
+                getuser.marks = 1
             else:
-                # if getuser.get_chance:
-                #     getuser.get_chance=False
-                #     getuser.getassured = True
-                #     getuser.save()
-                #     return HttpResponseRedirect(reverse('getassured'))
-                if pre_question.correct_answer == user_input2:
-                    score = +0
-                    getuser.marks = 1
-                else:
-                    score = -18
-                    getuser.marks = 2
+                score = -18
+                getuser.marks = 2
+            if not getuser.get_chance==2:
+                getuser.get_chance=1
+                getuser.save()
+                return HttpResponseRedirect(reverse("getassured"))
+
+            getuser.get_chance=0
             getuser.progress = 0
             respo = Response(question=pre_question, user=getuser.user,
                              selected_answer=user_input1, score=score)
@@ -520,6 +525,7 @@ def getassured(request):
     lst = json.loads(getuser.quelist)
     question = Questions.objects.get(pk=lst[-1])
     getuser.getassured = True
+    getuser.get_chance+=1
     getuser.save()
     return render(request, 'task2part2temp/question2.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem})
 

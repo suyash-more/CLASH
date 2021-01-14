@@ -58,8 +58,8 @@
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#"
-                        style="color:white">Log out</a>
+                    <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#" id=""log_button"
+                       style="color:white">Log out</a>
                 </li>
 
                 <li class="nav-item">
@@ -82,8 +82,8 @@
                         Do you really want to Log out?
                     </div>
                     <div class="modal-footer d-flex justify-content-start">
-                        <a href="{%url 'logout'%}"><button type="button" class="btn btn-light mybtn">Yes</button></a>
-                        <button type="button" class="btn btn-light mybtn" data-dismiss="modal">No</button>
+                        <a href="{%url 'logout'%}"><button type="button" id="logoutcall" class="btn btn-light mybtn">Yes</button></a>
+                        <button type="button" class="btn btn-light mybtn" data-dismiss="modal" id="no-button">No</button>
                     </div>
                 </div>
             </div>
@@ -238,7 +238,7 @@
         var freeze=0;
         function startTimer(duration, display) {
             var timer = {{time_rem}}, minutes, seconds;
-            setInterval(function () {
+            let newtimer=setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
 
@@ -251,6 +251,10 @@
 
                 if (--timer < 0) {
                     timer = duration;
+                    logoutbutton=document.getElementById("logoutcall");
+                    logoutbutton.onclick=occur_Click3();
+                    nobutton=document.getElementById("no-button");
+                    nobutton.disabled=true;
                 }
             }, 1000);
         }
@@ -261,7 +265,14 @@
             startTimer(fiveMinutes, display);
         };
     </script>
-
+<script>
+function occur_Click2(){
+    document.getElementById("log_button").click();
+}
+function occur_Click3(){
+    document.getElementById("logoutcall").click();
+}
+</script>
 <script>
 $('#skip_button').prop("disabled",true);
     function end()
