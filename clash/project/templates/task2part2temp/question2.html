@@ -82,7 +82,7 @@
 
     </nav>
 
-    <div class="container-fluid ">
+    <div class="container-fluid centered-layout">
         <div class="row mt-2 myrow">
             <div class="col-12 col-md-2 mt-3 d-flex flex-column">
                 <div class="card-header text-center" style="background-color: #f5f5ef; font-weight:bolder;">
@@ -90,7 +90,7 @@
                   </div>
                 <div class="card text-center" style="background-color:#1f2839;" >
                     <div class="card-body" style="color:white;">
-                      <h5 class="card-title">+10 | -8</h5>
+                      <h3 class="card-title">+10 | -8</h3>
                     </div>
                 </div>
 
@@ -99,7 +99,7 @@
                    </div>
                 <div class="card text-center" style="background-color:#1f2839;" >
                      <div class="card-body" style="color:white;">
-                       <h5 class="card-title">+8 | -10</h5>
+                       <h3 class="card-title">+8 | -10</h3>
                      </div>
                 </div>
 
@@ -109,7 +109,7 @@
                     </div>
                 <div class="card text-center" style="background-color:#1f2839;" >
                      <div class="card-body" style="color:white;">
-                       <h5 class="card-title">{{user.total_score}}</h5>
+                       <h3 class="card-title">{{user.total_score}}</h3>
                      </div>
                 </div>
 
@@ -125,7 +125,7 @@
                 </div>
                 <form action="{% url 'success' %}" method="post">
                     {%csrf_token%}
-                <div class="d-flex justify-content-between align-items-center dropdown " style="margin:20px; height:100px;">
+                <div class="d-flex justify-content-around align-items-center dropdown " style="margin-top:40px; height:100px;">
 
                     <div class="dropdown" id="dropdown1">
                         <div class="card-header text-center" style="background-color: #f5f5ef; font-weight:bolder;">
