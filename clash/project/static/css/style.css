@@ -464,16 +464,13 @@ p {
           animation-name: zoomIn;
 }
 
-.btn-one {
-  color: #FFF;
-}
 
 .card{
     height:76px;
  
   }
 
-  @media(min-height:900px){
+  @media(min-height:950px){
     .centered-layout{
       margin-top: 5vh;
     }
