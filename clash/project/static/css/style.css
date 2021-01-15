@@ -476,4 +476,19 @@ p {
     }
   }
 
+ .btn.disabled, .btn:disabled {
+    opacity: .85;
+}
+
+.progress-text{
+  color:black;
+  word-spacing: 10px;
+  font-weight:bolder; 
+  font-family: 'Noto Sans JP', sans-serif; 
+  letter-spacing:2px; left:50%;  
+  position:absolute; 
+  padding-top:7px;
+  z-index:-1;
+	
+}
 
