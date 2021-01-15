@@ -18,7 +18,7 @@ number_of_questions = 12
 
 
 def checkspin(request):
-    flag = 0#int(request.GET.get('flag'))
+    flag = int(request.GET.get('flag'))
     getuser = Register.objects.get(user=request.user)
     getuser.flag = flag
     if getuser.spincount <= 0:
