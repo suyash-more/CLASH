@@ -227,6 +227,7 @@ def visionise(request):
                 respo.save()
                 getuser.total_score += respo.score
                 vislst.pop()
+            getuser.save()
             if len(vislst) == 0:
                 return HttpResponseRedirect(reverse('logout'))
             getuser.visionlst = json.dumps(vislst)
@@ -347,7 +348,7 @@ def success(request):
             else:
                 score = -18
                 getuser.marks = 2
-            if not getuser.get_chance==2:
+            if not getuser.get_chance>=2:
                 getuser.get_chance=1
                 getuser.save()
                 return HttpResponseRedirect(reverse("getassured"))
@@ -525,6 +526,10 @@ def getassured(request):
     lst = json.loads(getuser.quelist)
     question = Questions.objects.get(pk=lst[-1])
     getuser.getassured = True
+    print(request.method)
+    if getuser.get_chance==1 and request.method=="POST":
+        return render(request, 'task2part2temp/question2.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem})
+    #if request.method
     getuser.get_chance+=1
     getuser.save()
     return render(request, 'task2part2temp/question2.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem})
