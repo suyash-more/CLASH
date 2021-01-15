@@ -82,6 +82,8 @@
 
     </nav>
 
+    <div class="spacing"></div>
+
     <div class="container-fluid centered-layout">
         <div class="row mt-2 myrow">
             <div class="col-12 col-md-2 mt-3 d-flex flex-column">
@@ -224,12 +226,18 @@
                 startTimer(fiveMinutes, display);
             };
         </script>
-        <!-- <script>
-    $(".dropdown-menu li a").click(function(){
-  $(this).parents(".dropdown").find('.btn').html($(this).text() + '<span class="caret"></span>');
-  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-});
-        </script> -->
+        <script>
+        dropdown11=document.getElementById("attempt1");
+        dropdown22=document.getElementById("attempt2")
+        if({{user.get_chance}}==1)
+        {
+            dropdown22.disabled=true;
+        }
+        if({{user.get_chance}}==2)
+        {
+            dropdown11.disabled=true;
+        }
+        </script>
     <script>
         $('#visionise_button').prop("disabled", true);
             function vision_button(){

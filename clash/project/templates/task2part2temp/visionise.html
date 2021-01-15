@@ -53,10 +53,6 @@
 
         <div class="collapse navbar-collapse justify justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item fromLeft active">
-                    <a class="nav-link active" href="{%url 'rendinst'%}" style="color: white;">Instructions<span
-                            class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item ">
                     <a class="nav-link  nav-right" data-target="#staticBackdrop" data-toggle="modal" href="#" id=""log_button"
                        style="color:white">Log out</a>
@@ -90,7 +86,7 @@
         </div>
 
     </nav>
-
+<div class="spacing"></div>
 
 
     <div class="container-fluid centered-layout">
@@ -296,7 +292,7 @@ $('#skip_button').prop("disabled",true);
     let que2_tick=document.getElementById("que2_tick");
     let que3_tick=document.getElementById("que3_tick");
 
-    buttonshow<=3?que1_tick.className+="fas fa-check icon":que1_tick.className+="";
+    buttonshow<3?que1_tick.className+="fas fa-check icon":que1_tick.className+="";
     buttonshow<2?que2_tick.className+="fas fa-check icon":que2_tick.className+="";
     buttonshow<1?que3_tick.className+="fas fa-check icon":que3_tick.className+="";
 

@@ -18,7 +18,7 @@ number_of_questions = 12
 
 
 def checkspin(request):
-    flag = int(request.GET.get('flag'))
+    flag = 0#int(request.GET.get('flag'))
     getuser = Register.objects.get(user=request.user)
     getuser.flag = flag
     if getuser.spincount <= 0:
@@ -74,19 +74,19 @@ def signup(request):
         regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
         regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         if not re.search(regexusername, username):
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["Username is Not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "Username is Not Valid"})
         if not re.search(regexemail, email):
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["Email ID is not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "Email ID is not Valid"})
         if not str(firstname).isalpha():
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["First Name is not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "First Name is not Valid"})
         if not str(lastname).isalpha():
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["Last Name is not Valid"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "Last Name is not Valid"})
         if not str(phone).isnumeric() and len(phone) == 10 and phone < 59999999999:
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["Invalid Phone Number is Entered"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "Invalid Phone Number is Entered"})
         if password != conf_pass:
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["Passwords Don't match"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "Passwords Don't match"})
         if len(password) == 0:
-            return render(request, 'task2part2temp/signup1.html', {'msg': ["Please enter password"]})
+            return render(request, 'task2part2temp/signup1.html', {'msg': "Please enter password"})
         try:
             ouruser = User.objects.create_user(username=username, first_name=firstname, email=email, password=password,
                                                last_name=lastname)
@@ -136,8 +136,8 @@ def signup(request):
             newuser.save()
             return HttpResponseRedirect(reverse('signin'))
         except Exception as e:
-            return render(request, 'task2part2temp/signup1.html', {'msg': [f'User already exists {e}']})
-    return render(request, 'task2part2temp/signup1.html')
+            return render(request, 'task2part2temp/signup1.html', {'msg': 'User already exists..!!'})
+    return render(request, 'task2part2temp/signup1.html',{'msg':""})
 
 
 def signin(request):
@@ -153,15 +153,15 @@ def signin(request):
         regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         levelst = ['fe', 'se', 'te', 'be']
         if level not in levelst:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Proper Level Not Selected"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Proper Level Not Selected"})
         if not re.search(regexusername, username):
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Username is Not Valid"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Username is Not Valid"})
         if not re.search(regexemail, email):
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Email ID is not Valid"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Email ID is not Valid"})
         if not str(phone).isnumeric() and (len(phone) >= 10 or len(phone) <= 12) and phone < 59999999999:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Invalid Phone Number is Entered"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Invalid Phone Number is Entered"})
         if len(password) == 0:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Please enter password"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Please enter password"})
         user = authenticate(request, username=username, password=password)
         try:
             try:
@@ -171,9 +171,9 @@ def signin(request):
                     getuser.save()
                     return render(request, 'task2part2temp/instruction.html')
             except Exception as e:
-                return render(request, 'task2part2temp/signup.html', {'msg': [f'Invalid Credentials! {e}'], 'user': getuser})
+                return render(request, 'task2part2temp/signup.html', {'msg': 'Invalid Credentials..!!', 'user': getuser})
         except Exception as e:
-            return render(request, 'task2part2temp/signup.html', {'msg': [f'Invalid Credentials! {e}']})
+            return render(request, 'task2part2temp/signup.html', {'msg': 'Invalid Credentials..!!'})
     return render(request, 'task2part2temp/signup.html')
 
 
@@ -210,7 +210,7 @@ def visionise(request):
         if total_seconds <= 0:
             return redirect('logout')
         if not getuser.user.is_authenticated:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Login first..!!"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Login first..!!"})
         if request.method == 'GET' and getuser.user.is_authenticated:
             pass
         if request.method == "POST":
@@ -234,7 +234,7 @@ def visionise(request):
             getuser.save()
             return render(request, 'task2part2temp/visionise.html', {'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]], 'buttonshow': len(json.loads(getuser.visionlst)), 'mks': getuser.total_score//5, 'time_rem': getuser.time_rem})
     except Exception as e:
-        return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
+        return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
@@ -274,7 +274,7 @@ def success(request):
         lst = json.loads(getuser.quelist)
         flst = json.loads(getuser.queflist)
         if not getuser.user.is_authenticated:
-            return render(request, 'task2part2temp/signup.html', {'msg': ["Login first..!!"]})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Login first..!!"})
         if request.method == 'GET' and getuser.user.is_authenticated:
             pass
         if (getuser.total_score % getuser.checkpoint == 0) and getuser.spin_wheel == True:
@@ -498,7 +498,7 @@ def success(request):
         getuser.save()
         return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem, "passlst": passlst})
     except Exception as e:
-        return render(request, 'task2part2temp/signin.html', {'msg': [f'Login First ..!! {e}']})
+        return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
     # return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
@@ -515,9 +515,9 @@ def userlogout(request):
         getuser.extra_time = 0
         getuser.save()
         logout(request)
-        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': ['Quiz Finished'], 'ques_answered': len(json.loads(getuser.queflist))})
+        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': 'Quiz Finished', 'ques_answered': len(json.loads(getuser.queflist))})
     except:
-        return render(request, 'task2part2temp/signup.html', {'msg': ['You need To Login/Register First :)']})
+        return render(request, 'task2part2temp/signup.html', {'msg': 'You need To Login/Register First :)'})
 
 
 def getassured(request):

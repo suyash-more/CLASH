@@ -60,6 +60,14 @@
                 margin-top: 4vh;">
                     {% csrf_token %}
                     <h2 style="color:white; ">Clash Login</h2>
+                    {% comment %} {{#ifEquals {{msg}} "rrr"}}
+                        
+                    {{/ifEquals}} {% endcomment %}
+                    <div id="alertmsg"></div>
+                    {% comment %} <div class="alert alert-danger text-center">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{msg}}
+                    </div> {% endcomment %}
                     <div class="txtb">
 
                         <i class="fa fa-user icon"> </i>
@@ -130,6 +138,15 @@
             <li></li>
     </ul>
     </div >
+    <script>
+    console.log({{msg}});
+    {% comment %} let msginfo={{msg}};
+    let element=msginfo.length==0? "":<div class="alert alert-danger text-center">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{msg}}</div>;
+    document.getElementById("alertmsg").innerHTML=element;    
+    console.log("wronggggggggggggggggg"); {% endcomment %}
+    </script>
     <script>
     
     $(document).ready(function() {

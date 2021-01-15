@@ -97,15 +97,14 @@
 </nav>
 <!-- navbar ends -->
 
-
 <!-- progress bar    -->
 <div class="progress" style="margin:6px;">
     <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressbar" role="progressbar"
          aria-valuenow="75"
-         aria-valuemin="0" aria-valuemax="100"></div>
+         aria-valuemin="0" aria-valuemax="100" style="z-index:1"></div>
      <p class="progress-text"> See Your Progress</p>
 </div>
-
+<div class="spacing"></div>
 <!-- main layout -->
 <div class="container-fluid centered-layout">
     <div class="row myrow mt-2">
@@ -257,7 +256,7 @@
             <div class="power_controls d-flex justify-content-center" style="margin:0;padding:0">
                 <!-- <img id="spin_button" src="spin_off.png" alt="Spin" onClick="startSpin();" /> -->
                 <button type="submit" id="spin_button" onClick="startSpin();" class="btn btn-dark mybtn"
-                        style="width:180px;background-color:#1f2839; color: white;height:50px;font-weight:normal">Spin
+                        style="width:180px;background-color:#1f2839; color: white;height:50px;font-weight:normal">Spin ({{user.spincount}}/2)
                 </button>
                 <!-- &nbsp;&nbsp;<a href="#" onClick="resetWheel(); return false;">Reset</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
@@ -296,6 +295,8 @@
 
                     <button type="submit" class="btn"
                         style="background-color:white; color:black; font-weight:bolder">Submit</button>
+                        <button type="submit" class="btn"
+                        style="background-color:white; color:black; font-weight:bolder">Cancel</button>
                 </form>
             </div>
         </div>
@@ -367,7 +368,7 @@ window.onload = function () {
 
 <script>
 function occur_Click(){
-    if({{user.time_rem}}>=1675 && {{user.time_rem}}<=1682)
+    if({{user.time_rem}}>=1677 && {{user.time_rem}}<=1682)
     {
     document.getElementById("p_score").click();
     }
@@ -520,37 +521,37 @@ function occur_Click3(){
                         let name=data.lifeline;
                         if(data.flag==0)
                         {
-                            alert("congrats u won chance to reattempt a question");
+                            alert("Congrats you won Chance to Re-attempt a Question :) ");
                             $("#myModal").modal('show');
                             $('#spin_button').prop("disabled", true)
                         }
 
                         else if(data.flag==1)
                         {
-                            alert("Unlucky! -5 from ur total");
+                            alert("Unlucky! -5 marks from your Total Score");
                         }
                         else if(data.flag==2)
                         {
-                            alert("congrats ur time is freezed for current question");
+                            alert("Congrats your Time is Freezed for Current Question");
                             freeze=1
                         }
                         else if(data.flag==3)
                         {
-                            alert("Unlucky! -8 + 4 for next 3 questions");
+                            alert("Unlucky! -8 + 4 Marking Scheme for next 3 Questions");
                             document.getElementById("marking").innerHTML = "+4 | -8";
                         }
                         else if(data.flag==4)
                         {
-                            alert("congrats you have no negative marks for next 3 questions");4
+                            alert("Congrats You have No Negative Marks for next 3 Questions  :)");4
                             document.getElementById("marking").innerHTML = "+4 | -0";
                         }
                         else if(data.flag==5)
                         {
-                            alert("Unlucky! u cannot spin here after");
+                            alert("Unlucky! You cannot Spin the Wheel Here After");
                         }
                         else if(data.flag==6)
                         {
-                            alert("congrats you have +16-10 marking scheme for current question");
+                            alert("Congrats You have +16 -10 Marking Scheme for Current Question");
                             document.getElementById("marking").innerHTML = "+16 | -10";
                         }
                     }
