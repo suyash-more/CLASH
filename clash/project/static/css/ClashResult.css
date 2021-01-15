@@ -42,9 +42,10 @@ footer {
 
 .num
 {
-  font-weight: bold;  font-family: 'Abril Fatface', serif;
+  font-weight: bold;  font-family: sans-serif;
 }
 
+/*dotted rotation */
 
 /* Circle */
 
@@ -73,17 +74,11 @@ footer {
 
 @keyframes ripple{
   0% { transform: scale(1); }
-  50% { transform: scale(1.3); opacity:1; }
-  100% { transform: scale(1.6); opacity:0; }
+  50% { transform: scale(1.15); opacity:1; }
+  100% { transform: scale(1.3); opacity:0; }
 }
 
-/* Text */
-.text {
-  text-align: center;
-  vertical-align: middle;
-  line-height: 100px;
-  margin: 0;
-}
+
 /* Animation of cards*/
 
 @keyframes fadeInUp {
@@ -125,6 +120,36 @@ footer {
   -webkit-animation-name: fadeInUp;
 }
 
+/* Circle */
+.circle1 {
+  height: 190px;
+  width: 190px;
+  border-radius: 50%;
+  border-top: 8px dashed #000000;
+        border-right: 8px dashed #000000;
+        border-left: 8px dashed #000000;
+        border-bottom: 8px dashed #000000;
+        padding: 10px;
+        animation: spin 10s infinite linear;
+
+
+  position: absolute;
+  margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+  left: 0;
+}
+
+.text {
+  color: black;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 170px;
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;  font-family: sans-serif;
+}
 /* Animation of 3 circles*/
 
   .wrapper {
@@ -135,7 +160,8 @@ footer {
 	top: 0;
 	right: 0;
 	bottom: 0;
-	left: 0;
+  left: 0;
+
   }
 
   .shutter .flap-0 svg {
@@ -148,10 +174,21 @@ footer {
 	width: 200px;
 	height: 200px;
 	border-radius: 200px;
-
-    border: 12px solid #101010;
+    border-top: 8px dashed #000000;
+        border-right: 8px dashed #000000;
+        border-left: 8px dashed #000000;
+        border-bottom: 8px dashed #000000;
+        padding: 10px;
+        animation: spin 10s infinite linear;
 
   }
+
+  @keyframes spin {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
   .shutter [class^="flap-"] {
     left: 3px;
     top: -7px;
@@ -248,7 +285,7 @@ footer {
 	height: 200px;
 	border-radius: 200px;
 
-    border: 12px solid #101010;
+    border: 8px solid #101010;
 
   }
   .shutter1 [class^="view-"] {
@@ -351,7 +388,7 @@ top: -7px;
     height: 200px;
     border-radius: 200px;
 
-      border: 12px solid #101010;
+      border: 8px solid #101010;
 
     }
     .shutter2 [class^="r-"] {
@@ -429,6 +466,112 @@ top: -7px;
     }
 
 
+
+    .wrapper {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      margin: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      }
+
+      .shutter3 .s-0 svg {
+      box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+      }
+
+      .shutter3 {
+      overflow: hidden;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 200px;
+      border-top: 8px dashed #000000;
+        border-right: 8px dashed #000000;
+        border-left: 8px dashed #000000;
+        border-bottom: 8px dashed #000000;
+        padding: 10px;
+        animation: spin 10s infinite linear;
+
+      }
+      .shutter3 [class^="s-"] {
+        left: 3px;
+        top: -7px;
+      position: absolute;
+      width: 172px;
+      height: 150px;
+      background: #202020;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+      transform-origin: 0% 100%;
+      transition: transform ease 5s;
+      }
+      .shutter3 .s-0 {
+      transform: translate(0px, -150px) rotate(40deg);
+      width: 0px;
+      z-index: 100;
+      }
+      .shutter3 .s-1 {
+      transform: translate(0px, -150px) rotate(40deg);
+      width: 0px;
+      }
+      .shutter3 .s-2 {
+      transform: translate(96px, -182px) rotate(85deg);
+      }
+      .shutter3 .s-3 {
+      transform: translate(186px, -136px) rotate(130deg);
+      }
+      .shutter3 .s-4 {
+      transform: translate(218px, -40px) rotate(175deg);
+      }
+      .shutter3 .s-5 {
+      transform: translate(172px, 50px) rotate(220deg);
+      }
+      .shutter3 .s-6 {
+      transform: translate(76px, 82px) rotate(265deg);
+      }
+      .shutter3 .s-7 {
+      transform: translate(-14px, 36px) rotate(310deg);
+      }
+      .shutter3 .s-8 {
+      transform: translate(-46px, -60px) rotate(355deg);
+      width: 152px;
+      }
+
+      .test3 .s-0 {
+      transform: translate(0px, -150px) rotate(-40deg);
+      width: 0px;
+      z-index: 100;
+      }
+      .test3 .s-1 {
+      transform: translate(0px, -150px) rotate(-40deg);
+      }
+      .test3 .s-2 {
+      transform: translate(96px, -182px) rotate(5deg);
+      }
+      .test3 .s-3 {
+      transform: translate(186px, -136px) rotate(50deg);
+      }
+      .test3 .s-4 {
+      transform: translate(218px, -40px) rotate(95deg);
+      }
+      .test3 .s-5 {
+      transform: translate(172px, 50px) rotate(140deg);
+      }
+      .test3 .s-6 {
+      transform: translate(76px, 82px) rotate(185deg);
+      }
+      .test3 .s-7 {
+      transform: translate(-14px, 36px) rotate(230deg);
+      }
+      .test3 .s-8 {
+      transform: translate(-46px, -60px) rotate(275deg);
+      width: 152px;
+      }
+
+
+
   /*media queries for responsive */
 
 
@@ -444,13 +587,22 @@ top: -7px;
         overflow-x: hidden;
         overflow-y: scroll;
     }
-    #adjust{padding: 3% !important;}
+
+    .hide
+    {
+      display: none !important;
+    }
+    .c1{margin-top: 30px !important;}
+    .c2{margin-top: 110px !important;}
+    .c3{margin-top: 160px !important;}
+    .c4{margin-top: 150px !important;}
+    #adjust{padding: 5% !important;}
     }
 
     @media only screen and (max-width: 769px)
     {
         #adjust
-        {padding: 3% !important;}
+        {padding: 5% !important;}
 
     .container{
       padding:10px;
@@ -461,7 +613,7 @@ top: -7px;
 
     @media (max-width: 454px) {
             #adjust
-        {padding: 3% !important;}
+        {padding: 5% !important;}
 
     .container{
       padding:10px;
@@ -472,7 +624,7 @@ top: -7px;
 
      @media (max-width: 380px) {
                  #adjust
-        {padding: 3% !important;}
+        {padding: 5% !important;}
 
     .container{
       padding:10px;
@@ -483,7 +635,7 @@ top: -7px;
 
      @media (max-width: 330px){
                  #adjust
-        {padding: 3% !important;}
+        {padding: 5% !important;}
 
     .container{
       padding:10px;

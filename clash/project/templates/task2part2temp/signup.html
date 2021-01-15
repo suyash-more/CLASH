@@ -60,14 +60,11 @@
                 margin-top: 4vh;">
                     {% csrf_token %}
                     <h2 style="color:white; ">Clash Login</h2>
-                    {% comment %} {{#ifEquals {{msg}} "rrr"}}
-                        
-                    {{/ifEquals}} {% endcomment %}
-                    <div id="alertmsg"></div>
-                    {% comment %} <div class="alert alert-danger text-center">
+
+                    <div id="alertmsg" class="alert alert-danger text-center">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{msg}}
-                    </div> {% endcomment %}
+
+                    </div>
                     <div class="txtb">
 
                         <i class="fa fa-user icon"> </i>
@@ -139,15 +136,6 @@
     </ul>
     </div >
     <script>
-    console.log({{msg}});
-    {% comment %} let msginfo={{msg}};
-    let element=msginfo.length==0? "":<div class="alert alert-danger text-center">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{msg}}</div>;
-    document.getElementById("alertmsg").innerHTML=element;    
-    console.log("wronggggggggggggggggg"); {% endcomment %}
-    </script>
-    <script>
     
     $(document).ready(function() {
             let delayTimer;
@@ -164,7 +152,7 @@
                     },
                     success: function(data) {
                         if(data.is_taken) {
-                            $('#message').html("<h6 style='color:green;'>User Found</h6>");
+                            $('#message').html("<h6 style='color:#00ff00;'>User Found</h6>");
                             $('#submit').prop("disabled", false);
                         } else {
                             $('#message').html("<h6 style='color:red;'>User Not Found</h6>");
@@ -175,6 +163,20 @@
                 }, 1000);
             });
         });
+    </script>
+
+    <script>
+        let message="{{msg}}";
+        function alertmessage(){
+            if(message===""){
+                $('#alertmsg').hide();
+            }
+            else{
+                document.getElementById("alertmsg").innerHTML=message;
+            }
+        }
+        alertmessage();
+
     </script>
 </body>
 </html>

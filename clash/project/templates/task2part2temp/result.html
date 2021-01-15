@@ -46,38 +46,37 @@
         </div>
 
       <div class=" col-lg-6 text-center "  >
+        
+        <p style="color: black; font-size: 5vh; padding-top:0px; font-weight: bold;  font-family: sans-serif; ">Username</p>  
 
-            <i class="fas fa-user-circle fa-4x" ></i>
-            <p style="color: #1F2839; font-size: 5vh; ">{{user.user.username}}</p>
-
-          <div class="container align-items-center" style="margin-top: 80px; ">
+        <div class="container align-items-center c1" style="margin-top: 20px; ">
             
-              <div class="wrapper circle" style="z-index: 50;">
-                <div class="shutter">
-                  <div class="flap-0"><svg height="150" width="143">
-              <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
-            </svg></div>
-                  <div class="flap-1"></div>
-                  <div class="flap-2"></div>
-                  <div class="flap-3"></div>
-                  <div class="flap-4"></div>
-                  <div class="flap-5"></div>
-                  <div class="flap-6"></div>
-                  <div class="flap-7"></div>
-                  <div class="flap-8"></div>
-                </div>
-
-              </div>
-              <div class="num" style="font-size: 2rem;">Score</div>
-             <div class="num" style="font-size: 2rem;">{{user.total_score}}</div>
+          <div class="wrapper " >
+            <div class="shutter">
+              <div class="flap-0"><svg height="150" width="143" >
+          <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020; "/>
+        </svg></div>
+              <div class="flap-1"></div>
+              <div class="flap-2"></div>
+              <div class="flap-3"></div>
+              <div class="flap-4"></div>
+              <div class="flap-5"></div>
+              <div class="flap-6"></div>
+              <div class="flap-7"></div>
+              <div class="flap-8"></div>
+            </div>
+            
           </div>
+          <div class="text" >{{user.user.username}}</div>
+      </div>
+        
 
         <div class="row">
           <div class="col-lg-6">
               
-            <div class="container align-items-center camera1" style="margin-top: 150px; ">
+            <div class="container align-items-center camera1 c2" style="margin-top: 30px; ">
             
-              <div class="wrapper circle" style="z-index: 50;">
+              <div class="wrapper circle" >
                 <div class="shutter2">
                   <div class="r-0"><svg height="150" width="143">
               <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
@@ -102,9 +101,9 @@
           </div>
 
           <div class="col-lg-6">
-            <div class="container align-items-center  camera1" style="margin-top: 150px; ">
+            <div class="container align-items-center  camera1 c3" style="margin-top: 30px; " >
             
-              <div class="wrapper circle" style="z-index: 50;">
+              <div class="wrapper circle" >
                 <div class="shutter1 ">
                   <div class="view-0"><svg height="150" width="143">
               <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
@@ -128,6 +127,29 @@
           </div>
 
         </div>
+
+        <div class="container align-items-center c4" style="margin-top: 60px; ">
+            
+          <div class="wrapper " >
+            <div class="shutter3">
+              <div class="s-0"><svg height="150" width="143">
+          <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
+        </svg></div>
+              <div class="s-1"></div>
+              <div class="s-2"></div>
+              <div class="s-3"></div>
+              <div class="s-4"></div>
+              <div class="s-5"></div>
+              <div class="s-6"></div>
+              <div class="s-7"></div>
+              <div class="s-8"></div>
+            </div>
+            
+          </div>
+
+          <div class="num" style="font-size: 2rem;">Score</div>
+         <div class="num" style="font-size: 2rem; ">99</div>
+      </div>
 
       </div>
 
@@ -166,7 +188,7 @@ document.getElementsByClassName("shutter1")[0].setAttribute("class", "shutter1 t
 
 document.getElementsByClassName("shutter2")[0].setAttribute("class", "shutter2 test2");
 
-
+document.getElementsByClassName("shutter3")[0].setAttribute("class", "shutter3 test3");
 }
 
   </script>
