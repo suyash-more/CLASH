@@ -473,3 +473,13 @@ p {
 .spacing {
   margin-top: 5vh;
 }
+@media only screen and (max-width: 768px) {
+  .progress-text {
+    left: 40%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .nav-item {
+    padding-left: 8px;
+  }
+}

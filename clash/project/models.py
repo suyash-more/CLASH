@@ -21,41 +21,40 @@ class Response(models.Model):
     selected_answer = models.CharField(max_length=255, blank=True)
     score = models.IntegerField(default=0)
 
-
-
     def __str__(self):
         return self.user.first_name+f' ({self.selected_answer})'
 
 
 class Register(models.Model):  # extended user model
-    user=models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
-    phone=models.IntegerField(default=0)
-    level = models.CharField(max_length=15,default='fe')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='user')
+    phone = models.IntegerField(default=0)
+    level = models.CharField(max_length=15, default='fe')
     language = models.CharField(max_length=15)
     total_score = models.IntegerField(default=0)
     quelist = models.TextField(max_length=255, default="[]")
     marks = models.IntegerField(default=1)
     status = models.BooleanField(default=True)
-    logouttime = models.DateTimeField(blank=True, null=True,default=None)
-    extra_time=models.IntegerField(default=0)
-    time_rem=models.IntegerField(default=1680)
-    get_chance=models.IntegerField(default=0)
-    queflist=models.TextField(max_length=255, default="[]")
+    logouttime = models.DateTimeField(blank=True, null=True, default=None)
+    extra_time = models.IntegerField(default=0)
+    time_rem = models.IntegerField(default=1680)
+    get_chance = models.IntegerField(default=0)
+    queflist = models.TextField(max_length=255, default="[]")
     quefulllist = models.TextField(max_length=255, default="[]")
-    visionlst=models.TextField(max_length=255,default="[]")
-    spin_wheel=models.BooleanField(default=False)
-    checkpoint=models.IntegerField(default=0)
-    flag=models.IntegerField(default=-1)
-    freezetimestart=models.DateTimeField(blank=True,null=True,default=None)
+    visionlst = models.TextField(max_length=255, default="[]")
+    spin_wheel = models.BooleanField(default=False)
+    checkpoint = models.IntegerField(default=0)
+    flag = models.IntegerField(default=-1)
+    freezetimestart = models.DateTimeField(blank=True, null=True, default=None)
     flashblind = models.IntegerField(default=0)
-    spincount=models.IntegerField(default=2)
-    progress=models.IntegerField(default=0)
-    getassured=models.BooleanField(default=False)
-    freezebar=models.BooleanField(default=False)
-    allow=models.BooleanField(default=False)
-    predicted_score=models.IntegerField(default=0)
-    correct_answered=models.IntegerField(default=0)
-    length=models.IntegerField(default=0)
+    spincount = models.IntegerField(default=2)
+    progress = models.IntegerField(default=0)
+    getassured = models.BooleanField(default=False)
+    freezebar = models.BooleanField(default=False)
+    allow = models.BooleanField(default=False)
+    predicted_score = models.IntegerField(default=0)
+    correct_answered = models.IntegerField(default=0)
+    length = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.first_name+f' ({self.user.username})'

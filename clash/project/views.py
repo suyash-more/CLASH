@@ -18,7 +18,8 @@ number_of_questions = 12
 
 
 def checkspin(request):
-    flag = int(request.GET.get('flag'))
+    #flag = int(request.GET.get('flag'))
+    flag = 2
     getuser = Register.objects.get(user=request.user)
     getuser.flag = flag
     if getuser.spincount <= 0:
@@ -137,7 +138,7 @@ def signup(request):
             return HttpResponseRedirect(reverse('signin'))
         except Exception as e:
             return render(request, 'task2part2temp/signup1.html', {'msg': 'User already exists..!!'})
-    return render(request, 'task2part2temp/signup1.html',{'msg':""})
+    return render(request, 'task2part2temp/signup1.html', {'msg': ""})
 
 
 def signin(request):
@@ -321,7 +322,7 @@ def success(request):
                     recfun(getuser)
         if getuser.getassured == True:
             pre_question = Questions.objects.get(pk=lst[-1])
-            user_input1,user_input2="no_answer","no_answer"
+            user_input1, user_input2 = "no_answer", "no_answer"
             try:
                 user_input1 = request.POST['attempt1']
             except Exception as e:
@@ -332,15 +333,15 @@ def success(request):
                 print(e)
             # print(user_input1, user_input2)
             getuser.freezebar = False
-            if getuser.get_chance==1:
-                user_input2="no_answer"
-            if getuser.get_chance==2:
-                user_input1="no_answer"
+            if getuser.get_chance == 1:
+                user_input2 = "no_answer"
+            if getuser.get_chance == 2:
+                user_input1 = "no_answer"
             if pre_question.correct_answer == user_input1:
                 score = 10
                 getuser.marks = 1
                 getuser.correct_answered += 1
-                getuser.get_chance+=1
+                getuser.get_chance += 1
                 getuser.save()
             elif pre_question.correct_answer == user_input2:
                 score = 8
@@ -348,12 +349,12 @@ def success(request):
             else:
                 score = -18
                 getuser.marks = 2
-            if not getuser.get_chance>=2:
-                getuser.get_chance=1
+            if not getuser.get_chance >= 2:
+                getuser.get_chance = 1
                 getuser.save()
                 return HttpResponseRedirect(reverse("getassured"))
 
-            getuser.get_chance=0
+            getuser.get_chance = 0
             getuser.progress = 0
             respo = Response(question=pre_question, user=getuser.user,
                              selected_answer=user_input1, score=score)
@@ -527,10 +528,10 @@ def getassured(request):
     question = Questions.objects.get(pk=lst[-1])
     getuser.getassured = True
     print(request.method)
-    if getuser.get_chance==1 and request.method=="POST":
+    if getuser.get_chance == 1 and request.method == "POST":
         return render(request, 'task2part2temp/question2.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem})
-    #if request.method
-    getuser.get_chance+=1
+    # if request.method
+    getuser.get_chance += 1
     getuser.save()
     return render(request, 'task2part2temp/question2.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem})
 

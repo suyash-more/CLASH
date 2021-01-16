@@ -57,7 +57,7 @@
                 <!-- Start of login form -->
 
                 <form action="{% url 'signin' %}" method="post" class="login-form" style="
-                margin-top: 4vh;">
+                margin-top: 4vh;"autocomplete="off">
                     {% csrf_token %}
                     <h2 style="color:white; ">Clash Login</h2>
 
@@ -65,12 +65,14 @@
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
                     </div>
+                    <h6 style="color:#74b72e;font-size:2.2vh;margin-bottom: -0.5vh;" id="message"></h6>
                     <div class="txtb">
 
                         <i class="fa fa-user icon"> </i>
+                        
 
                         <input type="text" id="search" spellcheck="false" placeholder="Username" name="username" required="required">
-                        <p class= "text-success user" style="  " id="message"></p>
+                        <!-- <p class= "text-success user" style="  " ></p> -->
                     </div>
                     <div class="txtb">
                         <i class="fas fa-lock icon"></i>
