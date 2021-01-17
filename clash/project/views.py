@@ -19,7 +19,6 @@ number_of_questions = 12
 
 def checkspin(request):
     flag = int(request.GET.get('flag'))
-    flag = 2
     getuser = Register.objects.get(user=request.user)
     getuser.flag = flag
     if getuser.spincount <= 0:
@@ -535,7 +534,7 @@ def userlogout(request):
         getuser.extra_time = 0
         getuser.save()
         logout(request)
-        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': 'Quiz Finished', 'ques_answered': len(json.loads(getuser.queflist))})
+        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': 'Quiz Finished', 'ques_answered': len(json.loads(getuser.queflist))+1})
     except:
         return render(request, 'task2part2temp/signup.html', {'msg': 'You need To Login/Register First :)'})
 

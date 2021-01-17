@@ -94,6 +94,8 @@
         </div>
     </div>
 
+
+
 </nav>
 <!-- navbar ends -->
 
@@ -549,42 +551,42 @@ function occur_Click3(){
                         let name=data.lifeline;
                         if(data.flag==0)
                         {
-                            alert("Congratulations You won Chance to Re-attempt a Question :) ");
+                            alert(" Congratulations! You can Reattempt a Question. :) ");
                             $("#myModal").modal('show');
                             $('#spin_button').prop("disabled", true)
                         }
 
                         else if(data.flag==1)
                         {
-                            alert("Unlucky! -5 from your Total Score");
+                            alert("Oops! 5 Marks deducted from your Total Score");
                             total={{user.total_score}}-5
                             document.getElementById("total_score").innerHTML = total;
                         }
                         else if(data.flag==2)
                         {
-                            alert("Congratulations your Time is Freezed for Current Question");
+                            alert("Congratulations! Your Time is Frozen for the Current Question");
                             freeze1=1
                        
                         }
                         else if(data.flag==3)
                         {
-                            alert("Unlucky! -8 + 4 Marking Scheme for next 3 Questions");
+                            alert("Oops! Marking Scheme for the next 3 Questions will be -8 + 4");
                             document.getElementById("marking").innerHTML = "+4 | -8";
                         }
                         else if(data.flag==4)
                         {
-                            alert("Congratulations You have No Negative Marks for next 3 Questions  :)");4
+                            alert("Congratulations! No Negative Marking for the next 3 Questions  :)");4
                             document.getElementById("marking").innerHTML = "+4 | -0";
                         }
                         else if(data.flag==5)
                         {
-                            alert("Unlucky! You cannot Spin the Wheel Here After");
+                            alert("Oops! You cannot Spin the Wheel Here After");
                             
                             document.getElementById("spin_button").innerHTML="0/2"
                         }
                         else if(data.flag==6)
                         {
-                            alert("Congratulations You have +16 -10 Marking Scheme for Current Question");
+                            alert("Congratulations! Marking Scheme is +16 -10 for the Current Question");
                             document.getElementById("marking").innerHTML = "+16 | -10";
                         }
                     }
