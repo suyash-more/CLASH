@@ -320,6 +320,7 @@ def success(request):
                 elif getuser.flag == 5:
                     msg3 = "Unlucky! u cannot spin here after"
                     getuser.checkpoint = -1
+                    getuser.spincount = 0
                     recfun(getuser)
                 elif getuser.flag == 6:
                     msg3 = "congrats you have +16-10 marking schmeme for current question"
