@@ -20,7 +20,16 @@ nav {
 .nav-link {
   color: white;
 }
-
+.pulse-button:enabled {
+  text-decoration: none;
+  border: none;
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+@keyframes pulse {
+  to {
+    box-shadow: inset 180px 0 0 0 #030c1d;
+  }
+}
 /* question area */
 textarea {
   width: 100%;
@@ -470,6 +479,11 @@ p {
   padding-top: 7px;
 }
 
+@keyframes pulse {
+  to {
+    box-shadow: inset 180px 0 0 0 #030c1d;
+  }
+}
 .spacing {
   margin-top: 5vh;
 }

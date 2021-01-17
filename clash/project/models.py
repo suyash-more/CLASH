@@ -55,6 +55,9 @@ class Register(models.Model):  # extended user model
     predicted_score = models.IntegerField(default=0)
     correct_answered = models.IntegerField(default=0)
     length = models.IntegerField(default=0)
+    freezeflag = models.IntegerField(default=0)
+    refresh = models.IntegerField(default=0)
+    permit = models.IntegerField(default=1)
 
     def __str__(self):
         return self.user.first_name+f' ({self.user.username})'

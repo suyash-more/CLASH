@@ -18,7 +18,7 @@ number_of_questions = 12
 
 
 def checkspin(request):
-    #flag = int(request.GET.get('flag'))
+    flag = int(request.GET.get('flag'))
     flag = 2
     getuser = Register.objects.get(user=request.user)
     getuser.flag = flag
@@ -26,6 +26,11 @@ def checkspin(request):
         getuser.checkpoint = -1
     if flag == 2 and getuser.freezetimestart == None:
         getuser.freezetimestart = timezone.now()
+        getuser.freezeflag = 1
+        #getuser.refresh = 2
+        getuser.permit = 0
+        getuser.refresh = 1
+        getuser.save()
     getuser.spin_wheel = True
     getuser.spincount -= 1
     getuser.save()
@@ -301,6 +306,7 @@ def success(request):
                     recfun(getuser)
                 elif getuser.flag == 2:
                     msg3 = "congrats ur time is freezed for current question"
+
                     recfun(getuser)
                 elif getuser.flag == 3:
                     msg3 = "Unlucky! -8 + 4 for next 3 questions"
@@ -320,6 +326,11 @@ def success(request):
                     msg3 = "congrats you have +16-10 marking schmeme for current question"
                     getuser.marks = 5
                     recfun(getuser)
+        if getuser.freezeflag == 1:
+            getuser.refresh = 1
+        else:
+            getuser.refresh = 0
+        getuser.save()
         if getuser.getassured == True:
             pre_question = Questions.objects.get(pk=lst[-1])
             user_input1, user_input2 = "no_answer", "no_answer"
@@ -362,6 +373,7 @@ def success(request):
             getuser.total_score += respo.score
             flst.append(lst[-1])
             lst.pop()
+
             getuser.getassured = False
             getuser.save()
 
@@ -369,9 +381,11 @@ def success(request):
             if request.POST.get('submit') == str(lst[-1]):
                 user_input = request.POST['user_ans']
                 pre_question = Questions.objects.get(pk=lst[-1])
+                getuser.permit = 1
+                getuser.save()
                 if getuser.freezetimestart != None:
                     sec = timezone.now() - getuser.freezetimestart
-                    getuser.extra_time += sec.total_seconds() + 12
+                    getuser.extra_time += sec.total_seconds() + 5
                     getuser.freezetimestart = None
                 if getuser.marks == 1:
                     if pre_question.correct_answer == user_input:
@@ -468,10 +482,12 @@ def success(request):
                 elif getuser.marks == 10:
                     score = 0
 
+                getuser.freezeflag = 0
                 respo = Response(question=pre_question, user=getuser.user,
                                  selected_answer=user_input, score=score)
                 respo.save()
                 getuser.total_score += respo.score
+
                 flst.append(lst[-1])
                 lst.pop()
                 if getuser.progress > 100:
@@ -479,7 +495,9 @@ def success(request):
                 if getuser.progress < 0:
                     getuser.progress = 0
                 getuser.save()
-
+        # if getuser.refresh > 0:
+        #     getuser.refresh -= 1
+            getuser.save()
         if len(lst) == 0:
             getuser.logouttime = timezone.now()
             getuser.save()

@@ -222,11 +222,12 @@
                
 
             <!-- get it Assured button -->
+            
             <div class="d-flex justify-content-center">
                 <form action="{%url 'getassured'%}" method="post">
                     {% csrf_token %}
                     <button type="submit" id="get_assured" style="background-color:#1f2839; width:180px; color: white;font-weight:normal"
-                            class="btn btn-dark btn-lg active mybtn ">Get it Assured
+                            class="btn btn-dark btn-lg active mybtn pulse-button" >Get it Assured
                     </button>
                 </form>
             </div>
@@ -255,7 +256,7 @@
             </div>
             <div class="power_controls d-flex justify-content-center" style="margin:0;padding:0">
                 <!-- <img id="spin_button" src="spin_off.png" alt="Spin" onClick="startSpin();" /> -->
-                <button type="submit" id="spin_button" onClick="startSpin();" class="btn btn-dark mybtn"
+                <button type="submit" id="spin_button" onClick="startSpin();" class="btn btn-dark mybtn pulse-button"
                         style="width:180px;background-color:#1f2839; color: white;height:50px;font-weight:normal">Spin ({{user.spincount}}/2)
                 </button>
                 <!-- &nbsp;&nbsp;<a href="#" onClick="resetWheel(); return false;">Reset</a>
@@ -325,12 +326,23 @@
         </div>
     </div>
 </div>
+<body>  
+    <script type = "text/javascript">  
+        window.onload = function () {  
+            document.onkeydown = function (e) {  
+                return (e.which || e.keyCode) != 116;  
+            };  
+        }  
+    </script>  
+    </body>
 <!-- javascript for clock -->
+
 <script>
 
+freeze1={{user.freezeflag}}
 
-freeze1=0
-function startTimer(duration, display) {
+
+function startTimer(duration, display)  {
     var timer = {{time_rem}},minutes, seconds;
     let newtimer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -340,9 +352,14 @@ function startTimer(duration, display) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         if (freeze1==0){
         display.textContent = minutes + ":" + seconds;
+        
+        }else{
+            
+            display.textContent="YOUR TIME IS FROZEN!!"
+            
         }
         if (--timer < 0) {
-            timer = duration;
+            timer = duration;y
             if({{user.predicted_score}}>=total_score+5 || {{user.predicted_score}}<=total_score-5 || {{user.predicted_score}}==0){
                     logoutbutton=document.getElementById("logoutcall");
                     logoutbutton.onclick=occur_Click3();
@@ -356,6 +373,7 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
+
 window.onload = function () {
     var fiveMinutes = {{time_rem}},
     display = document.querySelector('#time');
@@ -363,7 +381,18 @@ window.onload = function () {
     press_button=document.getElementById("p_score");
     press_button.onclick=occur_Click();
 };
-  </script>
+</script>
+
+<script>
+    if ({{user.refresh}}>0 && {{user.permit}}>0){
+        setTimeout (function (){
+            location.reload()
+            setTimeout(function(){
+            console.log({{user.refresh}})
+            
+        },25000)},1000)
+    }
+</script>
 
 <script>
 function occur_Click(){
@@ -520,22 +549,22 @@ function occur_Click3(){
                         let name=data.lifeline;
                         if(data.flag==0)
                         {
-                            alert("Congrats you won Chance to Re-attempt a Question :) ");
+                            alert("Congratulations You won Chance to Re-attempt a Question :) ");
                             $("#myModal").modal('show');
                             $('#spin_button').prop("disabled", true)
                         }
 
                         else if(data.flag==1)
                         {
-                            alert("Unlucky! -5 marks from your Total Score");
+                            alert("Unlucky! -5 from your Total Score");
                             total={{user.total_score}}-5
                             document.getElementById("total_score").innerHTML = total;
-
                         }
                         else if(data.flag==2)
                         {
-                            alert("Congrats your Time is Freezed for Current Question");
+                            alert("Congratulations your Time is Freezed for Current Question");
                             freeze1=1
+                       
                         }
                         else if(data.flag==3)
                         {
@@ -544,7 +573,7 @@ function occur_Click3(){
                         }
                         else if(data.flag==4)
                         {
-                            alert("Congrats You have No Negative Marks for next 3 Questions  :)");4
+                            alert("Congratulations You have No Negative Marks for next 3 Questions  :)");4
                             document.getElementById("marking").innerHTML = "+4 | -0";
                         }
                         else if(data.flag==5)
@@ -555,7 +584,7 @@ function occur_Click3(){
                         }
                         else if(data.flag==6)
                         {
-                            alert("Congrats You have +16 -10 Marking Scheme for Current Question");
+                            alert("Congratulations You have +16 -10 Marking Scheme for Current Question");
                             document.getElementById("marking").innerHTML = "+16 | -10";
                         }
                     }
