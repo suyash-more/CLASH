@@ -181,7 +181,7 @@
 
                 $.ajax({
                     method: 'GET',
-                    url: 'http://127.0.0.1:8000/spincheck/',
+                    url: `${window.location.origin}/spincheck/`,
                     dataType: 'json',
                     data : {
                         'flag': indicatedSegment.text

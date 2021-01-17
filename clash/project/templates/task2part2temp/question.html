@@ -542,7 +542,7 @@ function occur_Click3(){
                 $.ajax({
                     method: 'GET',
                     headers: { "X-CSRFToken": token },
-                    url: 'http://127.0.0.1:8000/spincheck/',
+                    url: `${window.location.origin}/spincheck/`,
                     dataType: 'json',
                     data : {
                         'flag': indicatedSegment.text

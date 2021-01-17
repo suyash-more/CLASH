@@ -37,7 +37,7 @@
                 delayTimer=setTimeout(function(){
                 $.ajax({
                     method: 'GET',
-                    url: 'http://127.0.0.1:8000/getrequest/',
+                    url: `${window.location.origin}/getrequest/`,
                     dataType: 'json',
                     data : {
                         'name':name
