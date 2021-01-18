@@ -7,7 +7,7 @@ const checkTabChange = (attemptNo) => {
     window.location.href = `${window.location.origin}/logout/`;
   } else {
     alert(
-      "WARNING: Please do not change tabs or swtich windows. Doing this once more will lead to disqualification."
+      "WARNING: Please do not change tabs or swtich windows. You will be logged out if you continue to do so."
     );
   }
 };
