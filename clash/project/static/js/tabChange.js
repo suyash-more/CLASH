@@ -3,7 +3,7 @@ const simpleCrypto = new SimpleCrypto(SECRET);
 const randomString = "9769c8ce900ff047";
 
 const checkTabChange = (attemptNo) => {
-  if (attemptNo === 0) {
+  if (attemptNo <= 0) {
     window.location.href = `${window.location.origin}/logout/`;
   } else {
     alert(
