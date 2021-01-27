@@ -535,7 +535,7 @@ def userlogout(request):
         getuser.extra_time = 0
         getuser.save()
         logout(request)
-        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': 'Quiz Finished', 'ques_answered': len(json.loads(getuser.queflist))+1})
+        return render(request, 'task2part2temp/result.html', {'user': getuser, 'msg': 'Quiz Finished', 'ques_answered': len(json.loads(getuser.queflist))})
     except:
         return render(request, 'task2part2temp/signup.html', {'msg': 'You need To Login/Register First :)'})
 
