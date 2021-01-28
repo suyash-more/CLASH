@@ -47,6 +47,17 @@ def checkspin(request):
     return JsonResponse(data)
 
 
+
+def handletab(request):
+    getuser = Register.objects.get(user=request.user)
+    getuser.tab-=1
+    getuser.save()
+    data={'checktab' : int(getuser.tab)}
+    return JsonResponse(data)
+
+
+
+
 def check(request):
     username_lst = []
     user_list = User.objects.values()

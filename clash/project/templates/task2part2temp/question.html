@@ -540,63 +540,85 @@ function occur_Click3(){
             var token = '{{csrf_token}}';
             function alertPrize(indicatedSegment)
             {
-                $.ajax({
-                    method: 'GET',
-                    headers: { "X-CSRFToken": token },
-                    url: `${window.location.origin}/spincheck/`,
-                    dataType: 'json',
-                    data : {
-                        'flag': indicatedSegment.text
-                    },
-                    success: function(data) {
-                        let name=data.lifeline;
-                        if(data.flag==0)
-                        {
-                            alert(" Congratulations! You can Reattempt a Question. :) ");
-                            $("#myModal").modal('show');
-                            $('#spin_button').prop("disabled", true)
-                        }
+                            $.ajax({
+                                method: 'GET',
+                                headers: { "X-CSRFToken": token },
+                                url: `${window.location.origin}/spincheck/`,
+                                dataType: 'json',
+                                data : {
+                                    'flag': indicatedSegment.text
+                                },
+                                success: function(data) {
+                                    let name=data.lifeline;
+                                    if(data.flag==0)
+                                    {
+                                        alert(" Congratulations! You can Reattempt a Question. :) ");
+                                        $("#myModal").modal('show');
+                                        $('#spin_button').prop("disabled", true)
+                                    }
 
-                        else if(data.flag==1)
-                        {
-                            alert("Oops! 5 Marks deducted from your Total Score");
-                            total={{user.total_score}}-5
-                            document.getElementById("total_score").innerHTML = total;
-                        }
-                        else if(data.flag==2)
-                        {
-                            alert("Congratulations! Your Time is Frozen for the Current Question");
-                            freeze1=1
-                       
-                        }
-                        else if(data.flag==3)
-                        {
-                            alert("Oops! Marking Scheme for the next 3 Questions will be -8 + 4");
-                            document.getElementById("marking").innerHTML = "+4 | -8";
-                        }
-                        else if(data.flag==4)
-                        {
-                            alert("Congratulations! No Negative Marking for the next 3 Questions  :)");4
-                            document.getElementById("marking").innerHTML = "+4 | -0";
-                        }
-                        else if(data.flag==5)
-                        {
-                            alert("Oops! You cannot Spin the Wheel Here After");
-                            
-                            document.getElementById("spin_button").innerHTML="0/2"
-                        }
-                        else if(data.flag==6)
-                        {
-                            alert("Congratulations! Marking Scheme is +16 -10 for the Current Question");
-                            document.getElementById("marking").innerHTML = "+16 | -10";
-                        }
-                    }
-                });
+                                    else if(data.flag==1)
+                                    {
+                                        alert("Oops! 5 Marks deducted from your Total Score");
+                                        total={{user.total_score}}-5
+                                        document.getElementById("total_score").innerHTML = total;
+                                    }
+                                    else if(data.flag==2)
+                                    {
+                                        alert("Congratulations! Your Time is Frozen for the Current Question");
+                                        freeze1=1
+
+                                    }
+                                    else if(data.flag==3)
+                                    {
+                                        alert("Oops! Marking Scheme for the next 3 Questions will be -8 + 4");
+                                        document.getElementById("marking").innerHTML = "+4 | -8";
+                                    }
+                                    else if(data.flag==4)
+                                    {
+                                        alert("Congratulations! No Negative Marking for the next 3 Questions  :)");4
+                                        document.getElementById("marking").innerHTML = "+4 | -0";
+                                    }
+                                    else if(data.flag==5)
+                                    {
+                                        alert("Oops! You cannot Spin the Wheel Here After");
+
+                                        document.getElementById("spin_button").innerHTML="0/2"
+                                    }
+                                    else if(data.flag==6)
+                                    {
+                                        alert("Congratulations! Marking Scheme is +16 -10 for the Current Question");
+                                        document.getElementById("marking").innerHTML = "+16 | -10";
+                                    }
+                                }
+                            });
             }
 
 
 </script>
 
+
+    <script>
+      $(window).blur(function () {
+        console.log("blur got active");
+        $.ajax({
+          method: "GET",
+          headers: { "X-CSRFToken": token },
+          url: `${window.location.origin}/handletab/`,
+          dataType: "json",
+          data: {},
+          success: function (data) {
+            alert(
+              `You have shifted the tab << Turn Remaining - ${data.checktab} >>`
+            );
+            if (data.checktab <= 0) {
+              logoutbutton = document.getElementById("logoutcall");
+              logoutbutton.onclick = occur_Click3();
+            }
+          },
+        });
+      });
+    </script>
 
 
 <script>

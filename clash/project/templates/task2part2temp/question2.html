@@ -321,7 +321,27 @@ function occur_Click3(){
     document.getElementById("logoutcall").click();
 }
 </script>
-
+<script>
+      $(window).blur(function () {
+        console.log("blur got active");
+        $.ajax({
+          method: "GET",
+          headers: { "X-CSRFToken": token },
+          url: `${window.location.origin}/handletab/`,
+          dataType: "json",
+          data: {},
+          success: function (data) {
+            alert(
+              `You have shifted the tab << Turn Remaining - ${data.checktab} >>`
+            );
+            if (data.checktab <= 0) {
+              logoutbutton = document.getElementById("logoutcall");
+              logoutbutton.onclick = occur_Click3();
+            }
+          },
+        });
+      });
+    </script>
 </body>
 
 </html>

@@ -17,5 +17,6 @@ urlpatterns = [
     path('get_p_score/', views.get_p_score, name='get_p_score'),
     path('modalpage/', views.rendmodal, name="modal"),
     path('instruction/', views.instruction, name='instruction'),
-    path('instr/', views.rendinst, name='rendinst')
+    path('instr/', views.rendinst, name='rendinst'),
+    path('handletab/', views.handletab, name='handletab'),
 ]
