@@ -609,7 +609,7 @@ function occur_Click3(){
           data: {},
           success: function (data) {
             alert(
-              `You cannot shift the tabs << Turns Remaining - ${data.checktab} >>`
+              `You cannot shift the tab << Turns Remaining - ${data.checktab} >>`
             );
             if (data.checktab <= 0) {
               logoutbutton = document.getElementById("logoutcall");
