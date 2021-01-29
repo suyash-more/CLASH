@@ -26,7 +26,6 @@ def checkspin(request):
     if flag == 2 and getuser.freezetimestart == None:
         getuser.freezetimestart = timezone.now()
         getuser.freezeflag = 1
-        #getuser.refresh = 2
         getuser.permit = 0
         getuser.refresh = 1
         getuser.save()
@@ -47,15 +46,12 @@ def checkspin(request):
     return JsonResponse(data)
 
 
-
 def handletab(request):
     getuser = Register.objects.get(user=request.user)
-    getuser.tab-=1
+    getuser.tab -= 1
     getuser.save()
-    data={'checktab' : int(getuser.tab)}
+    data = {'checktab': int(getuser.tab)}
     return JsonResponse(data)
-
-
 
 
 def check(request):
