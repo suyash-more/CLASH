@@ -588,7 +588,13 @@ function occur_Click3(){
                                     else if(data.flag==6)
                                     {
                                         alert("Congratulations! Marking Scheme is +16 -10 for the Current Question");
-                                        document.getElementById("marking").innerHTML = "+16 | -10";
+                                        {% ifequal 1 user.marks %}
+                                            document.getElementById("marking").innerHTML = "+16 | -10";
+                                        {% endifequal %}
+                                        {% ifequal 2 user.marks %}
+                                            document.getElementById("marking2").innerHTML = "+16 | -10";
+                                        {% endifequal %}
+
                                     }
                                 }
                             });

@@ -18,9 +18,9 @@ number_of_questions = 12
 
 
 def checkspin(request):
-    flag = int(request.GET.get('flag'))
+    flag = 6
     getuser = Register.objects.get(user=request.user)
-    getuser.flag = flag
+    getuser.flag = 6
     if getuser.spincount <= 0:
         getuser.checkpoint = -1
     if flag == 2 and getuser.freezetimestart == None:
