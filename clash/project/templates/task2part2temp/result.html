@@ -9,7 +9,7 @@
     <link rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       />
-    <link rel="stylesheet" type="text/css" href="{% static '/css/ClashResult.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/css/Clash.css' %}" />
 
 </head>
 <header class="navbar navbar-expand-lg navbar-light" style="background:
@@ -29,8 +29,8 @@
 
 </header>
 
-  <body onload="openShutter()">
-
+  <body >
+    
     <div class="row mx-auto  align-items-center" >
         <div class=" col-lg-3" style="margin-top: 8vh;  ">
             <div class="card animated animatedFadeInUp fadeInUp box mb-5 text-light" style="height: 60vh;">
@@ -47,113 +47,50 @@
 
       <div class=" col-lg-6 text-center "  >
         
-        <p style="color: black; font-size: 5vh; padding-top:0px; font-weight: bold;  font-family: sans-serif; ">Username</p>  
-
-        <div class="container align-items-center c1" style="margin-top: 20px; ">
-            
-          <div class="wrapper " >
-            <div class="shutter">
-              <div class="flap-0"><svg height="150" width="143" >
-          <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020; "/>
-        </svg></div>
-              <div class="flap-1"></div>
-              <div class="flap-2"></div>
-              <div class="flap-3"></div>
-              <div class="flap-4"></div>
-              <div class="flap-5"></div>
-              <div class="flap-6"></div>
-              <div class="flap-7"></div>
-              <div class="flap-8"></div>
-            </div>
-            
-          </div>
-          <div class="text" >{{user.user.username}}</div>
-      </div>
-        
+        <p style="color: black; font-size: 3.5vh; padding-top:0px; font-weight: bold;  font-family: sans-serif; ">Username</p> 
+        <div class="rotate1" style="z-index: -1; margin-bottom: 7vh;">
+            <div class="outer1 c1"></div>
+            <p class="text1">{{user.user.username}}</p>
+        </div> 
 
         <div class="row">
-          <div class="col-lg-6">
-              
-            <div class="container align-items-center camera1 c2" style="margin-top: 30px; ">
-            
-              <div class="wrapper circle" >
-                <div class="shutter2">
-                  <div class="r-0"><svg height="150" width="143">
-              <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
-            </svg></div>
-                  <div class="r-1"></div>
-                  <div class="r-2"></div>
-                  <div class="r-3"></div>
-                  <div class="r-4"></div>
-                  <div class="r-5"></div>
-                  <div class="r-6"></div>
-                  <div class="r-7"></div>
-                  <div class="r-8"></div>
-                </div>
+            <div class="col-lg-4" >
+                <div class="rotate1 c2" >
+                    <div class="outer1" style="z-index: -1;">
+                        
+                    </div>
+                    <p class="text2">{{ques_answered}}</p>
+                    <p class="text3">Questions</p>
+                    <p class="text4">Attempted</p>
+                </div> 
                 
-              </div>
-             
-              <div class="num" style="font-size: 2rem;">Questions</div>
-              <div class="num" style="font-size: 2rem;" >{{ques_answered}}</div>
-            
             </div>
-
-          </div>
-
-          <div class="col-lg-6">
-            <div class="container align-items-center  camera1 c3" style="margin-top: 30px; " >
-            
-              <div class="wrapper circle" >
-                <div class="shutter1 ">
-                  <div class="view-0"><svg height="150" width="143">
-              <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
-            </svg></div>
-                  <div class="view-1"></div>
-                  <div class="view-2"></div>
-                  <div class="view-3"></div>
-                  <div class="view-4"></div>
-                  <div class="view-5"></div>
-                  <div class="view-6"></div>
-                  <div class="view-7"></div>
-                  <div class="view-8"></div>
-                </div>
-               
-              </div>
-            
-            <div class="num" style="font-size: 2rem;" >Corrects</div>
-            <div class="num" style="font-size: 2rem;">{{user.correct_answered}}</div>
-            
+            <div class="col-lg-4" >
+                <div class="rotate c3">
+                    <div class="outer " ></div>
+                    <div class="middle"></div>
+                    <div class="inner"></div>
+                  </div>
             </div>
-          </div>
-
+            <div class="col-lg-4" >
+                <div class="rotate1 c4" style="z-index: -1;">
+                    <div class="outer1"></div>
+                    <p class="text2">{{user.correct_answered}}</p>
+                    <p class="text3">Answered</p>
+                    <p class="text4">Correctly</p>
+                </div> 
+            </div>
         </div>
-
-        <div class="container align-items-center c4" style="margin-top: 60px; ">
-            
-          <div class="wrapper " >
-            <div class="shutter3">
-              <div class="s-0"><svg height="150" width="143">
-          <polygon points="0 0,60 65,143 150,0 150" style="fill:#202020;"/>
-        </svg></div>
-              <div class="s-1"></div>
-              <div class="s-2"></div>
-              <div class="s-3"></div>
-              <div class="s-4"></div>
-              <div class="s-5"></div>
-              <div class="s-6"></div>
-              <div class="s-7"></div>
-              <div class="s-8"></div>
-            </div>
-            
-          </div>
-
-          <div class="num" style="font-size: 2rem;">Score</div>
-         <div class="num" style="font-size: 2rem; ">{{user.total_score}}</div>
-      </div>
+        
+        <div class="rotate1 c5" style="z-index: -1;">
+            <div class="outer1"></div>
+            <p class="text5">{{user.total_score}}</p>
+            <p class="text6">Score</p>
+        </div> 
 
       </div>
 
-        <div class=" col-lg-3 " style="margin-top: 8vh;">
+        <div class=" col-lg-3 end" style="margin-top: 8vh;">
             <div class="card animated animatedFadeInUp fadeInUp box mb-5 text-light" style="height: 60vh;">
                             <div class="card-header">
                    <h3 class="card-title text-center" style="background-color:white;">Sponsors</h3>
@@ -167,39 +104,21 @@
                     <p> </p>
                     <li><img src="" height="35px" width="55px" alt="L2"></li>
                     <p> </p>
-                    </ul>
                 </div>
             </div>
         </div>
 
     </div>
+  
+<!--adjust height between cards and footer-->
+<div id="adjust"></div>
 
+<nav class="navbar navbar-expand-sm   justify-content-center fixed-bottom " style="background-color: #1F2839;">
+  <a class="navbar-brand mc-auto " style="color:white;font-family: 'Segoe UI',Roboto,Arial,sans-serif; font-size:1.25em;">&#169PICT IEEE Student Branch</a>
+</nav>
 
-
-
-    <script>
-
-
-function openShutter() {
-
-document.getElementsByClassName("shutter")[0].setAttribute("class", "shutter test");
-
-document.getElementsByClassName("shutter1")[0].setAttribute("class", "shutter1 test1");
-
-document.getElementsByClassName("shutter2")[0].setAttribute("class", "shutter2 test2");
-
-document.getElementsByClassName("shutter3")[0].setAttribute("class", "shutter3 test3");
-}
-
-  </script>
 
 
 
 </body>
-
-<!--adjust height between cards and footer-->
-<div id="adjust"></div>
-
-<nav class="navbar navbar-expand-sm   justify-content-center fixed-bottom" style="background-color: #1F2839;">
-  <a class="navbar-brand mc-auto" style="color:white;font-family: 'Segoe UI',Roboto,Arial,sans-serif; font-size:1.25em;">&#169PICT IEEE Student Branch</a>
-</nav>
+</html>
