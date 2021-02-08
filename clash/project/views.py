@@ -21,9 +21,9 @@ def ourteam(request):
     return render(request, 'task2part2temp/ourteam.html')
 
 def checkspin(request):
-    flag = 6
+    flag =  int(request.GET.get('flag'))
     getuser = Register.objects.get(user=request.user)
-    getuser.flag = 6
+    getuser.flag = flag
     if getuser.spincount <= 0:
         getuser.checkpoint = -1
     if flag == 2 and getuser.freezetimestart == None:
