@@ -40,7 +40,9 @@
     </nav>
     <div class="section section-eyeball" style="padding:0;background-image: #B69D74;background-image: radial-gradient(circle, #ede7dd 0%, #c4b08f 70%, #B69D74 100%);">
         <div class="container eye-ball">
-
+            <div class="limg">
+                <label class="whole"><img class="cred" src="{% static '/images/clive_blue.png' %}"></label>
+            </div>
             <div class="login-bg">
                 <div data-w-id="cfea6142-e144-2c0d-6c59-256cdc55ba43" class="eye-back">
                     <img src="https://uploads-ssl.webflow.com/5b6211ba5092559da8382511/5b648d6d78f5c51c8d26a519_eye-backer.svg"
@@ -83,20 +85,20 @@
                     <div class="txtb">
                         <i class="fa fa-envelope icon">
                         </i>
-                        <input type="email" name="email" placeholder="Email"  spellcheck="false" required="required">
+                        <input autocomplete="off" type="email" name="email" placeholder="Email"  spellcheck="false" required="required">
 
                     </div>
                     <div class="txtb">
                         <i class="fas fa-phone-alt icon"></i>
-                        <input type="text" name="phone" spellcheck="false" maxlength="10" pattern="\d{10}" placeholder="Contact no." required="required">
+                        <input autocomplete="off" type="text" name="phone" spellcheck="false" maxlength="10" pattern="\d{10}" placeholder="Contact no." required="required">
 
                     </div>
                     <div class="form-grp">
                         <input type="radio" id="junior" name="level" value="fe" class="buton" required="required" checked="checked">
-                        <label for="Junior" style="margin-right:2vh; font-weight:normal;">FE</label>
+                        <label for="Junior" style="margin-right:2vh; font-weight:normal;">Junior</label>
 
                         <input type="radio" id="senior" name="level" value="se" class="buton">
-                        <label for="senior" style="font-weight:normal;">SE</label>
+                        <label for="senior" style="font-weight:normal;">Senior</label>
                     </div>
                     <input type="submit" class="logbtn" value="Login" id="submit">
                 </form>
@@ -106,7 +108,7 @@
     </div>
     <footer class="text-center fixed-bottom " style="background-color: #1f2839;">
         <div class="container-fluid">
-            <div class="footer-text pt-2 pb-3 text-white" style="font-size: 1.25em; font-family:'Segoe UI'">&#169PICT IEEE Student Branch</div>
+            <div class="footer-text pt-2 pb-3 text-white" style="font-size: 1.25em; font-family:'Segoe UI'">&#169PICT IEEE Student Branch | <a href="{% url 'ourteam' %}" style="color:#DB4500;">Meet Our Team </a></div>
 
         </div>
     </footer>

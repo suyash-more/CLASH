@@ -17,6 +17,9 @@ app_name = 'project'
 number_of_questions = 12
 
 
+def ourteam(request):
+    return render(request, 'task2part2temp/ourteam.html')
+
 def checkspin(request):
     flag = 6
     getuser = Register.objects.get(user=request.user)

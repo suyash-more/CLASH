@@ -19,4 +19,5 @@ urlpatterns = [
     path('instruction/', views.instruction, name='instruction'),
     path('instr/', views.rendinst, name='rendinst'),
     path('handletab/', views.handletab, name='handletab'),
+    path('team/', views.ourteam, name='ourteam'),
 ]
