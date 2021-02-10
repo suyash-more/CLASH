@@ -22,7 +22,7 @@ def ourteam(request):
 
 
 def checkspin(request):
-    flag =  int(request.GET.get('flag'))
+    flag = int(request.GET.get('flag'))
     getuser = Register.objects.get(user=request.user)
     getuser.flag = flag
     if getuser.spincount <= 0:
@@ -163,21 +163,22 @@ def signin(request):
         data = request.POST
         username = data['username']
         password = data['password']
-        event="clash"
-        adminpass="pass"
-        url="https://backend.credenz.in/eventlogin"
-        credential_obj={'username':username,'event':event,"password":password,"adminpass":adminpass}
+        event = "clash"
+        adminpass = "pass"
+        url = "https://backend.credenz.in/eventlogin"
+        credential_obj = {'username': username, 'event': event,
+                          "password": password, "adminpass": adminpass}
         try:
-            res_data=requests.post(url=url,data=credential_obj)
-            req_data=json.loads(res_data.text)
+            res_data = requests.post(url=url, data=credential_obj)
+            req_data = json.loads(res_data.text)
         except:
             return render(request, 'task2part2temp/signup.html', {'msg': "Rewrite the Credentials Please..!!"})
-        allow=req_data['allow']
+        allow = req_data['allow']
         user = authenticate(request, username=username, password=password)
         if (not allow) and (not user):
-            return render(request, 'task2part2temp/signup.html', {'msg': "You are Not Allowed To Play"})
+            return render(request, 'task2part2temp/signup.html', {'msg': "Sorry! Invalid Credentials"})
         if allow:
-            user_obj=req_data['user']
+            user_obj = req_data['user']
             username = user_obj['username']
             firstname = user_obj['name']
             email = user_obj['email']
@@ -194,8 +195,10 @@ def signin(request):
             return render(request, 'task2part2temp/signup.html', {'msg': "Please enter password"})
         if not user:
             try:
-                ouruser = User.objects.create_user(username=username, first_name=firstname, email=email, password=password)
-                newuser = Register(user=ouruser, phone=phone,level=level, time_rem=1680)
+                ouruser = User.objects.create_user(
+                    username=username, first_name=firstname, email=email, password=password)
+                newuser = Register(user=ouruser, phone=phone,
+                                   level=level, time_rem=1680)
                 ouruser.save()
                 newuser.status = True
                 newuser.save()
