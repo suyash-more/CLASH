@@ -54,47 +54,4 @@
   <input type="submit" id="submit" value="Submit Data" />
 </form>
 <a href="{% url 'signin' %}">Already Signed Up? Signin from here</a>
-<script>
-<!--        $(document).ready(function() {-->
-<!--            let delayTimer;-->
-<!--            $('input#search').keyup(function() {-->
-<!--            clearTimeout(delayTimer);-->
-<!--            let name = $('#search').val();-->
-<!--            delayTimer=setTimeout(function(){-->
-<!--                $.ajax({-->
-<!--                    method: 'GET',-->
-<!--                    url: `${window.location.origin}/getrequest/`,-->
-<!--                    dataType: 'json',-->
-<!--                    data : {-->
-<!--                        'name':name-->
-<!--                    },-->
-<!--                    success: function(data) {-->
-<!--                        if(data.is_taken) {-->
-<!--                            $('#message').html("<h3 style='color:red;'>Username Exists</h3>");-->
-<!--                            $('#search').css("border", "2px solid red");-->
-<!--                            $('#submit').prop("disabled", true);-->
-<!--                        } else {-->
-<!--                            $('#message').html("<h3 style='color:green;'>Username Available</h3>");-->
-<!--                            $('#search').css("border", "2px solid green");-->
-<!--                            $('#submit').prop("disabled", false);-->
-<!--                        }-->
-<!--                    }-->
-<!--                });-->
-<!--            }, 1000);-->
-<!--            });-->
-<!--            $('input#confpass').keyup(function(){-->
-<!--				let pass = $('#pass').val();-->
-<!--				let confpass = $(this).val();-->
-<!--                    if(pass == confpass){-->
-<!--                         $('#msg').html("<h3 style='color:green;'>Passwords Match, You can proceed!</h3>");-->
-<!--                         $('#submit').prop("disabled", false);-->
-<!--                        }else{-->
-<!--                         $('#msg').html("<h3 style='color:red;'>Passwords Don't Match</h3>");-->
-<!--                         $('#submit').prop("disabled", true);-->
-<!--                    }-->
-<!--			});-->
-<!--        });-->
-
-
-    </script>
 {% endblock %}

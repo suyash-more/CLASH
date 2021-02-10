@@ -56,31 +56,4 @@ $(document).ready(function () {
       noY = t.offset().top;
     });
   });
-
-  let delayTimer;
-  $("input#search").keyup(function () {
-    clearTimeout(delayTimer);
-    let name = $("#search").val();
-    delayTimer = setTimeout(function () {
-      $.ajax({
-        method: "GET",
-        url: `${window.location.origin}/getrequest/`,
-        dataType: "json",
-        data: {
-          name: name,
-        },
-        success: function (data) {
-          if (data.is_taken) {
-            $("#message").html("<h3 style='color:red;'>Username Exists</h3>");
-            $("#submit").prop("disabled", true);
-          } else {
-            $("#message").html(
-              "<h3 style='color:green;'>Username Available</h3>"
-            );
-            $("#submit").prop("disabled", false);
-          }
-        },
-      });
-    }, 1000);
-  });
 }); //DOCUMENT READY
