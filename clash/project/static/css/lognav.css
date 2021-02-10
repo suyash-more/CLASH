@@ -46,7 +46,7 @@ h2{
    border-radius: 2vh;
    padding: 0vh 2vh; 
    width: 30vw;
-   height:75vh;
+   height:60vh;
    margin-top:4vh;
    /* padding:40px; */
    box-shadow: none;
@@ -76,10 +76,9 @@ h2{
     text-align: center; 
 } 
 .txtb{
-    
-    
-    width: 20vw; 
-    margin: 0.9vh 0;
+
+    width: 17vw;
+    margin: 3vh 0;
     position:relative;
  
     text-align: left; 
@@ -139,7 +138,7 @@ h2{
 input[type="submit"]
 {
     border: none;
-    margin-top:-1vh;
+    margin-top:1vh;
     padding: 1vh 4vh;
     cursor: pointer;
     outline: none;
@@ -308,7 +307,7 @@ body{
    border-radius: 2vh;
    padding: 0vh 2vh; 
    width: 80vw;
-   height:75vh;
+   height:60vh;
    margin-top:5vh;
    /* padding:40px; */
    box-shadow: none;
@@ -318,7 +317,7 @@ body{
 .txtb{
     
     
-    width: 65vw; 
+    width: 65vw;
     margin: 1.3vh 0;
     position:relative;
  
@@ -364,7 +363,7 @@ body{
 }
 .txtb{    
     
-    width: 83vw; 
+    width: 70vw;
     margin: 1vh 0;
  
 

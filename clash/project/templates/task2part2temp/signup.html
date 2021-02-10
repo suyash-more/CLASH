@@ -67,7 +67,6 @@
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
                     </div>
-                    <h6 style="color:#74b72e;font-size:2.2vh;margin-bottom: -0.5vh;" id="message"></h6>
                     <div class="txtb">
 
                         <i class="fa fa-user icon"> </i>
@@ -82,23 +81,20 @@
                         <input type="password" placeholder="Password" name="password">
 
                     </div>
-                    <div class="txtb">
-                        <i class="fa fa-envelope icon">
-                        </i>
-                        <input autocomplete="off" type="email" name="email" placeholder="Email"  spellcheck="false" required="required">
 
-                    </div>
-                    <div class="txtb">
-                        <i class="fas fa-phone-alt icon"></i>
-                        <input autocomplete="off" type="text" name="phone" spellcheck="false" maxlength="10" pattern="\d{10}" placeholder="Contact no." required="required">
 
-                    </div>
                     <div class="form-grp">
-                        <input type="radio" id="junior" name="level" value="fe" class="buton" required="required" checked="checked">
-                        <label for="Junior" style="margin-right:2vh; font-weight:normal;">Junior</label>
+                        <input type="radio" id="fe" name="level" value="fe" class="buton" required="required" checked="checked">
+                        <label for="Junior" style="margin-right:0.5vh; font-weight:normal;">FE</label>
 
-                        <input type="radio" id="senior" name="level" value="se" class="buton">
-                        <label for="senior" style="font-weight:normal;">Senior</label>
+                        <input type="radio" id="se" name="level" value="se" class="buton">
+                        <label for="senior" style="margin-right:0.5vh; font-weight:normal;">SE</label>
+
+                        <input type="radio" id="te" name="level" value="se" class="buton">
+                        <label for="senior" style="margin-right:0.5vh; font-weight:normal;">TE</label>
+
+                        <input type="radio" id="be" name="level" value="se" class="buton">
+                        <label for="senior" style="margin-right:0.5vh; font-weight:normal;">BE</label>
                     </div>
                     <input type="submit" class="logbtn" value="Login" id="submit">
                 </form>
@@ -140,36 +136,7 @@
     </ul>
     </div >
     <script>
-    
-    $(document).ready(function() {
-            let delayTimer;
-            $('input#search').keyup(function() {
-                clearTimeout(delayTimer);
-                let name = $(this).val();
-                delayTimer=setTimeout(function(){
-                $.ajax({
-                    method: 'GET',
-                    url: `${window.location.origin}/getrequest/`,
-                    dataType: 'json',
-                    data : {
-                        'name':name
-                    },
-                    success: function(data) {
-                        if(data.is_taken) {
-                            $('#message').html("<h6 style='color:#00ff00;'>User Found</h6>");
-                            $('#submit').prop("disabled", false);
-                        } else {
-                            $('#message').html("<h6 style='color:red;'>User Not Found</h6>");
-                            $('#submit').prop("disabled", true);
-                        }
-                    }
-                });
-                }, 1000);
-            });
-        });
-    </script>
-
-    <script>
+        document.getElementById("submit").disabled = false;
         let message="{{msg}}";
         function alertmessage(){
             if(message===""){
@@ -178,9 +145,9 @@
             else{
                 document.getElementById("alertmsg").innerHTML=message;
             }
-        }
+        };
         alertmessage();
 
-    </script>    
+    </script>
 </body>
 </html>

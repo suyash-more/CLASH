@@ -11,7 +11,7 @@ import re
 import random
 import datetime
 from django.utils import timezone
-from collections import Counter
+import requests
 
 app_name = 'project'
 number_of_questions = 12
@@ -19,6 +19,7 @@ number_of_questions = 12
 
 def ourteam(request):
     return render(request, 'task2part2temp/ourteam.html')
+
 
 def checkspin(request):
     flag =  int(request.GET.get('flag'))
@@ -57,15 +58,15 @@ def handletab(request):
     return JsonResponse(data)
 
 
-def check(request):
-    username_lst = []
-    user_list = User.objects.values()
-    for user in user_list:
-        username_lst.append(user['username'])
-    data = {'is_taken': False}
-    if request.GET.get('name') in username_lst:
-        data = {'is_taken': True}
-    return JsonResponse(data)
+# def check(request):
+#     username_lst = []
+#     user_list = User.objects.values()
+#     for user in user_list:
+#         username_lst.append(user['username'])
+#     data = {'is_taken': False}
+#     if request.GET.get('name') in username_lst:
+#         data = {'is_taken': True}
+#     return JsonResponse(data)
 
 
 def instruction(request):
@@ -89,19 +90,19 @@ def signup(request):
         regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
         regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         if not re.search(regexusername, username):
-            return render(request, 'task2part2temp/signup1.html', {'msg': "Username is Not Valid"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Username is Not Valid"]})
         if not re.search(regexemail, email):
-            return render(request, 'task2part2temp/signup1.html', {'msg': "Email ID is not Valid"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Email ID is not Valid"]})
         if not str(firstname).isalpha():
-            return render(request, 'task2part2temp/signup1.html', {'msg': "First Name is not Valid"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["First Name is not Valid"]})
         if not str(lastname).isalpha():
-            return render(request, 'task2part2temp/signup1.html', {'msg': "Last Name is not Valid"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Last Name is not Valid"]})
         if not str(phone).isnumeric() and len(phone) == 10 and phone < 59999999999:
-            return render(request, 'task2part2temp/signup1.html', {'msg': "Invalid Phone Number is Entered"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Invalid Phone Number is Entered"]})
         if password != conf_pass:
-            return render(request, 'task2part2temp/signup1.html', {'msg': "Passwords Don't match"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Passwords Don't match"]})
         if len(password) == 0:
-            return render(request, 'task2part2temp/signup1.html', {'msg': "Please enter password"})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ["Please enter password"]})
         try:
             ouruser = User.objects.create_user(username=username, first_name=firstname, email=email, password=password,
                                                last_name=lastname)
@@ -151,32 +152,94 @@ def signup(request):
             newuser.save()
             return HttpResponseRedirect(reverse('signin'))
         except Exception as e:
-            return render(request, 'task2part2temp/signup1.html', {'msg': 'User already exists..!!'})
+            return render(request, 'task2part2temp/signup1.html', {'msg': ['User already exists..!!']})
     return render(request, 'task2part2temp/signup1.html', {'msg': ""})
 
 
 def signin(request):
+    if request.user.is_authenticated and not request.user.is_superuser:
+        return redirect('success')
     if request.method == 'POST':
         data = request.POST
-        # print(data)
         username = data['username']
         password = data['password']
-        email = data['email']
-        phone = data['phone']
+        event="clash"
+        adminpass="pass"
+        url="https://backend.credenz.in/eventlogin"
+        credential_obj={'username':username,'event':event,"password":password,"adminpass":adminpass}
+        try:
+            res_data=requests.post(url=url,data=credential_obj)
+            req_data=json.loads(res_data.text)
+        except:
+            return render(request, 'task2part2temp/signup.html', {'msg': "Rewrite the Credentials Please..!!"})
+        allow=req_data['allow']
+        user = authenticate(request, username=username, password=password)
+        if (not allow) and (not user):
+            return render(request, 'task2part2temp/signup.html', {'msg': "You are Not Allowed To Play"})
+        if allow:
+            user_obj=req_data['user']
+            username = user_obj['username']
+            firstname = user_obj['name']
+            email = user_obj['email']
+            phone = user_obj['phoneno']
+            password = user_obj['password']
         level = data['level']
         regexusername = "^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$"
-        regexemail = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
         levelst = ['fe', 'se', 'te', 'be']
         if level not in levelst:
             return render(request, 'task2part2temp/signup.html', {'msg': "Proper Level Not Selected"})
         if not re.search(regexusername, username):
             return render(request, 'task2part2temp/signup.html', {'msg': "Username is Not Valid"})
-        if not re.search(regexemail, email):
-            return render(request, 'task2part2temp/signup.html', {'msg': "Email ID is not Valid"})
-        if not str(phone).isnumeric() and (len(phone) >= 10 or len(phone) <= 12) and phone < 59999999999:
-            return render(request, 'task2part2temp/signup.html', {'msg': "Invalid Phone Number is Entered"})
         if len(password) == 0:
             return render(request, 'task2part2temp/signup.html', {'msg': "Please enter password"})
+        if not user:
+            try:
+                ouruser = User.objects.create_user(username=username, first_name=firstname, email=email, password=password)
+                newuser = Register(user=ouruser, phone=phone,level=level, time_rem=1680)
+                ouruser.save()
+                newuser.status = True
+                newuser.save()
+                lst = []
+                visionlst = []
+                if newuser.level == 'fe':
+                    cp = random.randint(5, 7)
+                    newuser.checkpoint = cp
+                    for i in range(0, 15):
+                        while True:
+                            questionNo = random.randint(1, 20)
+                            if questionNo not in lst:
+                                break
+                        lst.append(questionNo)
+                elif newuser.level == 'se':
+                    cp = random.randint(8, 10)
+                    newuser.checkpoint = cp
+                    for i in range(0, 15):
+                        while True:
+                            questionNo = random.randint(26, 45)
+                            if questionNo not in lst:
+                                break
+                        lst.append(questionNo)
+                else:
+                    cp = random.randint(9, 12)
+                    newuser.checkpoint = cp
+                    for i in range(0, 15):
+                        while True:
+                            questionNo = random.randint(46, 64)
+                            if questionNo not in lst:
+                                break
+                        lst.append(questionNo)
+                for i in range(3):
+                    while True:
+                        questionNo = random.randint(65, 69)
+                        if questionNo not in visionlst:
+                            break
+                    visionlst.append(questionNo)
+                newuser.quelist = json.dumps(lst)
+                newuser.quefulllist = json.dumps(lst)
+                newuser.visionlst = json.dumps(visionlst)
+                newuser.save()
+            except Exception as e:
+                return render(request, 'task2part2temp/signup.html', {'msg': 'User already exists..!!'})
         user = authenticate(request, username=username, password=password)
         try:
             try:
