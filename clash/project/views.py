@@ -115,20 +115,12 @@ def signup(request):
             newuser.save()
             lst = []
             visionlst = []
-<<<<<<< Updated upstream
-            if newuser.level == 'fe' or newuser.level == "se":
-=======
             if newuser.level == 'fe' or newuser.level == 'se':
->>>>>>> Stashed changes
                 cp = random.randint(5, 9)
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
-<<<<<<< Updated upstream
-                        questionNo = random.randint(1, 1474)
-=======
                         questionNo = random.randint(1, 1473)
->>>>>>> Stashed changes
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
@@ -137,11 +129,7 @@ def signup(request):
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
-<<<<<<< Updated upstream
-                        questionNo = random.randint(1474, 2022)
-=======
                         questionNo = random.randint(1473, 2022)
->>>>>>> Stashed changes
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
@@ -209,20 +197,12 @@ def signin(request):
                 newuser.save()
                 lst = []
                 visionlst = []
-<<<<<<< Updated upstream
-                if newuser.level == 'fe' or newuser.level== "se":
-=======
                 if newuser.level == 'fe' or newuser.level == 'se':
->>>>>>> Stashed changes
                     cp = random.randint(5, 9)
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-<<<<<<< Updated upstream
-                            questionNo = random.randint(1, 1474)
-=======
                             questionNo = random.randint(1, 1473)
->>>>>>> Stashed changes
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
@@ -231,11 +211,7 @@ def signin(request):
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-<<<<<<< Updated upstream
                             questionNo = random.randint(1474, 2021)
-=======
-                            questionNo = random.randint(1473, 2022)
->>>>>>> Stashed changes
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
@@ -595,10 +571,11 @@ def success(request):
             getuser.length = len(json.loads(getuser.queflist))
         else:
             getuser.length = len(json.loads(getuser.queflist))
-        passlst = [i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
+        passlst = [
+            i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
         getuser.save()
         print(type(question))
-        question.question=change_que(question)
+        question.question = change_que(question)
         return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem, "passlst": passlst})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
