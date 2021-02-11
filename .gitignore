@@ -1,4 +1,5 @@
 venv
+.vscode
 .idea
 clash/clash/__pycache__
 clash/project/__pycache__
