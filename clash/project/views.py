@@ -115,12 +115,20 @@ def signup(request):
             newuser.save()
             lst = []
             visionlst = []
+<<<<<<< Updated upstream
             if newuser.level == 'fe' or newuser.level == "se":
+=======
+            if newuser.level == 'fe' or newuser.level == 'se':
+>>>>>>> Stashed changes
                 cp = random.randint(5, 9)
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
+<<<<<<< Updated upstream
                         questionNo = random.randint(1, 1474)
+=======
+                        questionNo = random.randint(1, 1473)
+>>>>>>> Stashed changes
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
@@ -129,7 +137,11 @@ def signup(request):
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
+<<<<<<< Updated upstream
                         questionNo = random.randint(1474, 2022)
+=======
+                        questionNo = random.randint(1473, 2022)
+>>>>>>> Stashed changes
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
@@ -197,12 +209,20 @@ def signin(request):
                 newuser.save()
                 lst = []
                 visionlst = []
+<<<<<<< Updated upstream
                 if newuser.level == 'fe' or newuser.level== "se":
+=======
+                if newuser.level == 'fe' or newuser.level == 'se':
+>>>>>>> Stashed changes
                     cp = random.randint(5, 9)
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
+<<<<<<< Updated upstream
                             questionNo = random.randint(1, 1474)
+=======
+                            questionNo = random.randint(1, 1473)
+>>>>>>> Stashed changes
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
@@ -211,7 +231,11 @@ def signin(request):
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
+<<<<<<< Updated upstream
                             questionNo = random.randint(1474, 2021)
+=======
+                            questionNo = random.randint(1473, 2022)
+>>>>>>> Stashed changes
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)

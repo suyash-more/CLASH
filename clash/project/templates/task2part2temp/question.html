@@ -173,7 +173,7 @@
                 <!-- question area -->
                 <div class="card mycard" style="height: 42vh;width:100%;background-color: #1f2839; margin:auto">
                     <div class="card-body" style="color:white; font-family:sans-serif;padding:0">
-                        <textarea readonly>{{question.question }}</textarea>
+                        <textarea class="scroller" id="question" style="resize:none" readonly>{{question.question}}</textarea>
                     </div>
                 </div>
             </div>
@@ -606,6 +606,7 @@ function occur_Click3(){
 
 </script>
 
+<!-- 
 
     <script>
       $(window).blur(function () {
@@ -627,8 +628,7 @@ function occur_Click3(){
           },
         });
       });
-    </script>
-
+    </script> -->
 
 <script>
     $(document).ready(function() {

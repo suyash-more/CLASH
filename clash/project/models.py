@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Questions(models.Model):
     question_level = models.CharField(max_length=225, blank=True)
-    question = models.CharField(max_length=255, blank=True)
+    question = models.CharField(max_length=500, blank=True)
     option_A = models.CharField(max_length=255, blank=True)
     option_B = models.CharField(max_length=255, blank=True)
     option_C = models.CharField(max_length=255, blank=True)
@@ -58,7 +58,7 @@ class Register(models.Model):  # extended user model
     freezeflag = models.IntegerField(default=0)
     refresh = models.IntegerField(default=0)
     permit = models.IntegerField(default=1)
-    tab=models.IntegerField(default=4)
+    tab = models.IntegerField(default=4)
 
     def __str__(self):
         return self.user.first_name+f' ({self.user.username})'

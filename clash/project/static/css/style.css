@@ -407,6 +407,40 @@ p {
   animation-iteration-count: 9000;
 }
 
+#question.scroller {
+  scrollbar-color: rgba(134, 202, 219, 0.9) rgb(13, 20, 20);
+  scrollbar-width: thin;
+}
+
+#question {
+  height: 56vh;
+  border-radius: 5px;
+  /* background-color: rgb(3, 6, 8,.9);  */
+  background: linear-gradient(to top, #0d1414, #112020);
+  border: none;
+  color: rgb(241, 248, 225);
+  text-align: left;
+  padding: 25px;
+  overflow-y: scroll;
+  box-shadow: 2px 2px 2px black;
+  width: 100%;
+}
+
+#question::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#question::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+#question::-webkit-scrollbar-thumb {
+  background: rgb(151, 208, 195, 0.9);
+  border-radius: 3px;
+}
+
 @-webkit-keyframes zoomIn {
   0% {
     opacity: 0;
@@ -470,22 +504,19 @@ p {
   padding-top: 7px;
 }
 
-
 .spacing {
   margin-top: 5vh;
 }
 
 .pulse-button:enabled {
-
   text-decoration: none;
   border: none;
   animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-
 }
 @keyframes pulse {
-to {
-box-shadow: inset 180px 0 0 0 #030c1d;  ;
-}
+  to {
+    box-shadow: inset 180px 0 0 0 #030c1d;
+  }
 }
 
 @media only screen and (max-width: 768px) {
