@@ -58,7 +58,7 @@ class Register(models.Model):  # extended user model
     freezeflag = models.IntegerField(default=0)
     refresh = models.IntegerField(default=0)
     permit = models.IntegerField(default=1)
-    tab=models.IntegerField(default=100)
+    tab=models.IntegerField(default=4)
 
     def __str__(self):
         return self.user.first_name+f' ({self.user.username})'

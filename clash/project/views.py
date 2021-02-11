@@ -211,13 +211,13 @@ def signin(request):
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(1474, 2022)
+                            questionNo = random.randint(1474, 2021)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 for i in range(3):
                     while True:
-                        questionNo = random.randint(2003, 2020)
+                        questionNo = random.randint(2000, 2020)
                         if questionNo not in visionlst:
                             break
                     visionlst.append(questionNo)
@@ -586,13 +586,17 @@ def change_que(question):
     question.question = str(question.question).replace("", "")
     question.question = str(question.question).replace("? ", "\n")
     question.question = str(question.question).replace("  ", "\n")
-    question.question = str(question.question).replace("; ", ";\n")
+    question.question = str(question.question).replace(";  ", ";\n")
     question.question = str(question.question).replace("> ", ">\n")
     question.question = str(question.question).replace("} ", "}\n")
     question.question = str(question.question).replace(") ", ")\n")
     question.question = str(question.question).replace("{ ", "{\n")
     question.question = str(question.question).replace("\n\n\n", "\n")
     question.question = str(question.question).replace("\n\n", "\n")
+    question.question = str(question.question).replace('":', ":")
+    question.question = str(question.question).replace(": ", ":\n\t")
+    question.question = str(question.question).replace("] ", "]\n")
+    question.question = str(question.question).replace("\\n\\n", "")
     return question.question
 
 
@@ -642,14 +646,15 @@ def emglogin(request):
             getuser = User.objects.get(username=username)
             if getuser and super_user:
                 setuser = Register.objects.get(user=getuser)
+                print("entered the setuser")
                 # print(len(json.loads(setuser.quelist)))
                 if len(json.loads(setuser.quelist)) == 1:
                     return render(request, 'task2part2temp/emglogin.html', {'msg': ['The Player has Completed All Question..!!']})
                 setuser.status = True
-                setuser.extra_time += extra_time
+                setuser.extra_time += int(extra_time)
                 setuser.save()
                 return render(request, 'task2part2temp/emglogin.html', {'msg': ['Time added successfully!']})
             return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
-        except:
-            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid']})
+        except Exception as e:
+            return render(request, 'task2part2temp/emglogin.html', {'msg': [f'Invalid {e}']})
     return render(request, 'task2part2temp/emglogin.html')
