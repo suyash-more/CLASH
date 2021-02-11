@@ -7,6 +7,8 @@ from .models import Register, Response, Questions
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from django.template.defaultfilters import linebreaksbr
+from django.template.defaultfilters import linebreaks
 import re
 import random
 import datetime
@@ -113,36 +115,27 @@ def signup(request):
             newuser.save()
             lst = []
             visionlst = []
-            if newuser.level == 'fe':
-                cp = random.randint(5, 7)
+            if newuser.level == 'fe' or newuser.level == "se":
+                cp = random.randint(5, 9)
                 newuser.checkpoint = cp
-                for i in range(0, 15):
+                for i in range(0, 70):
                     while True:
-                        questionNo = random.randint(1, 20)
-                        if questionNo not in lst:
-                            break
-                    lst.append(questionNo)
-            elif newuser.level == 'se':
-                cp = random.randint(8, 10)
-                newuser.checkpoint = cp
-                for i in range(0, 15):
-                    while True:
-                        questionNo = random.randint(26, 45)
+                        questionNo = random.randint(1, 1474)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
             else:
                 cp = random.randint(9, 12)
                 newuser.checkpoint = cp
-                for i in range(0, 15):
+                for i in range(0, 70):
                     while True:
-                        questionNo = random.randint(46, 64)
+                        questionNo = random.randint(1474, 2022)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
             for i in range(3):
                 while True:
-                    questionNo = random.randint(65, 69)
+                    questionNo = random.randint(2003, 2020)
                     if questionNo not in visionlst:
                         break
                 visionlst.append(questionNo)
@@ -204,36 +197,27 @@ def signin(request):
                 newuser.save()
                 lst = []
                 visionlst = []
-                if newuser.level == 'fe':
-                    cp = random.randint(5, 7)
+                if newuser.level == 'fe' or newuser.level== "se":
+                    cp = random.randint(5, 9)
                     newuser.checkpoint = cp
-                    for i in range(0, 15):
+                    for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(1, 20)
-                            if questionNo not in lst:
-                                break
-                        lst.append(questionNo)
-                elif newuser.level == 'se':
-                    cp = random.randint(8, 10)
-                    newuser.checkpoint = cp
-                    for i in range(0, 15):
-                        while True:
-                            questionNo = random.randint(26, 45)
+                            questionNo = random.randint(1, 1474)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 else:
                     cp = random.randint(9, 12)
                     newuser.checkpoint = cp
-                    for i in range(0, 15):
+                    for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(46, 64)
+                            questionNo = random.randint(1474, 2022)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 for i in range(3):
                     while True:
-                        questionNo = random.randint(65, 69)
+                        questionNo = random.randint(2003, 2020)
                         if questionNo not in visionlst:
                             break
                     visionlst.append(questionNo)
@@ -314,6 +298,7 @@ def visionise(request):
             getuser.visionlst = json.dumps(vislst)
             question = Questions.objects.get(pk=vislst[-1])
             getuser.save()
+            question.question = change_que(question)
             return render(request, 'task2part2temp/visionise.html', {'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]], 'buttonshow': len(json.loads(getuser.visionlst)), 'mks': getuser.total_score//5, 'time_rem': getuser.time_rem})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
@@ -586,17 +571,29 @@ def success(request):
             getuser.length = len(json.loads(getuser.queflist))
         else:
             getuser.length = len(json.loads(getuser.queflist))
-        passlst = [
-            i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
-        '''for i in range(max(0,(getuser.length)-12),getuser.length,-1):
-            passlst[f"{j}"]=i
-            j += 1'''
+        passlst = [i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
         getuser.save()
+        print(type(question))
+        question.question=change_que(question)
         return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem, "passlst": passlst})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
     # return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
+
+
+def change_que(question):
+    question.question = str(question.question).replace("", "")
+    question.question = str(question.question).replace("? ", "\n")
+    question.question = str(question.question).replace("  ", "\n")
+    question.question = str(question.question).replace("; ", ";\n")
+    question.question = str(question.question).replace("> ", ">\n")
+    question.question = str(question.question).replace("} ", "}\n")
+    question.question = str(question.question).replace(") ", ")\n")
+    question.question = str(question.question).replace("{ ", "{\n")
+    question.question = str(question.question).replace("\n\n\n", "\n")
+    question.question = str(question.question).replace("\n\n", "\n")
+    return question.question
 
 
 def rendmodal(request):
@@ -627,6 +624,7 @@ def getassured(request):
     # if request.method
     getuser.get_chance += 1
     getuser.save()
+    question.question = change_que(question)
     return render(request, 'task2part2temp/question2.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem})
 
 
