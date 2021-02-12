@@ -299,7 +299,7 @@ def visionise(request):
             question = Questions.objects.get(pk=vislst[-1])
             getuser.save()
             question.question = change_que(question)
-            return render(request, 'task2part2temp/visionise.html', {'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]], 'buttonshow': len(json.loads(getuser.visionlst)), 'mks': getuser.total_score//5, 'time_rem': getuser.time_rem})
+            return render(request, 'task2part2temp/visionise.html', {'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]], 'buttonshow': len(json.loads(getuser.visionlst)), 'mks': 5, 'time_rem': getuser.time_rem})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
 
@@ -331,6 +331,8 @@ def success(request):
             minutes=28+minute, seconds=second) - time_diff
         total_seconds = time_rem.total_seconds()
         getuser.time_rem = int(total_seconds)
+        if total_seconds<0:
+            return HttpResponseRedirect(reverse('logout'))
         getuser.save()
         time = [getuser.time_rem // 60, getuser.time_rem % 60]
         minutes = int((total_seconds % 3600) // 60)

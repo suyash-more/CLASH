@@ -348,7 +348,7 @@
             document.onkeydown = function (e) {  
                 return (e.which || e.keyCode) != 116;  
             };  
-        }  
+        }
     </script>  
     </body>
 <!-- javascript for clock -->
@@ -375,7 +375,7 @@ function startTimer(duration, display)  {
             
         }
         if (--timer < 0) {
-            timer = duration;y
+            timer = duration;
             if({{user.predicted_score}}>=total_score+5 || {{user.predicted_score}}<=total_score-5 || {{user.predicted_score}}==0){
                     logoutbutton=document.getElementById("logoutcall");
                     logoutbutton.onclick=occur_Click3();
@@ -490,9 +490,6 @@ function occur_Click3(){
                     document.getElementById('spin_button').disabled = false;
                 }
                 if(cp===-1 ){
-                    document.getElementById('spin_button').disabled = true;
-                }
-                if({{user.marks}}<=0){
                     document.getElementById('spin_button').disabled = true;
                 }
             }
@@ -631,7 +628,7 @@ function occur_Click3(){
           data: {},
           success: function (data) {
             alert(
-              `You cannot shift the Tab, Warning Remaining : ${data.checktab} >>`
+              `You cannot shift the tab Warning's Remaining : ${data.checktab} >>`
             );
             if (data.checktab <= 0) {
               logoutbutton = document.getElementById("logoutcall");
