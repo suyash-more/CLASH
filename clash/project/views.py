@@ -418,7 +418,7 @@ def success(request):
                 getuser.get_chance += 1
                 getuser.save()
             elif pre_question.correct_answer == user_input2:
-                score = 8
+                score = 0
                 getuser.marks = 1
             else:
                 score = -18
