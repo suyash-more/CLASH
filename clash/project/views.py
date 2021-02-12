@@ -115,12 +115,12 @@ def signup(request):
             newuser.save()
             lst = []
             visionlst = []
-            if newuser.level == 'fe' or newuser.level == 'se':
+            if newuser.level == 'fe' or newuser.level == "se":
                 cp = random.randint(5, 9)
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
-                        questionNo = random.randint(1, 1473)
+                        questionNo = random.randint(1, 1205)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
@@ -129,13 +129,13 @@ def signup(request):
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
-                        questionNo = random.randint(1473, 2022)
+                        questionNo = random.randint(1205, 1667)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
             for i in range(3):
                 while True:
-                    questionNo = random.randint(2003, 2020)
+                    questionNo = random.randint(1500, 1600)
                     if questionNo not in visionlst:
                         break
                 visionlst.append(questionNo)
@@ -197,12 +197,12 @@ def signin(request):
                 newuser.save()
                 lst = []
                 visionlst = []
-                if newuser.level == 'fe' or newuser.level == 'se':
+                if newuser.level == 'fe' or newuser.level== "se":
                     cp = random.randint(5, 9)
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(1, 1473)
+                            questionNo = random.randint(1, 1205)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
@@ -211,13 +211,13 @@ def signin(request):
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(1474, 2021)
+                            questionNo = random.randint(1205, 1667)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 for i in range(3):
                     while True:
-                        questionNo = random.randint(2000, 2020)
+                        questionNo = random.randint(1500, 1600)
                         if questionNo not in visionlst:
                             break
                     visionlst.append(questionNo)
@@ -442,8 +442,6 @@ def success(request):
             if request.POST.get('submit') == str(lst[-1]):
                 user_input = request.POST['user_ans']
                 pre_question = Questions.objects.get(pk=lst[-1])
-                print(user_input, pre_question.correct_answer,
-                      user_input == pre_question.correct_answer)
                 getuser.permit = 1
                 getuser.save()
                 if getuser.freezetimestart != None:
@@ -573,11 +571,10 @@ def success(request):
             getuser.length = len(json.loads(getuser.queflist))
         else:
             getuser.length = len(json.loads(getuser.queflist))
-        passlst = [
-            i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
+        passlst = [i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
         getuser.save()
         print(type(question))
-        question.question = change_que(question)
+        question.question=change_que(question)
         return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem, "passlst": passlst})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
