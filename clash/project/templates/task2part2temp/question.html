@@ -173,7 +173,7 @@
                 <!-- question area -->
                 <div class="card mycard" style="height: 42vh;width:100%;background-color: #1f2839; margin:auto">
                     <div class="card-body" style="color:white; font-family:sans-serif;padding:0">
-                        <textarea class="scroller" id="question" style="resize:none" readonly>{{question.question}}</textarea>
+                        <textarea readonly>{{question.question}}</textarea>
                     </div>
                 </div>
             </div>
@@ -187,18 +187,18 @@
                         <!-- Customized Options -->
                         <div class="switch-field d-flex justify-content-around align-items-center">
 
-                            <input key="1" type="radio" id={{question.option_A}} name="user_ans" value={{question.option_A}}>
+                            <input type="radio" id={{question.option_A}} name="user_ans" value={{question.option_A}}>
                             <label for={{question.option_A}}>{{question.option_A}}</label>
 
-                            <input key="2" type="radio" id={{question.option_B}} name="user_ans" value={{question.option_B}}>
+                            <input type="radio" id={{question.option_B}} name="user_ans" value={{question.option_B}}>
                             <label for={{question.option_B}}>{{question.option_B}}</label>
                         </div>
                         <div class="switch-field d-flex justify-content-around align-items-center">
 
-                            <input key="3" type="radio" id={{question.option_C}} name="user_ans" value={{question.option_C}}>
+                            <input type="radio" id={{question.option_C}} name="user_ans" value={{question.option_C}}>
                             <label for={{question.option_C}}>{{question.option_C}}</label>
 
-                            <input key="4" type="radio" id={{question.option_D}} name="user_ans" value={{question.option_D}}>
+                            <input type="radio" id={{question.option_D}} name="user_ans" value={{question.option_D}}>
                             <label for={{question.option_D}}>{{question.option_D}}</label>
                         </div>
 
@@ -479,9 +479,6 @@ function occur_Click3(){
                 if(cp===-1 ){
                     document.getElementById('spin_button').disabled = true;
                 }
-                if({{user.marks}}<=0){
-                    document.getElementById('spin_button').disabled = true;
-                }
             }
 
             function Spin_Count(){
@@ -605,30 +602,29 @@ function occur_Click3(){
 
 
 </script>
+<!-- <script>
+    $(window).blur(function () {
+    console.log("blur got active");
+    $.ajax({
+        method: "GET",
+        headers: { "X-CSRFToken": token },
+        url: `${window.location.origin}/handletab/`,
+        dataType: "json",
+        data: {},
+        success: function (data) {
+        let message = "";
+        alert(
+            `Warning! Do not swtich tabs or windows. It will lead to direct disqualification.`
+        );
+        if (data.checktab <= 0) {
+            logoutbutton = document.getElementById("logoutcall");
+            logoutbutton.onclick = occur_Click3();
+        }
+        },
+    });
+    });
+</script> -->
 
-<!-- 
-
-    <script>
-      $(window).blur(function () {
-        console.log("blur got active");
-        $.ajax({
-          method: "GET",
-          headers: { "X-CSRFToken": token },
-          url: `${window.location.origin}/handletab/`,
-          dataType: "json",
-          data: {},
-          success: function (data) {
-            alert(
-              `You cannot shift the Tab, Warning Remaining : ${data.checktab} >>`
-            );
-            if (data.checktab <= 0) {
-              logoutbutton = document.getElementById("logoutcall");
-              logoutbutton.onclick = occur_Click3();
-            }
-          },
-        });
-      });
-    </script> -->
 
 <script>
     $(document).ready(function() {

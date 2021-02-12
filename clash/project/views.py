@@ -442,6 +442,8 @@ def success(request):
             if request.POST.get('submit') == str(lst[-1]):
                 user_input = request.POST['user_ans']
                 pre_question = Questions.objects.get(pk=lst[-1])
+                print(user_input, pre_question.correct_answer,
+                      user_input == pre_question.correct_answer)
                 getuser.permit = 1
                 getuser.save()
                 if getuser.freezetimestart != None:
