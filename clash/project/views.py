@@ -120,7 +120,7 @@ def signup(request):
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
-                        questionNo = random.randint(1, 1205)
+                        questionNo = random.randint(1, 302)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
@@ -129,13 +129,13 @@ def signup(request):
                 newuser.checkpoint = cp
                 for i in range(0, 70):
                     while True:
-                        questionNo = random.randint(1205, 1667)
+                        questionNo = random.randint(303, 539)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
             for i in range(3):
                 while True:
-                    questionNo = random.randint(1500, 1600)
+                    questionNo = random.randint(300, 400)
                     if questionNo not in visionlst:
                         break
                 visionlst.append(questionNo)
@@ -202,7 +202,7 @@ def signin(request):
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(1, 1205)
+                            questionNo = random.randint(1, 302)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
@@ -211,13 +211,13 @@ def signin(request):
                     newuser.checkpoint = cp
                     for i in range(0, 70):
                         while True:
-                            questionNo = random.randint(1205, 1667)
+                            questionNo = random.randint(303, 539)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 for i in range(3):
                     while True:
-                        questionNo = random.randint(1500, 1600)
+                        questionNo = random.randint(300, 400)
                         if questionNo not in visionlst:
                             break
                     visionlst.append(questionNo)
