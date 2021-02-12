@@ -656,9 +656,7 @@ def emglogin(request):
                 setuser.extra_time += int(extra_time)
                 setuser.save()
                 return render(request, 'task2part2temp/emglogin.html', {'msg': ['Time added successfully!']})
-
-
-x return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
+            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
         except Exception as e:
             return render(request, 'task2part2temp/emglogin.html', {'msg': [f'Invalid {e}']})
     return render(request, 'task2part2temp/emglogin.html')
