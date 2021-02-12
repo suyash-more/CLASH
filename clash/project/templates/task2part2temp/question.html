@@ -492,6 +492,9 @@ function occur_Click3(){
                 if(cp===-1 ){
                     document.getElementById('spin_button').disabled = true;
                 }
+                if({{user.marks}}<=0){
+                    document.getElementById('spin_button').disabled = true;
+                }
             }
 
             function Spin_Count(){
@@ -628,7 +631,7 @@ function occur_Click3(){
           data: {},
           success: function (data) {
             alert(
-              `You cannot shift the tab << Turns Remaining - ${data.checktab} >>`
+              `You cannot shift the Tab, Warning Remaining : ${data.checktab} >>`
             );
             if (data.checktab <= 0) {
               logoutbutton = document.getElementById("logoutcall");
