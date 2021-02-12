@@ -187,18 +187,18 @@
                         <!-- Customized Options -->
                         <div class="switch-field d-flex justify-content-around align-items-center">
 
-                            <input type="radio" id={{question.option_A}} name="user_ans" value={{question.option_A}}>
+                            <input onclick="myfun()" type="radio" id={{question.option_A}} name="user_ans" value={{question.option_A}}>
                             <label for={{question.option_A}}>{{question.option_A}}</label>
 
-                            <input type="radio" id={{question.option_B}} name="user_ans" value={{question.option_B}}>
+                            <input onclick="myfun()" type="radio" id={{question.option_B}} name="user_ans" value={{question.option_B}}>
                             <label for={{question.option_B}}>{{question.option_B}}</label>
                         </div>
                         <div class="switch-field d-flex justify-content-around align-items-center">
 
-                            <input type="radio" id={{question.option_C}} name="user_ans" value={{question.option_C}}>
+                            <input onclick="myfun()" type="radio" id={{question.option_C}} name="user_ans" value={{question.option_C}}>
                             <label for={{question.option_C}}>{{question.option_C}}</label>
 
-                            <input type="radio" id={{question.option_D}} name="user_ans" value={{question.option_D}}>
+                            <input  onclick="myfun()" type="radio" id={{question.option_D}} name="user_ans" value={{question.option_D}}>
                             <label for={{question.option_D}}>{{question.option_D}}</label>
                         </div>
 
@@ -208,7 +208,7 @@
 
                 <!-- Submit button for options -->
                 <div class="row mt-2">
-                    <button type="submit" name='submit' value={{question.id}} class="btn mybtn btn-light"
+                    <button type="submit" id="answer" name='submit' value={{question.id}} class="btn mybtn btn-light"
                             style="margin:auto;  font-weight:bolder; font-size:20px;">Submit
                     </button>
                     <!-- <a href="#" class="btn btn-primary btn-lg active mybtn" style="margin:auto; background-color:#f5f5ef;border:none; color: black;" role="button" aria-pressed="true">Submit</a> -->
@@ -234,6 +234,19 @@
                     </button>
                 </form>
             </div>
+<script>
+    function select(){
+                {
+                     document.getElementById('answer').disabled = true;
+
+                }
+            }
+        select()
+        function myfun()
+        {
+            document.getElementById('answer').disabled = false;
+        }
+</script>
                 
 <!--                 <div class="d-flex justify-content-center" >
                     <div class="spin btn-one" style=" background-color:  #1f2839; margin-top:20px;">
@@ -473,7 +486,7 @@ function occur_Click3(){
             Spin_Count();
             get_it_assured();
             function checkpoint(){
-                if(total_score%cp===0 && total_score!=0  && {{user.flashblind}}<=0 && {{user.marks}}<=2){
+                if(total_score%cp===0 && total_score!=0  && {{user.flashblind}}<=0 && {{user.marks}}<=2 && total_score>0){
                     document.getElementById('spin_button').disabled = false;
                 }
                 if(cp===-1 ){
@@ -602,28 +615,29 @@ function occur_Click3(){
 
 
 </script>
-<!-- <script>
-    $(window).blur(function () {
-    console.log("blur got active");
-    $.ajax({
-        method: "GET",
-        headers: { "X-CSRFToken": token },
-        url: `${window.location.origin}/handletab/`,
-        dataType: "json",
-        data: {},
-        success: function (data) {
-        let message = "";
-        alert(
-            `Warning! Do not swtich tabs or windows. It will lead to direct disqualification.`
-        );
-        if (data.checktab <= 0) {
-            logoutbutton = document.getElementById("logoutcall");
-            logoutbutton.onclick = occur_Click3();
-        }
-        },
-    });
-    });
-</script> -->
+
+
+    <script>
+      $(window).blur(function () {
+        console.log("blur got active");
+        $.ajax({
+          method: "GET",
+          headers: { "X-CSRFToken": token },
+          url: `${window.location.origin}/handletab/`,
+          dataType: "json",
+          data: {},
+          success: function (data) {
+            alert(
+              `You cannot shift the tab << Turns Remaining - ${data.checktab} >>`
+            );
+            if (data.checktab <= 0) {
+              logoutbutton = document.getElementById("logoutcall");
+              logoutbutton.onclick = occur_Click3();
+            }
+          },
+        });
+      });
+    </script>
 
 
 <script>
@@ -634,6 +648,7 @@ function occur_Click3(){
 
     });
 </script>
+
 
 </body>
 
