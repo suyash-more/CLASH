@@ -197,7 +197,7 @@ def signin(request):
                 newuser.save()
                 lst = []
                 visionlst = []
-                if newuser.level == 'fe' or newuser.level== "se":
+                if newuser.level == 'fe' or newuser.level == "se":
                     cp = random.randint(5, 9)
                     newuser.checkpoint = cp
                     for i in range(0, 70):
@@ -331,7 +331,7 @@ def success(request):
             minutes=28+minute, seconds=second) - time_diff
         total_seconds = time_rem.total_seconds()
         getuser.time_rem = int(total_seconds)
-        if total_seconds<0:
+        if total_seconds < 0:
             return HttpResponseRedirect(reverse('logout'))
         getuser.save()
         time = [getuser.time_rem // 60, getuser.time_rem % 60]
@@ -573,9 +573,10 @@ def success(request):
             getuser.length = len(json.loads(getuser.queflist))
         else:
             getuser.length = len(json.loads(getuser.queflist))
-        passlst = [i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
+        passlst = [
+            i+1 for i in range(max(0, (getuser.length)-12), getuser.length)]
         getuser.save()
-        question.question=change_que(question)
+        question.question = change_que(question)
         return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem, "passlst": passlst})
     except Exception as e:
         return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
@@ -655,7 +656,9 @@ def emglogin(request):
                 setuser.extra_time += int(extra_time)
                 setuser.save()
                 return render(request, 'task2part2temp/emglogin.html', {'msg': ['Time added successfully!']})
-            return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
+
+
+x return render(request, 'task2part2temp/emglogin.html', {'msg': ['Invalid Credentials!']})
         except Exception as e:
             return render(request, 'task2part2temp/emglogin.html', {'msg': [f'Invalid {e}']})
     return render(request, 'task2part2temp/emglogin.html')

@@ -298,6 +298,13 @@ function occur_Click3(){
 }
 </script>
 <script>
+      $(document).ready(function() {
+          $('body').bind('cut copy', function(e) {
+              e.preventDefault();
+            });
+        });
+    </script>
+<script>
 $('#skip_button').prop("disabled",true);
     function end()
     {

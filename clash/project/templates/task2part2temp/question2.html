@@ -254,6 +254,15 @@
             };
         </script>
         <script>
+      $(document).ready(function() {
+          $('body').bind('cut copy', function(e) {
+              e.preventDefault();
+            });
+        });
+
+        /*
+    </script>
+        <script>
         dropdown11=document.getElementById("attempt1");
         dropdown22=document.getElementById("attempt2")
         if({{user.get_chance}}==1)

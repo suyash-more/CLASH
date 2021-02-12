@@ -21,6 +21,12 @@ body
   padding-bottom:0;
 }
 
+.spon{
+  height: 6vh;
+  width: 18vw;
+  margin-bottom: 5vh;
+}
+
 
 .card-body
 {
@@ -464,9 +470,13 @@ body
   display: none;
 }
   }
-  
+
+
 @media (max-width:768px)
 {
+  .spon{
+    width: 70vw;
+  }
     .c1
     {
         margin-top: 50px;

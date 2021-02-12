@@ -639,7 +639,13 @@ function occur_Click3(){
       });
     </script>
 
-
+<script>
+      $(document).ready(function() {
+          $('body').bind('cut copy', function(e) {
+              e.preventDefault();
+            });
+        });
+    </script>
 <script>
     $(document).ready(function() {
         $('#p_score').click(function(){
