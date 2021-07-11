@@ -48,7 +48,6 @@ def checkspin(request):
     '''
     data = {'flag': int(flag), 'useflag': getuser.flag,
             'flashblind': getuser.flashblind}
-    # print(flag)
     return JsonResponse(data)
 
 
@@ -59,16 +58,16 @@ def handletab(request):
     data = {'checktab': int(getuser.tab)}
     return JsonResponse(data)
 
-
-# def check(request):
-#     username_lst = []
-#     user_list = User.objects.values()
-#     for user in user_list:
-#         username_lst.append(user['username'])
-#     data = {'is_taken': False}
-#     if request.GET.get('name') in username_lst:
-#         data = {'is_taken': True}
-#     return JsonResponse(data)
+# to be used only when you have a strong backend which can process multiple requests
+def check(request):
+    username_lst = []
+    user_list = User.objects.values()
+    for user in user_list:
+        username_lst.append(user['username'])
+    data = {'is_taken': False}
+    if request.GET.get('name') in username_lst:
+        data = {'is_taken': True}
+    return JsonResponse(data)
 
 
 def instruction(request):
@@ -161,12 +160,12 @@ def signin(request):
         url = "https://backend.credenz.in/eventlogin"
         credential_obj = {'username': username, 'event': event,
                           "password": password, "adminpass": adminpass}
-        # try:
-        #     res_data = requests.post(url=url, data=credential_obj)
-        #     req_data = json.loads(res_data.text)
-        # except:
-        #     return render(request, 'task2part2temp/signup.html', {'msg': "Rewrite the Credentials Please..!!"})
-        allow = False #req_data['allow']
+        try:
+            res_data = requests.post(url=url, data=credential_obj)
+            req_data = json.loads(res_data.text)
+        except:
+            return render(request, 'task2part2temp/signup.html', {'msg': "Rewrite the Credentials Please..!!"})
+        allow = req_data['allow']
         user = authenticate(request, username=username, password=password)
         if (not allow) and (not user):
             return render(request, 'task2part2temp/signup.html', {'msg': "Sorry! Invalid Credentials"})
