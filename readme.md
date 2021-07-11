@@ -76,17 +76,17 @@ $ deactivate
 ## Snippets of the project:
 
 ### 1. Login page
-![clash1](./screenshots/homepage.png)
+![clash1](./screenshots/homepage.PNG)
 
 ### 2. Instruction page
-![clash2](./screenshots/instructionpage.png)
+![clash2](./screenshots/instructionpage.PNG)
 
 ### 3. Questions page
-![clash3](./screenshots/questionpage.png)
+![clash3](./screenshots/questionpage.PNG)
 
 ### 4. Predict Score page
-![clash3](./screenshots/predictscorepage.png)
+![clash3](./screenshots/predictscorepage.PNG)
 
 ### 5. Result Page
-![clash4](./screenshots/resultpagemod.png)
+![clash4](./screenshots/resultpagemod.PNG)
 
