@@ -118,24 +118,24 @@ def signup(request):
             if newuser.level == 'fe' or newuser.level == "se":
                 cp = random.randint(5, 9)
                 newuser.checkpoint = cp
-                for i in range(0, 70):
+                for i in range(0, 5):
                     while True:
-                        questionNo = random.randint(1, 302)
+                        questionNo = random.randint(1, 5)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
             else:
                 cp = random.randint(9, 12)
                 newuser.checkpoint = cp
-                for i in range(0, 70):
+                for i in range(0, 5):
                     while True:
-                        questionNo = random.randint(303, 539)
+                        questionNo = random.randint(1, 5)
                         if questionNo not in lst:
                             break
                     lst.append(questionNo)
             for i in range(3):
                 while True:
-                    questionNo = random.randint(300, 400)
+                    questionNo = random.randint(1, 5)
                     if questionNo not in visionlst:
                         break
                 visionlst.append(questionNo)
@@ -161,12 +161,12 @@ def signin(request):
         url = "https://backend.credenz.in/eventlogin"
         credential_obj = {'username': username, 'event': event,
                           "password": password, "adminpass": adminpass}
-        try:
-            res_data = requests.post(url=url, data=credential_obj)
-            req_data = json.loads(res_data.text)
-        except:
-            return render(request, 'task2part2temp/signup.html', {'msg': "Rewrite the Credentials Please..!!"})
-        allow = req_data['allow']
+        # try:
+        #     res_data = requests.post(url=url, data=credential_obj)
+        #     req_data = json.loads(res_data.text)
+        # except:
+        #     return render(request, 'task2part2temp/signup.html', {'msg': "Rewrite the Credentials Please..!!"})
+        allow = False #req_data['allow']
         user = authenticate(request, username=username, password=password)
         if (not allow) and (not user):
             return render(request, 'task2part2temp/signup.html', {'msg': "Sorry! Invalid Credentials"})
@@ -200,24 +200,24 @@ def signin(request):
                 if newuser.level == 'fe' or newuser.level == "se":
                     cp = random.randint(5, 9)
                     newuser.checkpoint = cp
-                    for i in range(0, 70):
+                    for i in range(0, 5):
                         while True:
-                            questionNo = random.randint(1, 302)
+                            questionNo = random.randint(1, 5)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 else:
                     cp = random.randint(9, 12)
                     newuser.checkpoint = cp
-                    for i in range(0, 70):
+                    for i in range(0, 5):
                         while True:
-                            questionNo = random.randint(303, 539)
+                            questionNo = random.randint(1, 5)
                             if questionNo not in lst:
                                 break
                         lst.append(questionNo)
                 for i in range(3):
                     while True:
-                        questionNo = random.randint(300, 400)
+                        questionNo = random.randint(1, 5)
                         if questionNo not in visionlst:
                             break
                     visionlst.append(questionNo)
@@ -225,6 +225,7 @@ def signin(request):
                 newuser.quefulllist = json.dumps(lst)
                 newuser.visionlst = json.dumps(visionlst)
                 newuser.save()
+                print(newuser.quefulllist)
             except Exception as e:
                 return render(request, 'task2part2temp/signup.html', {'msg': 'User already exists..!!'})
         user = authenticate(request, username=username, password=password)
@@ -234,6 +235,7 @@ def signin(request):
                 if user and getuser.status == True:
                     login(request, user)
                     getuser.save()
+                    print(getuser.quefulllist)
                     return render(request, 'task2part2temp/instruction.html')
             except Exception as e:
                 return render(request, 'task2part2temp/signup.html', {'msg': 'Invalid Credentials..!!', 'user': getuser})
@@ -301,7 +303,7 @@ def visionise(request):
             question.question = change_que(question)
             return render(request, 'task2part2temp/visionise.html', {'user': getuser, 'question': question, 'timemin': [time[0]], 'timesec': [time[1]], 'buttonshow': len(json.loads(getuser.visionlst)), 'mks': 5, 'time_rem': getuser.time_rem})
     except Exception as e:
-        return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
+        return render(request, 'task2part2temp/signup.html', {'msg': 'Login First ..!! '})
 
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
@@ -579,7 +581,7 @@ def success(request):
         question.question = change_que(question)
         return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'time_rem': getuser.time_rem, "passlst": passlst})
     except Exception as e:
-        return render(request, 'task2part2temp/signin.html', {'msg': 'Login First ..!! '})
+        return render(request, 'task2part2temp/signup.html', {'msg': f'Login First ..{e}!! '})
     # return render(request, 'task2part2temp/question.html', {'user': getuser, 'question': question, 'timemin': [time[0]],'timesec':[time[1]]})
 # @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
