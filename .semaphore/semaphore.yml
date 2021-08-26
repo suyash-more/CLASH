@@ -35,7 +35,3 @@ blocks:
           commands:
             - cd clash
             - python manage.py check --deploy
-        - name: Style Check
-          commands:
-            - pip install flake8
-            - flake8 clash/ --max-line-length=1000
